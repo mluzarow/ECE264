@@ -1,3 +1,6 @@
+#include <stdlib.h>
+#include "answer02.h"
+
 /**
 * Length of C string 'str', excluding the terminating null byte ('\0')
 *
@@ -6,7 +9,22 @@
 * my_strlen(""); // 0
 * my_strlen(NULL); // error -- undefined behavior. See README FAQ.
 */
-size_t my_strlen(const char * str);
+//size_t is some form of unsigned integer
+size_t my_strlen(const char * str) {
+  int length = 0;         //Length of the given string by character
+  int counter = 0;        //Counter for the array of characters
+  int notTerminating = 1; //Boolean for breaking if terminating character found
+  
+  while(notTerminating) {
+    if (str[counter] != '\0') {
+      length++;
+    } else {
+      notTerminating = 0;
+    }
+    counter++;
+  }
+  return(length); 
+}
 
 /**
 * Count the number of occurrences of character 'ch' in C string 'str'
@@ -14,7 +32,24 @@ size_t my_strlen(const char * str);
 * Examples:
 * my_countchar("foo", 'o'); // 2
 */
-int my_countchar(const char * str, char ch);
+int my_countchar(const char * str, char ch) {
+  int number = 0;         //Number of occurances
+  int counter = 0;        //Counter for the aray of characters
+  int notTerminating = 1; //Boolean for breaking if terminating character found
+  
+  while(notTerminating) {
+    if (str[counter] != '\0') {
+      if (str[counter] == ch) {
+        number++;
+      }
+    } else {
+      notTerminating = 0;
+    }
+    counter++;
+  }
+  
+  return(number);
+}
 
 /**
 * Return a pointer to the first occurance of character 'ch' in C string 'str'
