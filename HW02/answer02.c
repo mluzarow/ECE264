@@ -106,7 +106,7 @@ char * my_strrchr(const char * str, int ch) {
   int len = 0;             //length of the source char array
 
   len = my_strlen(str) + 1; //length returned as discrete length
-  
+  printf("\n%d\n", len);
   while(notTerminating) {
     if (str[len] == ch) { //scans from the right
                           //char is found
@@ -121,11 +121,11 @@ char * my_strrchr(const char * str, int ch) {
   }//end while
 
   //tester issue 
-  if (len == 26) {
+  /* if (len == 26) {
     len = 12;
   } else if (len == 17) {
     len = 15;
-  }
+    }*/
 
   return ((char *) &str[len]);
 }
