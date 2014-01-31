@@ -79,8 +79,12 @@ char * my_strchr(const char * str, int ch) {
 	notTerminating = 0;
       }
     } else {//we are at '\0'
-      notTerminating = 0;
-      index = counter;
+      if (ch == '\0') {
+	notTerminating = 0;
+	index = counter;
+      } else {//value was not found
+	return(NULL);
+      }
     }
     counter++;
   }
@@ -112,6 +116,7 @@ char * my_strrchr(const char * str, int ch) {
     } else {
       if ((len - counter) <= 0) {
 	notTerminating = 0;
+	return(NULL);
       } else {
 	counter++;
       }
@@ -133,13 +138,13 @@ char * my_strrchr(const char * str, int ch) {
 */
 char * my_strstr(const char * haystack, const char * needle) {
   int counter = 0;
-  //int len1 = 0;
+  int len1 = 0;
   int len2 = 0;
   int index = 0;
   int notFound = 1;
   int i = 0; 
 
-  //len1 = my_strlen(haystack);
+  len1 = my_strlen(haystack);
   len2 = my_strlen(needle);
 
   if (len2 == 0) {
@@ -151,7 +156,7 @@ char * my_strstr(const char * haystack, const char * needle) {
     if (haystack[counter] == needle[0]) {//first letter of needle found
 
       for (i = 0; i < len2; i++) {
-	if (haystack[counter + i] != needle[i]) {//string is not a match
+	if ((haystack[counter + i] != needle[i]) && (len2 != 1)) {//string is not a match
 	  i = len2;
 	} else {//full string found
 	  index = counter; //world begins at first letter point
@@ -160,6 +165,9 @@ char * my_strstr(const char * haystack, const char * needle) {
       }
     }
     counter++;
+    if (counter > len1) {
+      return(NULL);
+    }
   }
 
   return((char *) &haystack[index]);
@@ -248,7 +256,7 @@ char * my_strcat(char * dest, const char * src) {
 int my_isspace(int ch) {
   int isSpace = 0;
 
-  if ((ch < 32) && ((ch != '\0') || (ch != '\a'))) {
+  if ((ch <= 32) && (ch != '\0') && (ch != '\a')) {
     isSpace = 1;
   }
 
