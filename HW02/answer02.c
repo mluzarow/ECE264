@@ -97,7 +97,29 @@ char * my_strchr(const char * str, int ch) {
 * printf("'%s'\n", my_strchr(str, 'z')); // prints "'(null)'\n"
 * printf("'%s'\n", my_strchr(str, '\0')); // prints "''\n" *
 */
-//char * my_strrchr(const char * str, int ch);
+char * my_strrchr(const char * str, int ch) {
+  int counter = 0;
+  int index = 0;
+  int notTerminating = 1;
+  int len = 0;
+
+  len = my_strlen(str) + 1;
+
+  while(notTerminating) {
+    if (str[len - counter] == ch) {
+      index = len - counter;
+      notTerminating = 0;
+    } else {
+      if ((len - counter) <= 0) {
+	notTerminating = 0;
+      } else {
+	counter++;
+      }
+    }
+  }
+
+  return ((char *) &str[index]);
+}
 
 /** Finds the first occurance of C-string 'needle' in C-string 'haystack'
 * Return 'haystack' when 'needle' is the empty string (ie, "").
