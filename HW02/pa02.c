@@ -62,6 +62,15 @@ int main(int argc, char * * argv)
     printf("my_strcat(buffer, \"%s\"), buffer = \"%s\"\n", "Zippy!", buffer); 
 
     // -- my_isspace. You will have to do this for yourself.
+    printf("my_isspace(\'%c\'), isSpace = %d\n", 'a', my_isspace('a'));
+    printf("my_isspace(\'%c\'), isSpace = %d\n", ' ', my_isspace(' '));
+    printf("my_isspace(\'%c\'), isSpace = %d\n", '\f', my_isspace('\f'));
+    printf("my_isspace(\'%c\'), isSpace = %d\n", '\n', my_isspace('\n'));
+    printf("my_isspace(\'%c\'), isSpace = %d\n", '\r', my_isspace('\r'));
+    printf("my_isspace(\'%c\'), isSpace = %d\n", '\t', my_isspace('\t'));
+    printf("my_isspace(\'%c\'), isSpace = %d\n", '\v', my_isspace('\v'));
+    printf("my_isspace(\'%c\'), isSpace = %d\n", 'J', my_isspace('J'));
+    printf("my_isspace(\'%c\'), isSpace = %d\n", '7', my_isspace('7'));
 
     // -- my_atoi. You will have to do this for yourself.
     
