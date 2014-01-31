@@ -248,7 +248,7 @@ char * my_strcat(char * dest, const char * src) {
 int my_isspace(int ch) {
   int isSpace = 0;
 
-  if (ch <= 32) {
+  if ((ch < 32) && ((ch != '\0') || (ch != '\a'))) {
     isSpace = 1;
   }
 
