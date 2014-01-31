@@ -278,4 +278,60 @@ int my_isspace(int ch) {
 * my_atoi("\n\f\t\v\r 6 white space characters handled correctly."); // 6
 * my_atoi("garbage should yield 0"); // 0
 */
-//int my_atoi(const char * str);
+int my_atoi(const char * str) {
+  int ret = 0;
+  int isNegative = 0;
+  int counter = 0;
+  int len = 0;
+  int places = 0;
+  int found = 0;
+  int start = 0;
+  int end = -4;
+  int tens = 0;
+  int i = 0;
+
+  len = my_strlen(str);
+
+  for (counter = 0; counter <= len; counter++) {
+    if (found != 2) {
+      if ((str[counter] <= '9') && (str[counter] >= '0')) {
+	if (found == 0) {
+	  found = 1;
+	  start = counter;
+	}
+	places++;
+      } else if (str[counter] == '\0') {
+	if (found == 1) {
+	  found = 2;
+	  end = counter - 1;
+	}
+	counter = len + 1;
+      } else if ((str[counter] == '-') && ((str[counter + 1] <= '9') && (str[counter + 1] >= '0'))) {
+	isNegative = 1;
+      } else {
+	if (found == 1) {
+	  found = 2;
+	  end = counter - 1;
+	  counter = len + 1;
+	  
+	}
+      }
+    }
+  }
+  
+  len = end - start + 1; 
+  while(len > 0) {
+    tens = 1;
+    for (i = 0; i < (len - 1); i++) {
+      tens *= 10;
+    }
+    ret += ((str[start] - 48) * tens);
+    len--;
+    start++;
+  }
+  if (isNegative) {
+    ret = ret * -1;
+  }
+
+  return(ret);
+}
