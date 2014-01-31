@@ -73,6 +73,12 @@ int main(int argc, char * * argv)
     printf("my_isspace(\'%c\'), isSpace = %d\n", '7', my_isspace('7'));
 
     // -- my_atoi. You will have to do this for yourself.
+    printf("my_atoi(\"0\"), ret = %d\n", my_atoi("0"));
+    printf("my_atoi(\"-12\"), ret = %d\n", my_atoi("-12"));
+    printf("my_atoi(\"15th of March would be the idea.\"), ret = %d\n", my_atoi("15th of March would be the idea."));
+    printf("my_atoi(\"4 months to Summer.\"), ret = %d\n", my_atoi("4 months to Summer."));
+    printf("my_atoi(\"\\n\\f\\t\\v\\r 6 white space characters handled correctly.\"), ret = %d\n", my_atoi("\n\f\t\v\r 6 white space characters handled correctly."));
+    printf("my_atoi(\"garbage should yield 0\"), ret = %d\n", my_atoi("garbage should yield 0"));
     
     return EXIT_SUCCESS;
 }
