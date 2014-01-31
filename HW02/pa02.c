@@ -12,11 +12,6 @@ int main(int argc, char * * argv)
 "You are encouraged to edit this file in order to test\n"
 "the behavior of the functions you write in answer02.c\n"
 "\n"
-"This file will not be marked, and should not be\n"
-"submitted.\n"
-"\n"
-"Don't forget to post questions on blackboard, and ask\n"
-"the TAs and your classmates for help.\n"
 "\n");
 
     const char * s1 = "Hello World!";
@@ -43,12 +38,13 @@ int main(int argc, char * * argv)
     printf("my_strrchr(\"%s\", 'o') = %s\n", s2, my_strrchr(s2, 'o'));
     printf("my_strrchr(\"%s\", '\\0') = %s\n", s3, my_strrchr(s3, '\0'));
 
-    /*
+    
     // -- my_strstr, should be: "World!", "Hello World!", "(null)"
     printf("my_strstr(\"%s\", \"World\") = %s\n", s1, my_strstr(s1, "World"));
     printf("my_strstr(\"%s\", \"\") = %s\n", s1, my_strstr(s1, ""));
     printf("my_strstr(\"%s\", \"hello\") = %s\n", s1, my_strstr(s1, "hello"));
-    */
+    
+
     // -- my_strcpy. For this function you need a buffer where you
     // copy the string to.
     char buffer[BUFFER_LEN];
@@ -61,6 +57,9 @@ int main(int argc, char * * argv)
 
     // -- my_strcat. You will have to do this yourself... just
     // look at my_strcpy for an example, and go from there.
+    my_strcpy(buffer, "Hello ");
+    my_strcat(buffer, "Zippy!");
+    printf("my_strcat(buffer, \"%s\"), buffer = \"%s\"\n", "Zippy!", buffer); 
 
     // -- my_isspace. You will have to do this for yourself.
 
