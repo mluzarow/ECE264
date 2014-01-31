@@ -67,7 +67,26 @@ int my_countchar(const char * str, char ch) {
 *
 * Please read the README FAQ before attempting this function.
 */
-char * my_strchr(const char * str, int ch);
+char * my_strchr(const char * str, int ch) {
+  int counter = 0;
+  int index = 0;
+  int notTerminating = 1;
+
+  while(notTerminating) {
+    if (str[counter] != '\0') {
+      if (str[counter] == ch) {
+	index = counter;
+	notTerminating = 0;
+      }
+    } else {//we are at '\0'
+      notTerminating = 0;
+      index = counter;
+    }
+    counter++;
+  }
+  
+  return((char *) &str[index]);
+}
 
 /**
 * Same as my_strchr(...), except it searches from the right-hand-side
@@ -78,7 +97,7 @@ char * my_strchr(const char * str, int ch);
 * printf("'%s'\n", my_strchr(str, 'z')); // prints "'(null)'\n"
 * printf("'%s'\n", my_strchr(str, '\0')); // prints "''\n" *
 */
-char * my_strrchr(const char * str, int ch);
+//char * my_strrchr(const char * str, int ch);
 
 /** Finds the first occurance of C-string 'needle' in C-string 'haystack'
 * Return 'haystack' when 'needle' is the empty string (ie, "").
@@ -90,7 +109,7 @@ char * my_strrchr(const char * str, int ch);
 * printf("'%s'\n", my_strstr(str, "")); // prints "'Hello World!'\n"
 * printf("'%s'\n", my_strstr(str, "hello")); // prints "'(null)'\n"
 */
-char * my_strstr(const char * haystack, const char * needle);
+//char * my_strstr(const char * haystack, const char * needle);
 
 /**
 * Copys C-string 'src' (including the null-byte terminator) into the memory
@@ -104,7 +123,7 @@ char * my_strstr(const char * haystack, const char * needle);
 * char buffer[50];
 * printf("%s\n", my_strcpy(buffer, str)); // prints "Hello World!\n"
 */
-char * my_strcpy(char * dest, const char * src);
+//char * my_strcpy(char * dest, const char * src);
 
 /**
 * Append C-string 'src' to C-string 'dest'. 'Dest' must be large enough to
@@ -117,7 +136,7 @@ char * my_strcpy(char * dest, const char * src);
 * my_strcpy(buffer, "Hello ");
 * printf("%s\n", my_strcat(buffer, "Zippy!")); // prints "Hello Zippy!"
 */
-char * my_strcat(char * dest, const char * src);
+//char * my_strcat(char * dest, const char * src);
 
 /**
 * Returns 1 when 'ch' is a whitespace character, and 0 otherwise.
@@ -138,7 +157,7 @@ char * my_strcat(char * dest, const char * src);
 * for(ch = 'A'; ch <= 'Z'; ++ch)
 * my_isspace(ch); // always 0
 */
-int my_isspace(int ch);
+//int my_isspace(int ch);
 
 /**
 * Convert the initial portion of 'str' to an integer.
@@ -163,4 +182,4 @@ int my_isspace(int ch);
 * my_atoi("\n\f\t\v\r 6 white space characters handled correctly."); // 6
 * my_atoi("garbage should yield 0"); // 0
 */
-int my_atoi(const char * str);
+//int my_atoi(const char * str);
