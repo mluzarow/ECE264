@@ -245,7 +245,15 @@ char * my_strcat(char * dest, const char * src) {
 * for(ch = 'A'; ch <= 'Z'; ++ch)
 * my_isspace(ch); // always 0
 */
-//int my_isspace(int ch);
+int my_isspace(int ch) {
+  int isSpace = 0;
+
+  if (ch <= 32) {
+    isSpace = 1;
+  }
+
+  return(isSpace);
+}
 
 /**
 * Convert the initial portion of 'str' to an integer.
