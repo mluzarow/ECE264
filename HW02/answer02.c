@@ -131,35 +131,40 @@ char * my_strrchr(const char * str, int ch) {
 * printf("'%s'\n", my_strstr(str, "")); // prints "'Hello World!'\n"
 * printf("'%s'\n", my_strstr(str, "hello")); // prints "'(null)'\n"
 */
-/*char * my_strstr(const char * haystack, const char * needle) {
-   int counter1 = 0;
-  int counter2 = 0;
-  int len1 = 0;
+char * my_strstr(const char * haystack, const char * needle) {
+  int counter = 0;
+  //int len1 = 0;
   int len2 = 0;
   int index = 0;
   int notFound = 1;
-  int Possible = 1;
+  int i = 0; 
 
-  len1 = my_strlen(haystack);
+  //len1 = my_strlen(haystack);
   len2 = my_strlen(needle);
 
+  if (len2 == 0) {
+    index = 0;
+    notFound = 0;
+  }
+  
   while(notFound) {
-    if (haystack[counter1] == needle[counter2]) {
-      while(Possible) {
-	counter2++;
-	if (haystack[counter1] != needle[counter2]) {
-	  Possible = 0;
-	  counter2 = 0;
-	} else {
-	  
+    if (haystack[counter] == needle[0]) {//first letter of needle found
+
+      for (i = 0; i < len2; i++) {
+	if (haystack[counter + i] != needle[i]) {//string is not a match
+	  i = len2;
+	} else {//full string found
+	  index = counter; //world begins at first letter point
+	  notFound = 0; //break loop
 	}
       }
     }
+    counter++;
   }
 
-  return((char *) &str[index]);
+  return((char *) &haystack[index]);
 }
-  */
+  
 /**
 * Copys C-string 'src' (including the null-byte terminator) into the memory
 * pointed to by 'dest'. The strings must not overlap, and 'dest' must be large
@@ -200,7 +205,26 @@ char * my_strcpy(char * dest, const char * src) {
 * my_strcpy(buffer, "Hello ");
 * printf("%s\n", my_strcat(buffer, "Zippy!")); // prints "Hello Zippy!"
 */
-//char * my_strcat(char * dest, const char * src);
+char * my_strcat(char * dest, const char * src) {
+  int len = 0;
+  int counter = 0;
+  int write = 1;
+
+  len = my_strlen(dest); //len = counter of dest
+
+  while(write) {
+    dest[len] = src[counter];
+    
+    if (src[counter] == '\0') {
+      write = 0;
+    }
+
+    counter++;
+    len++;
+  }
+
+  return(dest);
+}
 
 /**
 * Returns 1 when 'ch' is a whitespace character, and 0 otherwise.
