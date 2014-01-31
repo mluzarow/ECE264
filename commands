@@ -1,0 +1,39 @@
+//copy from git
+git clone https://mluzarow:6wGWGKJg@github.com/mluzarow/[reponame].git
+
+//put on git
+git add [file]
+git commit -m "whatever" [file]
+git push
+
+//update file
+git commit -m "whatever" [file]
+git push
+
+//gcc
+gcc -Wall -Wshadow -g [file1] [file2] -o output
+
+//valgrind
+valgrind --tool=memcheck --leak-check=full --verbose --log-file=memcheck.log ./[file]
+
+//gdb
+//set logging on
+gdb -ex "set logging overwrite on" -ex "set logging on" ./[file]
+//breakpoint
+b [function name]
+//backtrace
+bt
+//display var val
+p [name]
+//next line, step over function calls
+n
+//next line, stepping into function calls
+s
+//quit
+quit
+
+//zipping
+zip pa01.zip answer01.c memcheck.log gdb.txt
+
+
+
