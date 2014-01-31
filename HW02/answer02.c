@@ -131,8 +131,35 @@ char * my_strrchr(const char * str, int ch) {
 * printf("'%s'\n", my_strstr(str, "")); // prints "'Hello World!'\n"
 * printf("'%s'\n", my_strstr(str, "hello")); // prints "'(null)'\n"
 */
-//char * my_strstr(const char * haystack, const char * needle);
+/*char * my_strstr(const char * haystack, const char * needle) {
+   int counter1 = 0;
+  int counter2 = 0;
+  int len1 = 0;
+  int len2 = 0;
+  int index = 0;
+  int notFound = 1;
+  int Possible = 1;
 
+  len1 = my_strlen(haystack);
+  len2 = my_strlen(needle);
+
+  while(notFound) {
+    if (haystack[counter1] == needle[counter2]) {
+      while(Possible) {
+	counter2++;
+	if (haystack[counter1] != needle[counter2]) {
+	  Possible = 0;
+	  counter2 = 0;
+	} else {
+	  
+	}
+      }
+    }
+  }
+
+  return((char *) &str[index]);
+}
+  */
 /**
 * Copys C-string 'src' (including the null-byte terminator) into the memory
 * pointed to by 'dest'. The strings must not overlap, and 'dest' must be large
@@ -145,7 +172,22 @@ char * my_strrchr(const char * str, int ch) {
 * char buffer[50];
 * printf("%s\n", my_strcpy(buffer, str)); // prints "Hello World!\n"
 */
-//char * my_strcpy(char * dest, const char * src);
+char * my_strcpy(char * dest, const char * src) {
+  int counter = 0;
+  int notTerminating = 1;
+
+  while(notTerminating) {
+    if (src[counter] != '\0') {
+      dest[counter] = src[counter];
+      counter++;
+    } else {
+      dest[counter] = '\0';
+      notTerminating = 0;
+    }
+  }
+
+  return(dest);
+}
 
 /**
 * Append C-string 'src' to C-string 'dest'. 'Dest' must be large enough to
