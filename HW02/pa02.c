@@ -69,13 +69,15 @@ int main(int argc, char * * argv)
     printf("\nTesting function my_issspace(...)\n");
     printf("my_isspace(\'%c\'), isSpace = %d\n", 'a', my_isspace('a'));
     printf("my_isspace(\'%c\'), isSpace = %d\n", ' ', my_isspace(' '));
-    printf("my_isspace(\'%c\'), isSpace = %d\n", '\f', my_isspace('\f'));
-    printf("my_isspace(\'%c\'), isSpace = %d\n", '\n', my_isspace('\n'));
-    printf("my_isspace(\'%c\'), isSpace = %d\n", '\r', my_isspace('\r'));
-    printf("my_isspace(\'%c\'), isSpace = %d\n", '\t', my_isspace('\t'));
-    printf("my_isspace(\'%c\'), isSpace = %d\n", '\v', my_isspace('\v'));
+    printf("my_isspace(\'\\f\'), isSpace = %d\n", my_isspace('\f'));
+    printf("my_isspace(\'\\n\'), isSpace = %d\n", my_isspace('\n'));
+    printf("my_isspace(\'\\r\'), isSpace = %d\n", my_isspace('\r'));
+    printf("my_isspace(\'\\t\'), isSpace = %d\n", my_isspace('\t'));
+    printf("my_isspace(\'\\v\'), isSpace = %d\n", my_isspace('\v'));
     printf("my_isspace(\'%c\'), isSpace = %d\n", 'J', my_isspace('J'));
     printf("my_isspace(\'%c\'), isSpace = %d\n", '7', my_isspace('7'));
+    printf("my_isspace(\'\\0\'), isSpace = %d\n", my_isspace('\0'));
+    printf("my_isspace(\'\\a\'), isSpace = %d\n", my_isspace('\a')); 
 
     // -- my_atoi. You will have to do this for yourself.
     printf("\nTesting function my_atoi(...)\n");
@@ -85,6 +87,8 @@ int main(int argc, char * * argv)
     printf("my_atoi(\"4 months to Summer.\"), ret = %d\n", my_atoi("4 months to Summer."));
     printf("my_atoi(\"\\n\\f\\t\\v\\r 6 white space characters handled correctly.\"), ret = %d\n", my_atoi("\n\f\t\v\r 6 white space characters handled correctly."));
     printf("my_atoi(\"garbage should yield 0\"), ret = %d\n", my_atoi("garbage should yield 0"));
+    
+    printf("\n\nPrinting Complete\n\n"); 
     
     return EXIT_SUCCESS;
 }
