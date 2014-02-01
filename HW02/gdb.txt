@@ -1,0 +1,180 @@
+Starting program: /home/mark/ECE264/HW02/pa02 
+[Inferior 1 (process 2071) exited normally]
+Breakpoint 1 at 0x80484a5: file answer02.c, line 26.
+Starting program: /home/mark/ECE264/HW02/pa02 
+
+Breakpoint 1, my_strlen (str=0x80490ec "Hello World!") at answer02.c:26
+26	  return(length); 
+$1 = 12
+Continuing.
+
+Breakpoint 1, my_strlen (str=0x80490f9 "") at answer02.c:26
+26	  return(length); 
+$2 = 0
+Continuing.
+
+Breakpoint 1, my_strlen (str=0x80490fa "foo") at answer02.c:26
+26	  return(length); 
+$3 = 3
+Breakpoint 2 at 0x80484ff: file answer02.c, line 51.
+Continuing.
+
+Breakpoint 2, my_countchar (str=0x80490ec "Hello World!", ch=108 'l')
+    at answer02.c:51
+51	  return(number);
+$4 = 3
+Continuing.
+
+Breakpoint 2, my_countchar (str=0x80490f9 "", ch=111 'o') at answer02.c:51
+51	  return(number);
+$5 = 0
+Continuing.
+
+Breakpoint 2, my_countchar (str=0x80490fa "foo", ch=111 'o') at answer02.c:51
+51	  return(number);
+$6 = 2
+Breakpoint 3 at 0x8048574: file answer02.c, line 92.
+Continuing.
+
+Breakpoint 3, my_strchr (str=0x80490ec "Hello World!", ch=108) at answer02.c:92
+92	  return((char *) &str[index]);
+$7 = 2
+$8 = 108 'l'
+$9 = 0x80490ee "llo World!"
+Breakpoint 4 at 0x8048582: file answer02.c, line 105.
+Continuing.
+
+Breakpoint 4, my_strrchr (str=0x80490ec "Hello World!", ch=108)
+    at answer02.c:105
+105	  int notTerminating = 1;  //Loop control
+Breakpoint 5 at 0x80485d4: file answer02.c, line 123.
+Continuing.
+
+Breakpoint 5, my_strrchr (str=0x80490ec "Hello World!", ch=108)
+    at answer02.c:123
+123	  return ((char *) &str[len]);
+$10 = 9
+$11 = 108 'l'
+$12 = 0x80490f5 "ld!"
+Continuing.
+
+Breakpoint 4, my_strrchr (str=0x80490f9 "", ch=111) at answer02.c:105
+105	  int notTerminating = 1;  //Loop control
+Continuing.
+
+Breakpoint 4, my_strrchr (str=0x80490fa "foo", ch=0) at answer02.c:105
+105	  int notTerminating = 1;  //Loop control
+Continuing.
+
+Breakpoint 5, my_strrchr (str=0x80490fa "foo", ch=0) at answer02.c:123
+123	  return ((char *) &str[len]);
+Continuing.
+
+Breakpoint 4, my_strrchr (str=0x8049283 "Find First 'F' from right", ch=70)
+    at answer02.c:105
+105	  int notTerminating = 1;  //Loop control
+Continuing.
+
+Breakpoint 5, my_strrchr (str=0x8049283 "Find First 'F' from right", ch=70)
+    at answer02.c:123
+123	  return ((char *) &str[len]);
+$13 = 12
+$14 = 70 'F'
+$15 = 0x804928f "F' from right"
+Continuing.
+
+Breakpoint 4, my_strrchr (str=0x80492b9 "!Find last char!", ch=33)
+    at answer02.c:105
+105	  int notTerminating = 1;  //Loop control
+Continuing.
+
+Breakpoint 5, my_strrchr (str=0x80492b9 "!Find last char!", ch=33)
+    at answer02.c:123
+123	  return ((char *) &str[len]);
+$16 = 15
+$17 = 33 '!'
+$18 = 0x80492c8 "!"
+Breakpoint 6 at 0x80486b9: file answer02.c, line 170.
+Continuing.
+
+Breakpoint 6, my_strstr (haystack=0x80490ec "Hello World!", 
+    needle=0x8049309 "World") at answer02.c:170
+170	  return((char *) &haystack[index]);
+$19 = 6
+$20 = 87 'W'
+$21 = 0x80490f2 "World!"
+Breakpoint 7 at 0x8048711: file answer02.c, line 199.
+Continuing.
+
+Breakpoint 7, my_strcpy (dest=0xbfffef6c "Hello World!", 
+    src=0x80490ec "Hello World!") at answer02.c:199
+199	  return(dest);
+$22 = 0xbfffef6c "Hello World!"
+Breakpoint 8 at 0x8048774: file answer02.c, line 231.
+Continuing.
+
+Breakpoint 8, my_strcat (dest=0xbfffef6c "Hello Zippy!", 
+    src=0x80493e4 "Zippy!") at answer02.c:231
+231	  return(dest);
+$23 = 0xbfffef6c "Hello Zippy!"
+Breakpoint 9 at 0x804879f: file answer02.c, line 260.
+Continuing.
+
+Breakpoint 9, my_isspace (ch=97) at answer02.c:260
+260	  return(isSpace);
+$24 = 0
+Continuing.
+
+Breakpoint 9, my_isspace (ch=32) at answer02.c:260
+260	  return(isSpace);
+$25 = 1
+Continuing.
+
+Breakpoint 9, my_isspace (ch=12) at answer02.c:260
+260	  return(isSpace);
+$26 = 1
+Continuing.
+
+Breakpoint 9, my_isspace (ch=10) at answer02.c:260
+260	  return(isSpace);
+$27 = 1
+Breakpoint 10 at 0x804894c: file answer02.c, line 341.
+Continuing.
+
+Breakpoint 10, my_atoi (str=0x8049557 "0") at answer02.c:341
+341	  return(ret);
+$28 = 0
+Continuing.
+
+Breakpoint 10, my_atoi (str=0x8049571 "-12") at answer02.c:341
+341	  return(ret);
+$29 = -12
+Continuing.
+
+Breakpoint 10, my_atoi (str=0x8049590 "15th of March would be the idea.")
+    at answer02.c:341
+341	  return(ret);
+$30 = 15
+Continuing.
+
+Breakpoint 10, my_atoi (str=0x80495eb "4 months to Summer.") at answer02.c:341
+341	  return(ret);
+$31 = 4
+Continuing.
+
+Breakpoint 10, my_atoi (
+    str=0x804962c "\n\f\t\v\r 6 white space characters handled correctly.")
+    at answer02.c:341
+341	  return(ret);
+$32 = 6
+Continuing.
+
+Breakpoint 10, my_atoi (str=0x80496ad "garbage should yield 0")
+    at answer02.c:341
+341	  return(ret);
+$33 = 0
+A debugging session is active.
+
+	Inferior 1 [process 2074] will be killed.
+
+Quit anyway? (y or n) 
