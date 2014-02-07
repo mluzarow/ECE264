@@ -47,6 +47,44 @@ char * strcat_ex(char * * dest, int * n, const char * src) {
     return(*dest);
 }
 
+/**
+ * Takes a string and split it into an array of strings according to delimiter.
+ * The memory location '*arrLen' is initialized to the length of the returned
+ * array.
+ *
+ * str: A string to split
+ * delims: a string that contains a set of delimiter characters. explode(...)
+ *         will split the string at any character that appears in 'delims'.
+ * arrLen: pointer to an int that is used to store the resultant length of the
+ *         returned array.
+ *
+ * For example, if delimiter is white space " \t\v\n\r\f", then,
+ * int len;
+ * char * * strArr = explode("The\nTuring test", " \t\v\n\r\f", &len);
+ * // len = 3, strArr[0] is "The", strArr[1] is "Turing", strArr[2] is "test"
+ *
+ * Hint: you can use <string.h> functions "memcpy" and "strchr"
+ *       "memcpy" copies blocks of memory.
+ *       "strchr" can be used to tell if a specific character is in delims.
+ * Hint: this question is hard; it will help to draw out your algorithm.
+ * Hint: read the FAQ...
+ **/
+char * * explode(const char * str, const char * delims, int * arrLen) {
+    int num_delim = 0;
+    int counter = 0;
+
+    for (counter = 0; counter < strlen(str); counter++) {
+        if (strchr(str[counter], delims) != NULL) {
+            num_delim++;
+        }
+    }
+
+    printf("str = %s, delims = %d", str, num_delim);
+    char ** strArr = malloc((num_delim + 1) * sizeof(char*));
+
+
+}
+
 //temp main for Code::blocks individual file test
 int main(int argc, char ** argv) {
     printf("This is the pa03 HW03 test file.\n\n");
@@ -66,7 +104,13 @@ int main(int argc, char ** argv) {
     printf("\ndest = %s", dest);
 
     //Test02
-
+    printf("\n\nNow testing explode(...)\n");
+    const char * str_t = "TheLetterStocut";
+    const char * delims_t = "S";
+    int * arrLen_t = 0;
+    char ** buffer;
+    buffer = explode(str_t, delims_t, arrLen_t);
+    //printf("buffer = ")
 
     return(EXIT_SUCCESS);
 }
