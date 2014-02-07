@@ -30,22 +30,43 @@
  **/
 char * strcat_ex(char * * dest, int * n, const char * src) {
     //cat src to end of dest, n = len of dest buffer
+    char * buffer;
 
+    if (*dest != NULL) {
+        buffer = malloc(1 + 2*(strlen(*dest) + strlen(src)));
+        strcpy(buffer, *dest);
+        strcat(buffer, src);
+    } else {
+        buffer = malloc(1 + 2*(strlen(src)));
+        strcpy(buffer, src);
+    }
 
+    *n = sizeof(buffer);
+    *dest = buffer;
 
     return(*dest);
 }
 
 //temp main for Code::blocks individual file test
 int main(int argc, char ** argv) {
-    printf("\n\nTHis is the pa03 HW03 test file.\n\n");
+    printf("This is the pa03 HW03 test file.\n\n");
 
     //Test01
     printf("Now testing strcat_ex(...)\n");
     char * dest;
-    int * n;
-    const char * src = "Static";
-    dest = strcat_ex(&dest, n, src);
+    dest = "hi";
+    int n;
+    dest = strcat_ex(&dest, &n, "adsdas");
+    printf("dest = %s", dest);
+    dest = "blarg2";
+    dest = strcat_ex(&dest, &n, "fluff");
+    printf("\ndest = %s", dest);
+    dest = NULL;
+    dest = strcat_ex(&dest, &n, "first null");
+    printf("\ndest = %s", dest);
+
+    //Test02
+
 
     return(EXIT_SUCCESS);
 }
