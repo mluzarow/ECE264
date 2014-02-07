@@ -74,14 +74,20 @@ char * * explode(const char * str, const char * delims, int * arrLen) {
     int counter = 0;
 
     for (counter = 0; counter < strlen(str); counter++) {
-        if (strchr(str[counter], delims) != NULL) {
+        if (str[counter] == *delims) {
             num_delim++;
         }
     }
-
+        
     printf("str = %s, delims = %d", str, num_delim);
     char ** strArr = malloc((num_delim + 1) * sizeof(char*));
 
+    int arrInd = 0;
+    int last = 0;
+
+    for(arrInd = 0; arrInd < strlen(str); arrInd++) {
+      if (str[arrInd] == *delims) 
+    }
 
 }
 
