@@ -4,6 +4,7 @@
 
 #include <stdio.h> //temp include
 int comp(char**, char**);
+int comp2(const void *, const void *);
 
 typedef struct List List;
 
@@ -102,7 +103,43 @@ int main(int argc, char ** argv) {
 
     free(test03_str1);
 
+    //Test05
+
+    char test05_str[5] = "dcba";
+
+    sortStringCharacters(test05_str);
+
+    printf("Sorted: %s", test05_str);
     return(EXIT_SUCCESS);
+}
+
+void sortStringCharacters(char * str) {
+    char str2[strlen(str)];
+    int j = 0;
+    int i = 0;
+
+    for (j = 0; j < strlen(str); j++) {
+        str2[j] = *(str + j);
+    }
+    qsort(str2, strlen(str2), sizeof(char), comp2);
+
+    /*for (i = 0; i < strlen(str); i++) {
+       printf("str2[%d] = %c\n", i, str2[i]);
+       str = str2;
+        printf("str[%d] = %c\n", i, str[i]);
+    }*/
+    const char * fff = str2;
+    strcpy(str, fff);
+}
+
+int comp2(const void * a, const void * b) {
+    if (*(char*)a < *(char*)b) {
+         return(-1);
+    } else if ((*(char*)a == *(char*)b)) {
+        return(0);
+    } else if ((*(char*)a > *(char*)b)) {
+        return(1);
+    }
 }
 
 void sortStringArray(char * * arrString, int len) {
