@@ -5,6 +5,8 @@
 
 #include <stdio.h> //temp include
 
+int comp(const void*, const void*);
+
 /**
  * Append the C-string 'src' to the end of the C-string '*dest'.
  *
@@ -28,21 +30,28 @@
  * Hint: These <string.h> functions will help: strcat, strcpy, strlen.
  * Hint: Leak no memory.
  **/
-char * strcat_ex(char * * dest, int * n, const char * src) {
-    //cat src to end of dest, n = len of dest buffer
-    char * buffer;
+ /*************************************************************************************
+  * strcat_ex will concatenate string @ dest and string @ src
+  * char ** dest is the destination space for concatenation
+  * int * n is the address of # of characters that can be stored in dest
+  * char * src is the string to be appended to the end of the string in dest
+  ************************************************************************************/
 
-    if (*dest != NULL) {
+char * strcat_ex(char * * dest, int * n, const char * src) {
+    char * buffer; //intermediate location
+
+    if (*dest != NULL) { //if dest in not NULL, alloc for string in dest and src
         buffer = malloc(1 + 2*(strlen(*dest) + strlen(src)));
         strcpy(buffer, *dest);
         strcat(buffer, src);
-    } else {
+    } else { //if dest is NULL, ignore dest alloc
         buffer = malloc(1 + 2*(strlen(src)));
         strcpy(buffer, src);
     }
 
-    *n = sizeof(buffer);
-    *dest = buffer;
+    *n = strlen(buffer); //length is the size of the intermediate string array
+    free(*dest); //dealloc space used by dest
+    *dest = buffer; //copy buffer string to dest for output
 
     return(*dest);
 }
@@ -70,33 +79,92 @@ char * strcat_ex(char * * dest, int * n, const char * src) {
  * Hint: read the FAQ...
  **/
 char * * explode(const char * str, const char * delims, int * arrLen) {
-    int num_delim = 0;
-    int counter = 0;
+    int num_delim = 0; //Number of delims in the source string str
+    int counter = 0;   //Loop counter
 
+    //Finds the number of delims on source string str
     for (counter = 0; counter < strlen(str); counter++) {
         if (str[counter] == *delims) {
             num_delim++;
         }
     }
 
-    printf("str = %s, delims = %d\n", str, num_delim);
+    //allocates memory to output string array strArr
     char ** strArr = malloc((num_delim + 1) * sizeof(char*));
+    printf("str = %s, delims = %d\n", str, num_delim);
 
-    int arrInd = 0;
-    int last = 0;
+    int arrInd = 0; //Index for output string array strArr
+    int last = 0;   //last place where delim was found
 
     for(counter = 0; counter <= strlen(str); counter++) {
         if ((str[counter] == *delims) || (str[counter] == '\0')) {
-            char * newString;
+            char * newString = malloc(sizeof(char)*50); //Temp string for storing separated string
+
+            //copies str string at location (str + last) of (counter - last) length
+            // to location newString
             memcpy(newString, str + last, counter - last);
-            last = 1 + counter;
-            newString[counter + 1] = '\0';
-            strArr[arrInd] = newString;
+            last = 1 + counter;             //Add end character
+            newString[strlen(newString)] = '\0';
+
+            strArr[arrInd] = newString; //copy value in newString to output string array
             printf("strArr[%d] = %s\n", arrInd, strArr[arrInd]);
-            arrInd++;
+            arrInd++; //Increment output string array index
         }
     }
+    *arrLen = arrInd;
     return(strArr);
+}
+
+/**
+ * Takes an array of strings, and concatenates the elements into a single
+ * string, placing 'glue' between each successive element.
+ *
+ * strArr: an array of strings
+ * len: the length of the array 'strArr'
+ * glue: string to concatenate between each element of 'strArr'
+ *
+ * For example:
+ * int len;
+ * char * * strArr = explode("100 224 147 80", " ", &len);
+ * char * str = implode(strArr, len, ", ");
+ * printf("(%s)\n", str); // (100, 224, 147, 80)
+ *
+ * Hint: use strcat_ex in a for loop.
+ */
+char * implode(char * * strArr, int len, const char * glue) {
+    char * str;
+    int counter = 0;
+    int len_str = 0;
+
+    for(counter = 0; counter < len; counter++) {
+        len_str = strlen(strArr[counter]);
+        printf("The length of strArr[%d] (%s) = %d\n", counter, strArr[counter], len_str);
+        str = strcat_ex(&str, &len_str, strArr[counter]);
+    }
+
+    return(str);
+}
+int comp(const void * a, const void * b) {
+    return(*(int*)a - *(int*)b);
+}
+/**
+ * Takes an array of C-strings, and sorts them alphabetically, ascending.
+ *
+ * arrString: an array of strings
+ * len: length of the array 'arrString'
+ *
+ * For example,
+ * int len;
+ * char * * strArr = explode("lady beatle brew", " ", &len);
+ * sortStringArray(strArr, len);
+ * char * str = implode(strArr, len, " ");
+ * printf("%s\n"); // beatle brew lady
+ *
+ * Hint: use the <stdlib.h> function "qsort"
+ * Hint: you must _clearly_ understand the typecasts.
+ */
+void sortStringArray(char * * arrString, int len) {
+    qsort(arrString, len, sizeof(char*), comp);
 }
 
 //temp main for Code::blocks individual file test
@@ -109,22 +177,29 @@ int main(int argc, char ** argv) {
     dest = "hi";
     int n;
     dest = strcat_ex(&dest, &n, "adsdas");
-    printf("dest = %s", dest);
+    printf("First string: %s\nSecond String: %s\nLength n: %d\nFinal String: %s\n", "hi", "adsdas", n, dest);
     dest = "blarg2";
     dest = strcat_ex(&dest, &n, "fluff");
-    printf("\ndest = %s", dest);
+    printf("First string: %s\nSecond String: %s\nLength n: %d\nFinal String: %s\n", "blarg2", "fluff", n, dest);
     dest = NULL;
     dest = strcat_ex(&dest, &n, "first null");
-    printf("\ndest = %s", dest);
+    printf("First string: %s\nSecond String: %s\nLength n: %d\nFinal String: %s\n", "", "first null", n, dest);
 
     //Test02
     printf("\n\nNow testing explode(...)\n");
-    const char * str_t = "Some Other Thing";
-    const char * delims_t = " /n/t/r";
+    const char * str_t = "A Lot More Values Astronomical";
+    const char * delims_t = " ";
     int * arrLen_t = 0;
     char ** buffer;
+    printf("Using input string: \"%s\"\nwith delimiter set: \"%s\"\n", str_t, delims_t);
     buffer = explode(str_t, delims_t, arrLen_t);
-    //printf("buffer = %s", *buffer);
+    printf("arrLen = %d\n", &arrLen_t);
+
+    //Test03
+    printf("\n\nNow testing implode(...)\n");
+    char * finalArr;
+    finalArr = implode(buffer, 5, ", ");
+    printf("finalArr = %s\n", finalArr);
 
     return(EXIT_SUCCESS);
 }
