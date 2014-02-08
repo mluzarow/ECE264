@@ -78,17 +78,25 @@ char * * explode(const char * str, const char * delims, int * arrLen) {
             num_delim++;
         }
     }
-        
-    printf("str = %s, delims = %d", str, num_delim);
+
+    printf("str = %s, delims = %d\n", str, num_delim);
     char ** strArr = malloc((num_delim + 1) * sizeof(char*));
 
     int arrInd = 0;
     int last = 0;
 
-    for(arrInd = 0; arrInd < strlen(str); arrInd++) {
-      if (str[arrInd] == *delims) 
+    for(counter = 0; counter <= strlen(str); counter++) {
+        if ((str[counter] == *delims) || (str[counter] == '\0')) {
+            char * newString;
+            memcpy(newString, str + last, counter - last);
+            last = 1 + counter;
+            newString[counter + 1] = '\0';
+            strArr[arrInd] = newString;
+            printf("strArr[%d] = %s\n", arrInd, strArr[arrInd]);
+            arrInd++;
+        }
     }
-
+    return(strArr);
 }
 
 //temp main for Code::blocks individual file test
@@ -111,12 +119,12 @@ int main(int argc, char ** argv) {
 
     //Test02
     printf("\n\nNow testing explode(...)\n");
-    const char * str_t = "TheLetterStocut";
-    const char * delims_t = "S";
+    const char * str_t = "Some Other Thing";
+    const char * delims_t = " /n/t/r";
     int * arrLen_t = 0;
     char ** buffer;
     buffer = explode(str_t, delims_t, arrLen_t);
-    //printf("buffer = ")
+    //printf("buffer = %s", *buffer);
 
     return(EXIT_SUCCESS);
 }
