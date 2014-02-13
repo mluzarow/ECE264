@@ -6,11 +6,10 @@ int main(int argc, char ** argv) {
 
      //Since the first value in the argv array is the program
      // command "./echo-lite", skip that part of the array.
-     for (counter = 1; counter < (argc - 1); counter++) {
+     for (counter = 1; counter <= (argc - 1); counter++) {
           printf("%s ", argv[counter]);
      }
-  
-     printf("%s\n", argv[argc - 1]);
-
+     printf("\n");
+     
      return(EXIT_SUCCESS);
 }
