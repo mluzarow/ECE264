@@ -8,11 +8,21 @@ int main(int argc, char ** argv) {
      char ch;
      int counter = 0;
 
+     //printf("Current argc value: %d\n", argc);
+     
      //If the only input is the program command "./cat-lite", ask
      // for a file name
      if (argc <= 1) {
-          printf("Usage: ./cat-lite <filename>\n");
 	  return(EXIT_SUCCESS);
+     }
+
+     for (counter = 1; counter < argc; counter ++) {
+       //   printf("%s\n", argv[counter]);   
+       
+          if (strcmp(argv[counter], "--help") == 0) {
+	       printf("Usage: cat-lite [--help] [FILE]...\nWith no FILE, or when FILE is -, read standard input.\n\nExamples:\n  cat-lite README   Print the file README to standard output.\n  cat-lite f - g    Print f's contents, then standard input, \n                    then g's contents.\n  cat-lite          Copy standard input to standard output.\n\n");
+	       return(EXIT_SUCCESS);
+	  }
      }
 
      //For loop capturing multiple files to read
@@ -23,14 +33,11 @@ int main(int argc, char ** argv) {
      
 	  //Invalid filename is enetered
 	  if (file == NULL) {
-	       printf("Cannot find file: %s\n", file_name);
+	       
 	       return(EXIT_SUCCESS);
 	  }
 
-	  //Output to console as long as the is no EOF symbol
-	  /*while((ch == fgetc(file)) != EOF) {
-	       putchar(ch);
-	       }*/
+	  //Output to "standard output" as long as the is no EOF symbol
 	  while (!feof(file)) {
 	       ch = fgetc(file);
 	       putchar(ch);
