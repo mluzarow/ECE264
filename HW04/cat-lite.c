@@ -8,10 +8,14 @@ int main(int argc, char ** argv) {
      char buffer[255];
      int counter = 0;
      
-     //If the only input is the program command "./cat-lite", ask
-     // for a file name
+     //If the only input is the program command "./cat-lite", read stdin
      if (argc <= 1) {
-	  return(EXIT_SUCCESS);
+          while (fgets(buffer, sizeof(buffer), stdin) != NULL) {
+	       if (buffer != NULL) {
+		    printf("%s", buffer);
+	       }
+	  }
+     	  return(EXIT_SUCCESS);
      }
 
      for (counter = 1; counter < argc; counter ++) {
