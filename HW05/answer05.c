@@ -6,21 +6,23 @@
 
 #include "answer05.h"
 
-#define EE264_MAGIC_NUM 0x21343632
 #define TRUE 1
 #define FALSE 0
 
-#pragma pack(push)
-#pragma pack(1)
-typedef struct {
-     uint16_t type; //magic number
-  // uint32_t size; //size of file in bytes
-  //uint32_t header_size; //size of header in bytes
-     int32_t width; //width of image
-     int32_t height; //height of image
-     int32_t com_l; //Length of the ASCII string file comment w/ null byte
-} EE264_Header;
-#pragma pack(pop)
+/*
+typedef struct ImageHeader_st {
+  uint32_t magic_number; // Should be ECE264_IMAGE_MAGIC_NUMBER
+  uint32_t width;        // [width x height], cannot be zero
+  uint32_t height;
+  uint32_t comment_len; // A comment embedded in the file
+} ImageHeader;
+typedef struct Image_st {
+  int width;
+  int height;
+  char * comment;
+  uint8_t * data;
+} Image;
+*/
 
 /**
  * Loads an ECE264 image file, returning an Image structure.
@@ -31,13 +33,13 @@ typedef struct {
 Image * Image_load(const char * filename) {
      FILE * file = NULL;
      size_t read;
-     EE264_Header header;
+     ImageHeader header;
      Image * ImageTemp = NULL;
      Image * ImageMain = NULL;
      size_t n_bytes = 0;
      int error = FALSE;
 
-     if (!error) { //No error
+     if (!error) { //Try to open image file stream
           file = fopen(filename, "rb"); //Open file with non-text read
 	  
 	  if (!file) { //File is null
@@ -46,7 +48,7 @@ Image * Image_load(const char * filename) {
 	  }
      }
 
-     if (!error) { //No error
+     if (!error) { //Try to read image header
           read = fread(&header, sizeof(EE264_Header), 1, file); //Read header
 	  
 	  if (read != 1) { //Header read failure
@@ -86,13 +88,24 @@ Image * Image_load(const char * filename) {
 	  //find the comment in the header
 	  char * filename2 = strdup(filename);
 	  char * file_basename = basename(filename2);
+	  const char * prefix = "Original ee264 file: ";
 	  
+	  n_bytes = sizeof(char) * (strlen(prefix) + strlen(file_basename) + 1);
+	  ImageTemp->comment = malloc(n_bytes);
+
+
+	  free(ImageTemp->comment);
+	  
+	  
+
 
      }
 
-
-
-     return(0);
+     if (error) { // NULL on error, 0 on success
+          return(NULL);
+     } else {
+          return(EXIT_SUCCESS);
+     }
 }
 
 /**
@@ -132,7 +145,7 @@ void linearNormalization(int width, int height, uint8_t * intensity) {
 
 
 
-int main (int argc, char ** argv) {
+//int main (int argc, char ** argv) {
 
-  return(0);
-}
+//return(0);
+//}
