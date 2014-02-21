@@ -67,7 +67,7 @@ Image * Image_load(const char * filename) {
 	  printf("  file comment size: %d\n", header.comment_len);
      }
 
-     if (!error) { //check file validity
+     if (!error) { //check file validity of header vals
           if (header.magic_number != ECE264_IMAGE_MAGIC_NUMBER) {
 	       fprintf(stderr, "Invalid header in '%s'\n", filename);
 	       error = TRUE;
@@ -77,20 +77,21 @@ Image * Image_load(const char * filename) {
 	       error = TRUE;
 	  }
 	  if ((header.comment_len <= 0) || (header.comment_len > 2000)) {
+	       fprintf(stderr, "Invalid comment length in '%s'\n", filename);
 	       error = TRUE;
 	  }
 	  if ((header.width > 2000) || (header.height > 2000)) {
+	       fprintf(stderr, "Invalid dimensions in '%s'\n", filename);
 	       error = TRUE;
 	  }
      }
 
-     //     if (!error) {
-       //ImageTemp->comment = malloc(sizeof(char) * 
-       // if (ImageTemp->comment[header.comment_len - 1] != '\0') {
-       //      error = TRUE;
-       // }
-       //printf("'%s'\n", ImageTemp->comment);
-     //}
+     //So far...
+     //File exists
+     //File header exists
+     //Header # OK
+     //Header dim input OK
+     //Header com len input OK
 
      if (!error) {//Allocate Image struct
           ImageTemp = malloc(sizeof(Image));
@@ -100,12 +101,30 @@ Image * Image_load(const char * filename) {
 	       error = TRUE;
 	  }
      }
-     
+     printf("Allocated image struct\n");
+
      if (!error) { //Initialize the image struct
           ImageTemp->width = header.width;
 	  ImageTemp->height = header.height;
 
-	  //find the comment in the header
+	  //deal with the file comment
+	  char * file_comment = malloc(sizeof(char) * header.comment_len);
+	  read = fread(file_comment, sizeof(char), header.comment_len, file);
+	  //temp
+	  printf(  "file comment: %s\n  file comment length: %d\n", file_comment, strlen(file_comment));
+
+	  n_bytes = sizeof(char) * (strlen(file_comment) + 1);
+	  ImageTemp->comment = malloc(n_bytes);
+	  if (ImageTemp->comment == NULL) {
+	       fprintf(stderr, "Failed to allocate %zd bytes for comment\n", n_bytes);
+	       error = TRUE;
+	  } else {
+	       sprintf(ImageTemp->comment, "%s", file_comment);
+	  }
+	  free(file_comment);
+
+	  printf("dealt with file comment\n");
+	  /*//find the comment in the header
 	  char * filenameCopy = strdup(filename);
 	  char * file_basename = basename(filenameCopy);
 	  const char * prefix = "Original bmp file: ";
@@ -117,14 +136,13 @@ Image * Image_load(const char * filename) {
 	  if (ImageTemp->comment == NULL) { //there is no comment area
 	       fprintf(stderr, "Failed to allocate %zd bytes for comment\n", n_bytes);
 	       error = TRUE;
-	  } //else if (ImageTemp->comment[header.comment_len - 1] != '\0') {
-	  //     error = TRUE;
-	  // }
+	  }
 	  else {
 	      sprintf(ImageTemp->comment, "%s%s", prefix, file_basename);
 	  }
 	 
 	  free(filenameCopy); //the free of strdup's malloc
+	  */
 
 	  //Handle image data
 	  n_bytes = (sizeof(uint8_t) * header.width * header.height);
@@ -135,13 +153,7 @@ Image * Image_load(const char * filename) {
 	       fprintf(stderr, "Failed to allocate %zd bytes for image data\n", n_bytes); 
 	       error = TRUE;
 	  } 
-	  //	  free(ImageTemp->comment);
      }
-
-     /* if (!error) { //Seek start of pixel data
-       if (fseek(file, 
-     }
-     */
 
      if (!error) { //Read pixel data
           size_t bytes_per_row = ((BITS_PER_PIXEL * header.width + 31) / 32) * 4;
@@ -170,9 +182,9 @@ Image * Image_load(const char * filename) {
 			 
 			 for (column = 0; column < header.width; ++column) {
 			      intensity = *read_ptr++;  //blue
-			      intensity += *read_ptr++; //green
-			      intensity += *read_ptr++; //red
-			      *write_ptr++ = intensity / 3; //now grayscale
+			      //intensity += *read_ptr++; //green
+			      //intensity += *read_ptr++; //red
+			      *write_ptr++ = intensity;// / 3; //now grayscale
 			 }
 		    }
 	       }
@@ -234,15 +246,15 @@ int Image_save(const char * filename, Image * image) {
      }
 
      //Number of bytes stored on each row
-     size_t bytes_per_row = ((24 * image->width + 31) / 32) * 4;
-     //size_t bytes_per_row = ((8 * image->width + 31) / 32) *4;
+     //8 bits per pixel
+     size_t bytes_per_row = ((8 * image->width + 31) / 32) * 4;
      
      //Prep header
      ImageHeader header;
      header.magic_number = ECE264_IMAGE_MAGIC_NUMBER;
      header.width = image->width;
      header.height = image->height;
-     header.comment_len = strlen(image->comment);
+     header.comment_len = strlen(image->comment) + 1;
 
      if (!error) {//write header
           written = fwrite(&header, sizeof(ImageHeader), 1, file);
@@ -253,6 +265,18 @@ int Image_save(const char * filename, Image * image) {
 	  }
      }
 
+     if (!error) { //print out header info
+          printf("Printing EE264 header information:\n");
+	  printf("  file type (should be %x): %x\n", ECE264_IMAGE_MAGIC_NUMBER, header.magic_number);
+	  printf("  file width: %d\n", header.width);
+	  printf("  file height: %d\n", header.height);
+	  printf("  file comment size: %d\n", header.comment_len);
+	  printf("  file comment: %s\n", image->comment);
+	  printf("  file comment strlen: %d\n", strlen(image->comment));
+     }
+
+    fwrite(image->comment, sizeof(char), strlen(image->comment)+1, file);
+
      if (!error) {//write buffer
           buffer = malloc(bytes_per_row);
 
@@ -260,7 +284,8 @@ int Image_save(const char * filename, Image * image) {
 	       fprintf(stderr, "Error: failed to allocate write buffer\n");
 	       error = TRUE;
 	  } else {
-	       memset(buffer, 0, bytes_per_row);
+	       
+	    memset(buffer, 0, bytes_per_row);
 	  }
      }
 
@@ -269,15 +294,17 @@ int Image_save(const char * filename, Image * image) {
 	  int row;
 	  int col;
 
-	  for (row = 0; row < header.height && !error; row++) {
+	  for (row = 0; row < header.height && !error; ++row) {
 	       uint8_t * write_ptr = buffer;
 	       
-	       for (col = 0; col < header.width; col++) {
+	       for (col = 0; col < header.width; ++col) {
 		    *write_ptr++ = *read_ptr; //blue
-		    *write_ptr++ = *read_ptr; //green
-		    *write_ptr++ = *read_ptr; //red
+		    //*write_ptr++ = *read_ptr; //green
+		    //*write_ptr++ = *read_ptr; //red
 		    read_ptr++; //go to next pixel
 	       }
+
+	       
 
 	       //write line to file
 	       written = fwrite(buffer, sizeof(uint8_t), bytes_per_row, file);
