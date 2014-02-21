@@ -8,6 +8,7 @@
 
 #define TRUE 1
 #define FALSE 0
+#define BITS_PER_PIXEL 8
 
 /*
 typedef struct ImageHeader_st {
@@ -49,7 +50,8 @@ Image * Image_load(const char * filename) {
      }
 
      if (!error) { //Try to read image header
-          read = fread(&header, sizeof(EE264_Header), 1, file); //Read header
+          //Read header
+          read = fread(&header, sizeof(ImageHeader), 1, file);
 	  
 	  if (read != 1) { //Header read failure
 	       fprintf(stderr, "Failed to read header from '%s'\n", filename);
@@ -59,14 +61,14 @@ Image * Image_load(const char * filename) {
 
      if (!error) { //print out header info
           printf("Printing EE264 header information:\n");
-	  printf("  file type (should be %x): %x\n", EE264_MAGIC_NUM, header.type);
+	  printf("  file type (should be %x): %x\n", ECE264_IMAGE_MAGIC_NUMBER, header.magic_number);
 	  printf("  file width: %d\n", header.width);
 	  printf("  file height: %d\n", header.height);
-	  printf("  file comment size: %d\n", header.com_l);
+	  printf("  file comment size: %d\n", header.comment_len);
      }
 
      if (!error) { //check file validity
-          if (header.type != EE264_MAGIC_NUM) {
+          if (header.magic_number != ECE264_IMAGE_MAGIC_NUMBER) {
 	       fprintf(stderr, "Invalid header in '%s'\n", filename);
 	       error = TRUE;
 	  }
@@ -86,25 +88,94 @@ Image * Image_load(const char * filename) {
 	  ImageTemp->height = header.height;
 
 	  //find the comment in the header
-	  char * filename2 = strdup(filename);
-	  char * file_basename = basename(filename2);
+	  char * filenameCopy = strdup(filename);
+	  char * file_basename = basename(filenameCopy);
 	  const char * prefix = "Original ee264 file: ";
 	  
 	  n_bytes = sizeof(char) * (strlen(prefix) + strlen(file_basename) + 1);
 	  ImageTemp->comment = malloc(n_bytes);
-
-
-	  free(ImageTemp->comment);
 	  
-	  
+	  if (ImageTemp->comment == NULL) { //there is no comment area
+	       fprintf(stderr, "Failed to allocate %zd bytes for comment\n", n_bytes);
+	       error = TRUE;
+	  } else {
+	       sprintf(ImageTemp->comment, "%s%s", prefix, file_basename);
+	  }
+	 
+	  free(filenameCopy); //the free of strdup's malloc
 
+	  //Handle image data
+	  n_bytes = (sizeof(uint8_t) * header.width * header.height);
+	  ImageTemp->data = malloc(n_bytes);
 
+	  if (ImageTemp->data == NULL) {
+	       //No image data space
+	       fprintf(stderr, "Failed to allocate %zd bytes for image data\n", n_bytes); 
+	       error = TRUE;
+	  } 
+	  //	  free(ImageTemp->comment);
      }
 
-     if (error) { // NULL on error, 0 on success
+     /* if (!error) { //Seek start of pixel data
+       if (fseek(file, 
+     }
+     */
+
+     if (!error) { //Read pixel data
+          size_t bytes_per_row = ((BITS_PER_PIXEL * header.width + 31) / 32) * 4;
+	  n_bytes = bytes_per_row * header.height;
+	  uint8_t * rawEE264 = malloc(n_bytes);
+
+	  if (rawEE264 == NULL) { //Image byte data not allocated
+  	       fprintf(stderr, "Could not allocate %zd bytes of image data\n", n_bytes);
+	       error = TRUE;
+	  } else { //Image byte data allocation attempted
+	       read = fread(rawEE264, sizeof(uint8_t), n_bytes, file);
+
+	       if (n_bytes != read) {//Not reading entire data chunk
+		    fprintf(stderr, "Only read %zd of %zd bytes of image data\n", read, n_bytes);
+		    error = TRUE;
+	       } else {//convert to Grayscale
+		    uint8_t * write_ptr = ImageTemp->data;
+		    uint8_t * read_ptr;
+		    int intensity;
+		    int row;
+		    int column;
+
+		    for (row = 0; row < header.height; ++row) {
+		         read_ptr = &rawEE264[row * bytes_per_row];
+			 
+			 for (column = 0; column < header.width; ++column) {
+			      intensity = *read_ptr++;  //blue
+			      intensity += *read_ptr++; //green
+			      intensity += *read_ptr++; //red
+			      *write_ptr++ = intensity / 3; //now grayscale
+			 }
+		    }
+	       }
+	  }
+	  free(rawEE264);
+     }
+
+     if (!error) { //Set up data return
+          ImageMain = ImageTemp; //EE264 image will be returned
+	  ImageTemp = NULL; //and not cleaned up
+     }
+
+     if (ImageTemp != NULL) { //clean up
+          free(ImageTemp->comment);
+	  free(ImageTemp->data);
+	  free(ImageTemp);
+     }
+
+     if (file) { //file stream still open
+          fclose(file);
+     }
+
+     if (error) { // NULL on error, image data on success
           return(NULL);
      } else {
-          return(EXIT_SUCCESS);
+          return(ImageMain);
      }
 }
 
@@ -131,21 +202,32 @@ int Image_save(const char * filename, Image * image) {
  * report an error. 
  */
 void Image_free(Image * image) {
-
-
+     if (image != NULL) {
+          free(image->comment);
+          free(image->data);
+          free(image);
+     }
 }
 
 /**
  * Performs linear normalization, see README
  */
 void linearNormalization(int width, int height, uint8_t * intensity) {
+     uint8_t maxIntensity = 0;
+     uint8_t minIntensity = 255;
+     int curPixel;
+     int n_pixels = width * height;
 
+     for (curPixel = 0; curPixel < n_pixels; curPixel++) {
+          if (intensity[curPixel] < minIntensity) {
+	       minIntensity = intensity[curPixel];
+	  }
+	  if (intensity[curPixel] > maxIntensity) {
+	       maxIntensity = intensity[curPixel];
+	  }
+     }
 
+     for (curPixel = 0; curPixel < n_pixels; curPixel++) {
+          intensity[curPixel] = (intensity[curPixel] - minIntensity) * 255.0 / (maxIntensity - minIntensity);
+     }
 }
-
-
-
-//int main (int argc, char ** argv) {
-
-//return(0);
-//}
