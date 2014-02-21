@@ -73,6 +73,13 @@ Image * Image_load(const char * filename) {
 	       error = TRUE;
 	  }
      }
+     
+     if (!error) { //Check height/width values
+          if ((header.width <= 0) || (header.height <= 0)) {
+	       fprintf(stderr, "Invalid dimensions in '%s'\n", filename);
+	       error = TRUE;
+	  } 
+     }
 
      if (!error) {//Allocate Image struct
           ImageTemp = malloc(sizeof(Image));
@@ -186,10 +193,82 @@ Image * Image_load(const char * filename) {
  * Hint: Please see the README for extensive hints
  */
 int Image_save(const char * filename, Image * image) {
-  
+     int error = FALSE;
+     FILE * file = NULL;
+     uint8_t * buffer = NULL;
+     size_t written = 0;
+
+     //Attempt to open file for writing
+     file = fopen(filename, "wb");
+
+     if (file == NULL) {
+          fprintf(stderr, "Failed to open '%s' for writing\n", filename);
+	  return(FALSE);
+     }
+
+     //Number of bytes stored on each row
+     //size_t bytes_per_row = ((24 * image->width + 31) / 32) * 4;
+     size_t bytes_per_row = ((8 * image->width + 31) / 32) *4;
+     
+     //Prep header
+     ImageHeader header;
+     header.magic_number = ECE264_IMAGE_MAGIC_NUMBER;
+     header.width = image->width;
+     header.height = image->height;
+     header.comment_len = strlen(image->comment);
+
+     if (!error) {//write header
+          written = fwrite(&header, sizeof(ImageHeader), 1, file);
+
+	  if (written != 1) {
+	       fprintf(stderr, "Error: only wrote %zd of %zd of file header tp '%s'\n", written, sizeof(ImageHeader), filename);
+	       error = TRUE;
+	  }
+     }
+
+     if (!error) {//write buffer
+          buffer = malloc(bytes_per_row);
+
+	  if (buffer == NULL) {
+	       fprintf(stderr, "Error: failed to allocate write buffer\n");
+	       error = TRUE;
+	  } else {
+	       memset(buffer, 0, bytes_per_row);
+	  }
+     }
+
+     if (!error) {
+          uint8_t * read_ptr = image->data;
+	  int row;
+	  int col;
+
+	  for (row = 0; row < header.height && !error; row++) {
+	       uint8_t * write_ptr = buffer;
+	       
+	       for (col = 0; col < header.width; col++) {
+		    *write_ptr++ = *read_ptr; //blue
+		    *write_ptr++ = *read_ptr; //green
+		    *write_ptr++ = *read_ptr; //red
+		    read_ptr++; //go to next pixel
+	       }
+
+	       //write line to file
+	       written = fwrite(buffer, sizeof(uint8_t), bytes_per_row, file);
+
+	       if (written != bytes_per_row) {
+		    fprintf(stderr, "Failed to write pixel data to file\n");
+		    error = TRUE;
+	       }
+	  }
+     }
 
 
-     return(0);
+     free(buffer);
+     if (file) {
+          fclose(file);
+     }
+
+     return(!error);
 }
 
 /**
