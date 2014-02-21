@@ -72,14 +72,25 @@ Image * Image_load(const char * filename) {
 	       fprintf(stderr, "Invalid header in '%s'\n", filename);
 	       error = TRUE;
 	  }
-     }
-     
-     if (!error) { //Check height/width values
-          if ((header.width <= 0) || (header.height <= 0)) {
+	  if ((header.width <= 0) || (header.height <= 0)) {
 	       fprintf(stderr, "Invalid dimensions in '%s'\n", filename);
 	       error = TRUE;
-	  } 
+	  }
+	  if ((header.comment_len <= 0) || (header.comment_len > 2000)) {
+	       error = TRUE;
+	  }
+	  if ((header.width > 2000) || (header.height > 2000)) {
+	       error = TRUE;
+	  }
      }
+
+     //     if (!error) {
+       //ImageTemp->comment = malloc(sizeof(char) * 
+       // if (ImageTemp->comment[header.comment_len - 1] != '\0') {
+       //      error = TRUE;
+       // }
+       //printf("'%s'\n", ImageTemp->comment);
+     //}
 
      if (!error) {//Allocate Image struct
           ImageTemp = malloc(sizeof(Image));
@@ -97,16 +108,20 @@ Image * Image_load(const char * filename) {
 	  //find the comment in the header
 	  char * filenameCopy = strdup(filename);
 	  char * file_basename = basename(filenameCopy);
-	  const char * prefix = "Original ee264 file: ";
+	  const char * prefix = "Original bmp file: ";
 	  
 	  n_bytes = sizeof(char) * (strlen(prefix) + strlen(file_basename) + 1);
+	  //n_bytes = sizeof(char) * header.comment_len + 1;
 	  ImageTemp->comment = malloc(n_bytes);
 	  
 	  if (ImageTemp->comment == NULL) { //there is no comment area
 	       fprintf(stderr, "Failed to allocate %zd bytes for comment\n", n_bytes);
 	       error = TRUE;
-	  } else {
-	       sprintf(ImageTemp->comment, "%s%s", prefix, file_basename);
+	  } //else if (ImageTemp->comment[header.comment_len - 1] != '\0') {
+	  //     error = TRUE;
+	  // }
+	  else {
+	      sprintf(ImageTemp->comment, "%s%s", prefix, file_basename);
 	  }
 	 
 	  free(filenameCopy); //the free of strdup's malloc
@@ -130,7 +145,8 @@ Image * Image_load(const char * filename) {
 
      if (!error) { //Read pixel data
           size_t bytes_per_row = ((BITS_PER_PIXEL * header.width + 31) / 32) * 4;
-	  n_bytes = bytes_per_row * header.height;
+       //size_t bytes_per_row = (header.width);
+          n_bytes = bytes_per_row * header.height;
 	  uint8_t * rawEE264 = malloc(n_bytes);
 
 	  if (rawEE264 == NULL) { //Image byte data not allocated
@@ -163,6 +179,17 @@ Image * Image_load(const char * filename) {
 	  }
 	  free(rawEE264);
      }
+
+     if (!error) { //Should be at the end
+          uint8_t byte;
+	  read = fread(&byte, sizeof(uint8_t), 1, file);
+	  
+	  if (read != 0) {
+	       fprintf(stderr, "Stray bytes at the end of bmp file '%s'\n", filename);
+	       error = TRUE;
+	  }
+     }
+
 
      if (!error) { //Set up data return
           ImageMain = ImageTemp; //EE264 image will be returned
@@ -207,8 +234,8 @@ int Image_save(const char * filename, Image * image) {
      }
 
      //Number of bytes stored on each row
-     //size_t bytes_per_row = ((24 * image->width + 31) / 32) * 4;
-     size_t bytes_per_row = ((8 * image->width + 31) / 32) *4;
+     size_t bytes_per_row = ((24 * image->width + 31) / 32) * 4;
+     //size_t bytes_per_row = ((8 * image->width + 31) / 32) *4;
      
      //Prep header
      ImageHeader header;
