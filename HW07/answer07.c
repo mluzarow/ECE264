@@ -2,14 +2,26 @@
 #include <stdlib.h>
 
 #include "answer07.h"
+/*
+// A ListNode structure for a linked list of strings.
+typedef struct ListNode_st
+{
+    char * str;
+    struct ListNode_st * next;
+} List;
+*/
+
 
 /**
  * Create a new list-node with the passed string. 
  * str should be copied (with strdup).
  */
 List * List_createNode(const char * str) {
+     List * list = malloc(sizeof(List));
+     strdup(list_str, str);
+     list->next = NULL;
   
-  return(/*some list*/);
+     return(list);
 }
 
 /**
@@ -17,8 +29,11 @@ List * List_createNode(const char * str) {
  * constained strings. Must safely handle NULL lists.
  */
 void List_destroy(List * list) {
-  
-  
+     while (list != NULL) {
+          List * to_destroy = List;
+          list = list->next;
+          free(to_destroy);
+     }
 }
 
 /**
