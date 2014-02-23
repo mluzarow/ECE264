@@ -30,9 +30,6 @@ void intHelper(int value, int sum, int * buffer, int depth) {
 
 	  if (sum == value) {
                intPrinter(buffer, depth);
-	       /*if (depth != 0) {
-		    sum -= buffer[depth];
-		    }*/
 	  } else if (sum < value) { //Sum != value so another # can come after
 	       intHelper(value, sum, buffer, depth + 1);
 	  }
@@ -42,7 +39,10 @@ void intHelper(int value, int sum, int * buffer, int depth) {
 
 void partitionAll(int value) {
      int * buffer = malloc(sizeof(int) * value);
-     
+     int i = 0;
+     for (i = 0; i < value; i++) {
+       buffer[i] = 0;
+     }
 
      intHelper(value, 0, buffer, 0);
      free(buffer);
