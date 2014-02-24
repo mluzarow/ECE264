@@ -106,6 +106,48 @@ List * List_merge(List * lhs, List * rhs, int (*compar)(const char *, const char
  * approach.
  */
 List * List_sort(List * list, int (*compar)(const char *, const char*)) {
+     List * head = list;
+     List * a;
+     List * b;
   
-  return(/*some list*/);
+     if ((head == NULL) || (head->next == NULL)) {
+         return;
+     }
+  
+     //Split head into a and b sublists
+     SplitLists(head, &a, &b);   
+     
+     //Sort each sublist
+     
+  
+     return(/*some list*/);
+}
+
+void SplitLists(List * source, List ** frontRef, List ** backRef) {
+     List * fast;
+     List * slow;
+     
+     if ((source == NULL) || (source->next == NULL)) {
+          //length < 2
+          *frontRef = source;
+          *backRef = NULL;
+     } else {
+          slow = source;
+          fast = source->next;
+          
+          //Advance fast 2 nodes, advance slow 1 node
+          while (fast != NULL) {
+               fast = fast->next;
+               
+               if (fast != NULL) {
+                    slow = slow->next;
+                    fast = fast->next;
+               }
+          }
+          
+          //slow is before the midpoint in the list, so split it in 2
+          *frontRef = source;
+          *backRef = slow->next;
+          slow->next = NULL;
+     }
 }
