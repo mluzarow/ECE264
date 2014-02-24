@@ -18,9 +18,10 @@ typedef struct ListNode_st
  */
 List * List_createNode(const char * str) {
      List * list = malloc(sizeof(List));
-     strdup(list_str, str);
+     strdup(list->str, str);
      list->next = NULL;
-  
+    
+     list->next = list;
      return(list);
 }
 
@@ -29,10 +30,11 @@ List * List_createNode(const char * str) {
  * constained strings. Must safely handle NULL lists.
  */
 void List_destroy(List * list) {
-     while (list != NULL) {
-          List * to_destroy = List;
-          list = list->next;
-          free(to_destroy);
+    //The "list" is the head node 
+    while (list != NULL) {
+          List * to_destroy = list->next;
+          free(list);
+          list = to_destroy;
      }
 }
 
