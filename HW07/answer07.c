@@ -43,8 +43,15 @@ void List_destroy(List * list) {
  * The length of "NULL" is 0.
  */
 int List_length(List * list) {
+     List * n_search = list;
+     int length = 0;
+     
+     while (n_search != NULL) {
+          length++;
+          n_search = n_search->next;
+     }
   
-  return(/*some int*/);
+     return(length);
 }
 
 /**
