@@ -4,7 +4,7 @@
 
 #include "answer07.h"
 
-void SplitLitsts(List*, List**, List**);
+void SplitLists(List*, List**, List**);
 
 /*
 // A ListNode structure for a linked list of strings.
@@ -33,12 +33,16 @@ List * List_createNode(const char * str) {
  * constained strings. Must safely handle NULL lists.
  */
 void List_destroy(List * list) {
-    //The "list" is the head node 
-    while (list != NULL) {
-          List * to_destroy = list->next;
-          free(list);
-          list = to_destroy;
+     List * current = list;
+     List * next;
+
+     //The "list" is the head node 
+     while (current != NULL) {
+          next = current->next;
+	  free(current);
+	  current = next;
      }
+     list = NULL;
 }
 
 /**
