@@ -1,7 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "answer07.h"
+
+void SplitLitsts(List*, List**, List**);
+
 /*
 // A ListNode structure for a linked list of strings.
 typedef struct ListNode_st
@@ -11,14 +15,13 @@ typedef struct ListNode_st
 } List;
 */
 
-
 /**
  * Create a new list-node with the passed string. 
  * str should be copied (with strdup).
  */
 List * List_createNode(const char * str) {
      List * list = malloc(sizeof(List));
-     strdup(list->str, str);
+     list->str =  strdup(str);
      list->next = NULL;
     
      list->next = list;
@@ -81,8 +84,24 @@ int List_length(List * list) {
  * approach.
  */
 List * List_merge(List * lhs, List * rhs, int (*compar)(const char *, const char*)) {
-  
-  return(/*some list*/);
+     List * merged = NULL;
+     
+     //base
+     if (lhs == NULL) {
+          return(rhs);
+     } else if (rhs == NULL) {
+          return(lhs);
+     }
+
+     //recursion
+     if (strcmp(lhs->str, rhs->str) <= 0) {
+          merged = lhs;
+	  merged->next = List_merge(lhs->next, rhs, strcmp);
+     } else {
+          merged = rhs;
+	  merged-> next = List_merge(lhs, rhs->next, strcmp);
+     }
+     return(merged);
 }
 
 /** 
@@ -111,7 +130,7 @@ List * List_sort(List * list, int (*compar)(const char *, const char*)) {
      List * b;
   
      if ((head == NULL) || (head->next == NULL)) {
-         return;
+       return(a);
      }
   
      //Split head into a and b sublists
@@ -120,7 +139,7 @@ List * List_sort(List * list, int (*compar)(const char *, const char*)) {
      //Sort each sublist
      
   
-     return(/*some list*/);
+     return(a);
 }
 
 void SplitLists(List * source, List ** frontRef, List ** backRef) {
