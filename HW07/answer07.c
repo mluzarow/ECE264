@@ -4,6 +4,7 @@
 
 #include "answer07.h"
 
+//function for splitting lists to sort
 void SplitLists(List*, List**, List**);
 
 /*
@@ -21,10 +22,9 @@ typedef struct ListNode_st
  */
 List * List_createNode(const char * str) {
      List * list = malloc(sizeof(List));
-     list->str =  strdup(str);
+     list->str = strdup(str);
      list->next = NULL;
     
-     list->next = list;
      return(list);
 }
 
@@ -39,6 +39,7 @@ void List_destroy(List * list) {
      //The "list" is the head node 
      while (current != NULL) {
           next = current->next;
+	  free(current->str);
 	  free(current);
 	  current = next;
      }
@@ -98,7 +99,7 @@ List * List_merge(List * lhs, List * rhs, int (*compar)(const char *, const char
      }
 
      //recursion
-     if (strcmp(lhs->str, rhs->str) <= 0) {
+     if (compar(lhs->str, rhs->str) <= 0) {
           merged = lhs;
 	  merged->next = List_merge(lhs->next, rhs, strcmp);
      } else {
@@ -132,9 +133,13 @@ List * List_sort(List * list, int (*compar)(const char *, const char*)) {
      List * head = list;
      List * a;
      List * b;
+
+     if (list == NULL) {
+          return(NULL);
+     }
   
      if ((head == NULL) || (head->next == NULL)) {
-       return(a);
+          return(a);
      }
   
      //Split head into a and b sublists
