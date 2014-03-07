@@ -98,13 +98,19 @@ List * List_merge(List * lhs, List * rhs, int (*compar)(const char *, const char
           return(lhs);
      }
 
+     //check compar function for direction
+     //if (compar("b", "a") < 0 ) { //function is backwards
+       //if (strcmp(lhs->str, rhs->str) > 0) {
+	 //merged = lhs;
+	 // merged->next = List_merged(lhs->next, rhs, strcmp
+     //}  
      //recursion
-     if (compar(lhs->str, rhs->str) <= 0) {
+     if (compar(lhs->str, rhs->str) <= 0) { //lhs->str <= rhs->str
           merged = lhs;
-	  merged->next = List_merge(lhs->next, rhs, strcmp);
-     } else {
+	  merged->next = List_merge(lhs->next, rhs, compar);
+     } else {  //lhs->str > rhs->str
           merged = rhs;
-	  merged-> next = List_merge(lhs, rhs->next, strcmp);
+	  merged->next = List_merge(lhs, rhs->next, compar);
      }
      return(merged);
 }
