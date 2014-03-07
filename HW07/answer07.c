@@ -139,22 +139,49 @@ List * List_sort(List * list, int (*compar)(const char *, const char*)) {
      List * head = list;
      List * a;
      List * b;
-
-     if (list == NULL) {
-          return(NULL);
+     List * done;
+     if ((head == NULL) || (head->next == NULL)) { //given a blank list
+          return(head);
      }
   
-     if ((head == NULL) || (head->next == NULL)) {
-          return(a);
-     }
+     //if ((head == NULL) || (head->next == NULL)) {
+     //return(a);
+	  //}
   
      //Split head into a and b sublists
-     SplitLists(head, &a, &b);   
+     //SplitLists(head, &a, &b);   
      
+     List * fast;
+     List * slow;
+     List * fRef;
+     List * bRef;
+
+     if ((head == NULL) || (head->next == NULL)) {
+       //length < 2
+       fRef = head;
+       bRef = NULL;
+     } else {
+       slow = head;
+       fast = head->next;
+       
+       //Advance fast 2 nodes, slow 1 node
+       while (fast != NULL) {
+	 fast = fast->next;
+
+	 if (fast != NULL) {
+	   fast = fast->next;
+	   slow = slow->next;
+	 }
+       }
+       
+       fRef = head;
+       bRef = slow->next;
+       slow->next = NULL;
+    }
      //Sort each sublist
-     
-  
-     return(a);
+     //done
+     done = List_merge(fRef, bRef, compar);
+     return(done);
 }
 
 void SplitLists(List * source, List ** frontRef, List ** backRef) {
