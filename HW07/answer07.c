@@ -137,20 +137,15 @@ List * List_merge(List * lhs, List * rhs, int (*compar)(const char *, const char
  */
 List * List_sort(List * list, int (*compar)(const char *, const char*)) {
      List * head = list;
-     List * a;
-     List * b;
+     //List * a;
+     //List * b;
      List * done;
      if ((head == NULL) || (head->next == NULL)) { //given a blank list
           return(head);
      }
   
-     //if ((head == NULL) || (head->next == NULL)) {
-     //return(a);
-	  //}
-  
      //Split head into a and b sublists
-     //SplitLists(head, &a, &b);   
-     
+     //SplitLists(head, &a, &b);      
      List * fast;
      List * slow;
      List * fRef;
@@ -178,6 +173,9 @@ List * List_sort(List * list, int (*compar)(const char *, const char*)) {
        bRef = slow->next;
        slow->next = NULL;
     }
+
+     fRef = List_sort(fRef, compar);
+     bRef = List_sort(bRef, compar);
      //Sort each sublist
      //done
      done = List_merge(fRef, bRef, compar);
