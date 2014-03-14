@@ -81,15 +81,57 @@ void SparseArray_destroy(SparseNode * array) {
 }
 
 int SparseArray_getMin(SparseNode * array) {
-     int minVal = 0;
+     SparseNode * current = array;
+     SparseNode * nleft = NULL;
+     SparseNode * nright = NULL;
+     int tempInd = 0;
+     int minInd = 999999;
 
-     return(minVal);
+     if (current != NULL) {
+          nleft = current->left;
+          nright = current->right;
+	  
+	  if (minInd > current->index) {
+	       minInd = current->index;
+	  }
+	  tempInd = SparseArray_getMin(nleft);
+	  if (minInd > tempInd) {
+	       minInd = tempInd;
+	  }
+	  tempInd = SparseArray_getMin(nright);
+	  if (minInd > tempInd) {
+	       minInd = tempInd;
+	  }
+     }
+
+     return(minInd);
 }
 
 int SparseArray_getMax(SparseNode * array) {
-    int maxVal = 0;
+     SparseNode * current = array;  
+     SparseNode * nleft = NULL;
+     SparseNode * nright = NULL;
+     int tempInd = 0;
+     int maxInd = 1;
 
-    return(maxVal);
+     if (current != NULL) {
+          nleft = current->left;
+	  nright = current->right;
+	  
+	  if (maxInd < current->index) {
+	       maxInd = current->index;
+	  }
+	  tempInd = SparseArray_getMax(nleft);
+	  if (maxInd < tempInd) {
+	       maxInd = tempInd;
+	  }
+	  tempInd = SparseArray_getMax(nright);
+	  if (maxInd < tempInd) {
+	       maxInd = tempInd;
+	  }
+     }
+
+    return(maxInd);
 }
 
 SparseNode * SparseArray_getNode(SparseNode * array, int index) {
