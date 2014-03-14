@@ -1,6 +1,8 @@
 #include <stdlib.h>
 #include "answer08.h"
 
+SparseNode* CopyHelper(SparseNode*, SparseNode*);
+
 SparseNode * SparseNode_create(int index, int value) {
      SparseNode * list = malloc(sizeof(SparseNode));
      list->index = index; //(*list).index = index;
@@ -164,6 +166,10 @@ SparseNode * SparseArray_getNode(SparseNode * array, int index) {
 SparseNode * SparseArray_remove(SparseNode * array, int index) {
      SparseNode * list = NULL;
 
+     list = SparseArray_getNode(array, index);
+
+     
+
      return(list);
 }
 
@@ -174,9 +180,26 @@ SparseNode * SparseArray_copy(SparseNode * array) {
           list = SparseNode_create(array->index, array->value);
      }
      
-     //while (1) {
-       
-     //}
+     list = CopyHelper(list, array);
+
+     return(list);
+}
+
+SparseNode * CopyHelper(SparseNode * list, SparseNode * array) {
+     SparseNode * nleft = NULL;
+     SparseNode * nright = NULL;
+     
+     nleft = array->left;
+     nright = array->right;
+
+     if (nleft != NULL) {
+          list->left = SparseNode_create(nleft->index, nleft->value);
+	  list->left = CopyHelper(list->left, array->left);
+     }
+     if (nright != NULL) {
+          list->right = SparseNode_create(nright->index, nright->value);
+	  list->right = CopyHelper(list->right, array->right);
+     }
 
      return(list);
 }
