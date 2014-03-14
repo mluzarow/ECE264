@@ -227,14 +227,6 @@ SparseNode * SparseArray_remove(SparseNode * array, int index) {
 	  free(child);
 	  return(list);
      }
-     //list = SparseArray_getNode(array, index);
-     
-
-
-
-     //if ((list->left == NULL) && (list->right == NULL)) {
-     //   free(list);
-     //}
 
      return(list);
 }
@@ -308,23 +300,5 @@ SparseNode * SparseArray_merge(SparseNode * array_1, SparseNode * array_2) {
           return(array_1);
      } 
 
-     /*     if (list1->index > list2->index) {
-          temp = list2->left;
-	  list2->left = NULL;
-	  list1->left = SparseArray_merge(list1->right, list2);
-	  list1 = SparseArray_merge(list1, temp);
-	  return(list1);
-     } else if (list1->index < list2->index) {
-          temp = list2->left;
-	  list2->left = NULL;
-	  list1->right = SparseArray_merge(list1->right, list2);
-	  list1 = SparseArray_merge(list1, temp);
-	  return(list1);
-     } else {
-          list1->left = SparseArray_merge(list1->left, list2->left);
-	  list1->right = SparseArray_merge(list1->right, list2->right);
-	  return(list1);
-     }
-     */
      return(list1);
 }
