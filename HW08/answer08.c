@@ -2,7 +2,7 @@
 #include "answer08.h"
 
 SparseNode* CopyHelper(SparseNode*, SparseNode*);
-void RemoveHelper(SparseNode*, int, SparseNode**, SparseNode**);
+void RemoveHelper(SparseNode*, int, SparseNode**, SparseNode**, int*);
 
 SparseNode * SparseNode_create(int index, int value) {
      SparseNode * list = malloc(sizeof(SparseNode));
@@ -169,12 +169,17 @@ SparseNode * SparseArray_remove(SparseNode * array, int index) {
      SparseNode * parent = NULL;
      SparseNode * child = NULL;
      SparseNode * suc = NULL;
+     int exists = 0;
 
-     if (array == NULL) {//no array
-          return(NULL);
+     if ((array == NULL) || (index == 0)) {//no array
+          return(array);
      }
 
-     RemoveHelper(array, index, &parent, &child);
+     RemoveHelper(array, index, &parent, &child, &exists);
+
+     if (exists == 0) {
+          return(array);
+     }
 
      if ((child->left != NULL) && (child->right != NULL)) {
           parent = child;
@@ -234,14 +239,16 @@ SparseNode * SparseArray_remove(SparseNode * array, int index) {
      return(list);
 }
 
-void RemoveHelper(SparseNode * array, int index, SparseNode ** parent, SparseNode ** child) {
+void RemoveHelper(SparseNode * array, int index, SparseNode ** parent, SparseNode ** child, int * exists) {
      SparseNode * temp = NULL;
      
      temp = array;
+     *exists = 0;
      *parent = NULL;
 
      while (temp != NULL) {
           if (temp->index == index) {
+	       *exists = 1;
 	       *child = temp;
 	       return;
 	  }
@@ -289,7 +296,35 @@ SparseNode * CopyHelper(SparseNode * list, SparseNode * array) {
 }
 
 SparseNode * SparseArray_merge(SparseNode * array_1, SparseNode * array_2) {
-     SparseNode * list = NULL;
+     SparseNode * list1 = array_1;
+     SparseNode * list2 = array_2;
+     SparseNode * temp = NULL;
 
-     return(list);
+     if ((array_1 == NULL) && (array_2 == NULL)) {
+          return(NULL);
+     } else if (array_1 == NULL) {
+          return(array_2);
+     } else if (array_2 == NULL) {
+          return(array_1);
+     } 
+
+     /*     if (list1->index > list2->index) {
+          temp = list2->left;
+	  list2->left = NULL;
+	  list1->left = SparseArray_merge(list1->right, list2);
+	  list1 = SparseArray_merge(list1, temp);
+	  return(list1);
+     } else if (list1->index < list2->index) {
+          temp = list2->left;
+	  list2->left = NULL;
+	  list1->right = SparseArray_merge(list1->right, list2);
+	  list1 = SparseArray_merge(list1, temp);
+	  return(list1);
+     } else {
+          list1->left = SparseArray_merge(list1->left, list2->left);
+	  list1->right = SparseArray_merge(list1->right, list2->right);
+	  return(list1);
+     }
+     */
+     return(list1);
 }
