@@ -5,6 +5,11 @@
 #define TRUE 1
 #define FALSE 0
 
+int tests_SparseArray_insert(int);
+static void SparseNode_toArrayHelper(SparseNode * node, int ** indices, int ** values);
+static int cmp_array(SparseNode * ans, SparseNode * sol);
+static void print_array(SparseNode * array, int len);
+
 int main (int argc, char ** argv) {
 
   tests_SparseArray_insert(1);
@@ -61,14 +66,14 @@ int tests_SparseArray_insert(int test_number) {
     }
     return success;
 }
-
+/*
 static int SparseNode_size(SparseNode * node)
 {
     if(node == NULL)
 return 0;
     return 1 + SparseNode_size(node->left) + SparseNode_size(node->right);
 }
-
+*/
 static void SparseNode_toArrayHelper(SparseNode * node, int ** indices, int ** values)
 {
     if(node == NULL)
@@ -146,7 +151,7 @@ static int cmp_array(SparseNode * ans, SparseNode * sol) {
     /* return FALSE; */
     /* } */
 }
-
+/*
 static int digits(int x) {
     int num = 0;
     if(x < 0) {
@@ -159,7 +164,7 @@ static int digits(int x) {
     }
     return num;
 }
-
+*/
 static void print_array(SparseNode * array, int len) {
     if(array == NULL) {
         return;
@@ -182,7 +187,7 @@ static void print_array(SparseNode * array, int len) {
         print_array(array->left, len+2);
     }
 }
-
+/*
 static SparseNode * make_array(int array_number)
 {
     int a0[2][4] = { {1,3,0,8}, {5,3,6,4} };
@@ -212,4 +217,4 @@ static SparseNode * make_array(int array_number)
     }
     return NULL;
 }
-
+*/
