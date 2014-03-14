@@ -16,6 +16,13 @@ Testcase 74
                        ->(4,-30)->(7,20)
    Merge Node:
    Student result after merge:
+   (20,59)->(30,3)
+                  ->(25,100)
+          ->(8,-3)->(19,5)
+                          ->(18,2)
+                                  ->(17,7)
+                                          ->(15,-3)->(16,4)
+                  ->(6,20)
    Solution result after merge:
    (20,59)->(30,3)
                   ->(25,103)
@@ -29,4 +36,6 @@ Testcase 74
                          ->(4,-30)
                                   ->(1,5)
    Checking if result tree is the same...
+   Memory errors detected.
+   Valgrind log saved in output-tester/testcase-74.memcheck.log.
 Testcase FAILED. Log file saved to testcase-74.log

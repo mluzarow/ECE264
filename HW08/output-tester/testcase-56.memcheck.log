@@ -1,737 +1,737 @@
-==29283== Memcheck, a memory error detector
-==29283== Copyright (C) 2002-2012, and GNU GPL'd, by Julian Seward et al.
-==29283== Using Valgrind-3.8.1 and LibVEX; rerun with -h for copyright info
-==29283== Command: ./a.out 55
-==29283== Parent PID: 29282
-==29283== 
---29283-- 
---29283-- Valgrind options:
---29283--    --tool=memcheck
---29283--    --leak-check=full
---29283--    --verbose
---29283--    --log-file=memcheck.log
---29283-- Contents of /proc/version:
---29283--   Linux version 2.6.32-431.5.1.el6.x86_64 (mockbuild@x86-002.build.bos.redhat.com) (gcc version 4.4.7 20120313 (Red Hat 4.4.7-4) (GCC) ) #1 SMP Fri Jan 10 14:46:43 EST 2014
---29283-- Arch and hwcaps: AMD64, amd64-sse3-cx16
---29283-- Page sizes: currently 4096, max supported 4096
---29283-- Valgrind library directory: /usr/lib64/valgrind
---29283-- Reading syms from /tmp/.ejpEwg/a.out
---29283-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux
---29283--    object doesn't have a dynamic symbol table
---29283-- Reading syms from /lib64/ld-2.12.so
---29283-- Scheduler: using generic scheduler lock implementation.
---29283-- Reading suppressions file: /usr/lib64/valgrind/default.supp
-==29283== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-29283-by-mluzarow-on-ecelinux24.ecn.purdue.edu
-==29283== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-29283-by-mluzarow-on-ecelinux24.ecn.purdue.edu
-==29283== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-29283-by-mluzarow-on-ecelinux24.ecn.purdue.edu
-==29283== 
-==29283== TO CONTROL THIS PROCESS USING vgdb (which you probably
-==29283== don't want to do, unless you know exactly what you're doing,
-==29283== or are doing some strange experiment):
-==29283==   /usr/lib64/valgrind/../../bin/vgdb --pid=29283 ...command...
-==29283== 
-==29283== TO DEBUG THIS PROCESS USING GDB: start GDB like this
-==29283==   /path/to/gdb ./a.out
-==29283== and then give GDB the following command
-==29283==   target remote | /usr/lib64/valgrind/../../bin/vgdb --pid=29283
-==29283== --pid is optional if only one valgrind process is running
-==29283== 
---29283-- REDIR: 0x3600e17530 (strlen) redirected to 0x38049551 (vgPlain_amd64_linux_REDIR_FOR_strlen)
---29283-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so
---29283-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so
---29283-- REDIR: 0x3600e173a0 (index) redirected to 0x4a07bf0 (index)
---29283-- REDIR: 0x3600e17420 (strcmp) redirected to 0x4a08530 (strcmp)
---29283-- Reading syms from /lib64/libc-2.12.so
---29283-- REDIR: 0x3601284fb0 (strcasecmp) redirected to 0x480155c (_vgnU_ifunc_wrapper)
---29283-- REDIR: 0x3601287270 (strncasecmp) redirected to 0x480155c (_vgnU_ifunc_wrapper)
---29283-- REDIR: 0x3601282f20 (__GI_strrchr) redirected to 0x4a07a70 (__GI_strrchr)
---29283-- REDIR: 0x360128add0 (strchrnul) redirected to 0x4a09f10 (strchrnul)
---29283-- REDIR: 0x36012847e0 (mempcpy) redirected to 0x4a09f80 (mempcpy)
---29283-- REDIR: 0x360127b800 (free) redirected to 0x4a06369 (free)
---29283-- REDIR: 0x360127a920 (malloc) redirected to 0x4a0696c (malloc)
---29283-- REDIR: 0x3601281440 (__GI_strlen) redirected to 0x4a07f70 (__GI_strlen)
-==29283== Invalid read of size 4
-==29283==    at 0x401747: print_array (test_support_functions.c:107)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x4017C0: print_array (test_support_functions.c:111)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x402C9E: tests_SparseArray_remove (test_SparseArray_remove.c:35)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c396a4 is 4 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x400CAB: SparseArray_remove (answer08.c:211)
-==29283==    by 0x402C67: tests_SparseArray_remove (test_SparseArray_remove.c:32)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== Invalid read of size 4
-==29283==    at 0x40174E: print_array (test_support_functions.c:107)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x4017C0: print_array (test_support_functions.c:111)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x402C9E: tests_SparseArray_remove (test_SparseArray_remove.c:35)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c396a0 is 0 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x400CAB: SparseArray_remove (answer08.c:211)
-==29283==    by 0x402C67: tests_SparseArray_remove (test_SparseArray_remove.c:32)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== Invalid read of size 4
-==29283==    at 0x401768: print_array (test_support_functions.c:108)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x4017C0: print_array (test_support_functions.c:111)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x402C9E: tests_SparseArray_remove (test_SparseArray_remove.c:35)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c396a0 is 0 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x400CAB: SparseArray_remove (answer08.c:211)
-==29283==    by 0x402C67: tests_SparseArray_remove (test_SparseArray_remove.c:32)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== Invalid read of size 4
-==29283==    at 0x401777: print_array (test_support_functions.c:108)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x4017C0: print_array (test_support_functions.c:111)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x402C9E: tests_SparseArray_remove (test_SparseArray_remove.c:35)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c396a4 is 4 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x400CAB: SparseArray_remove (answer08.c:211)
-==29283==    by 0x402C67: tests_SparseArray_remove (test_SparseArray_remove.c:32)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== Invalid read of size 8
-==29283==    at 0x40178E: print_array (test_support_functions.c:109)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x4017C0: print_array (test_support_functions.c:111)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x402C9E: tests_SparseArray_remove (test_SparseArray_remove.c:35)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c396b0 is 16 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x400CAB: SparseArray_remove (answer08.c:211)
-==29283==    by 0x402C67: tests_SparseArray_remove (test_SparseArray_remove.c:32)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== Invalid read of size 8
-==29283==    at 0x4017B3: print_array (test_support_functions.c:111)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x4017C0: print_array (test_support_functions.c:111)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x402C9E: tests_SparseArray_remove (test_SparseArray_remove.c:35)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c396b0 is 16 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x400CAB: SparseArray_remove (answer08.c:211)
-==29283==    by 0x402C67: tests_SparseArray_remove (test_SparseArray_remove.c:32)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== Invalid read of size 8
-==29283==    at 0x4017D1: print_array (test_support_functions.c:116)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x4017C0: print_array (test_support_functions.c:111)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x402C9E: tests_SparseArray_remove (test_SparseArray_remove.c:35)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c396a8 is 8 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x400CAB: SparseArray_remove (answer08.c:211)
-==29283==    by 0x402C67: tests_SparseArray_remove (test_SparseArray_remove.c:32)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== Invalid read of size 8
-==29283==    at 0x401470: SparseNode_size (test_support_functions.c:9)
-==29283==    by 0x40147B: SparseNode_size (test_support_functions.c:9)
-==29283==    by 0x40147B: SparseNode_size (test_support_functions.c:9)
-==29283==    by 0x40147B: SparseNode_size (test_support_functions.c:9)
-==29283==    by 0x40148E: SparseNode_size (test_support_functions.c:9)
-==29283==    by 0x40147B: SparseNode_size (test_support_functions.c:9)
-==29283==    by 0x40154D: SparseNode_compare (test_support_functions.c:26)
-==29283==    by 0x4016DC: cmp_array (test_support_functions.c:66)
-==29283==    by 0x402CD6: tests_SparseArray_remove (test_SparseArray_remove.c:40)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c396a8 is 8 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x400CAB: SparseArray_remove (answer08.c:211)
-==29283==    by 0x402C67: tests_SparseArray_remove (test_SparseArray_remove.c:32)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== Invalid read of size 8
-==29283==    at 0x401483: SparseNode_size (test_support_functions.c:9)
-==29283==    by 0x40147B: SparseNode_size (test_support_functions.c:9)
-==29283==    by 0x40147B: SparseNode_size (test_support_functions.c:9)
-==29283==    by 0x40147B: SparseNode_size (test_support_functions.c:9)
-==29283==    by 0x40148E: SparseNode_size (test_support_functions.c:9)
-==29283==    by 0x40147B: SparseNode_size (test_support_functions.c:9)
-==29283==    by 0x40154D: SparseNode_compare (test_support_functions.c:26)
-==29283==    by 0x4016DC: cmp_array (test_support_functions.c:66)
-==29283==    by 0x402CD6: tests_SparseArray_remove (test_SparseArray_remove.c:40)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c396b0 is 16 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x400CAB: SparseArray_remove (answer08.c:211)
-==29283==    by 0x402C67: tests_SparseArray_remove (test_SparseArray_remove.c:32)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== Invalid read of size 8
-==29283==    at 0x4014B8: SparseNode_toArrayHelper (test_support_functions.c:16)
-==29283==    by 0x4014CE: SparseNode_toArrayHelper (test_support_functions.c:16)
-==29283==    by 0x4014CE: SparseNode_toArrayHelper (test_support_functions.c:16)
-==29283==    by 0x4014CE: SparseNode_toArrayHelper (test_support_functions.c:16)
-==29283==    by 0x40152C: SparseNode_toArrayHelper (test_support_functions.c:21)
-==29283==    by 0x4014CE: SparseNode_toArrayHelper (test_support_functions.c:16)
-==29283==    by 0x4015DA: SparseNode_compare (test_support_functions.c:37)
-==29283==    by 0x4016DC: cmp_array (test_support_functions.c:66)
-==29283==    by 0x402CD6: tests_SparseArray_remove (test_SparseArray_remove.c:40)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c396a8 is 8 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x400CAB: SparseArray_remove (answer08.c:211)
-==29283==    by 0x402C67: tests_SparseArray_remove (test_SparseArray_remove.c:32)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== Invalid read of size 4
-==29283==    at 0x4014DA: SparseNode_toArrayHelper (test_support_functions.c:17)
-==29283==    by 0x4014CE: SparseNode_toArrayHelper (test_support_functions.c:16)
-==29283==    by 0x4014CE: SparseNode_toArrayHelper (test_support_functions.c:16)
-==29283==    by 0x4014CE: SparseNode_toArrayHelper (test_support_functions.c:16)
-==29283==    by 0x40152C: SparseNode_toArrayHelper (test_support_functions.c:21)
-==29283==    by 0x4014CE: SparseNode_toArrayHelper (test_support_functions.c:16)
-==29283==    by 0x4015DA: SparseNode_compare (test_support_functions.c:37)
-==29283==    by 0x4016DC: cmp_array (test_support_functions.c:66)
-==29283==    by 0x402CD6: tests_SparseArray_remove (test_SparseArray_remove.c:40)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c396a0 is 0 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x400CAB: SparseArray_remove (answer08.c:211)
-==29283==    by 0x402C67: tests_SparseArray_remove (test_SparseArray_remove.c:32)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== Invalid read of size 4
-==29283==    at 0x4014E9: SparseNode_toArrayHelper (test_support_functions.c:18)
-==29283==    by 0x4014CE: SparseNode_toArrayHelper (test_support_functions.c:16)
-==29283==    by 0x4014CE: SparseNode_toArrayHelper (test_support_functions.c:16)
-==29283==    by 0x4014CE: SparseNode_toArrayHelper (test_support_functions.c:16)
-==29283==    by 0x40152C: SparseNode_toArrayHelper (test_support_functions.c:21)
-==29283==    by 0x4014CE: SparseNode_toArrayHelper (test_support_functions.c:16)
-==29283==    by 0x4015DA: SparseNode_compare (test_support_functions.c:37)
-==29283==    by 0x4016DC: cmp_array (test_support_functions.c:66)
-==29283==    by 0x402CD6: tests_SparseArray_remove (test_SparseArray_remove.c:40)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c396a4 is 4 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x400CAB: SparseArray_remove (answer08.c:211)
-==29283==    by 0x402C67: tests_SparseArray_remove (test_SparseArray_remove.c:32)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== Invalid read of size 8
-==29283==    at 0x401516: SparseNode_toArrayHelper (test_support_functions.c:21)
-==29283==    by 0x4014CE: SparseNode_toArrayHelper (test_support_functions.c:16)
-==29283==    by 0x4014CE: SparseNode_toArrayHelper (test_support_functions.c:16)
-==29283==    by 0x4014CE: SparseNode_toArrayHelper (test_support_functions.c:16)
-==29283==    by 0x40152C: SparseNode_toArrayHelper (test_support_functions.c:21)
-==29283==    by 0x4014CE: SparseNode_toArrayHelper (test_support_functions.c:16)
-==29283==    by 0x4015DA: SparseNode_compare (test_support_functions.c:37)
-==29283==    by 0x4016DC: cmp_array (test_support_functions.c:66)
-==29283==    by 0x402CD6: tests_SparseArray_remove (test_SparseArray_remove.c:40)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c396b0 is 16 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x400CAB: SparseArray_remove (answer08.c:211)
-==29283==    by 0x402C67: tests_SparseArray_remove (test_SparseArray_remove.c:32)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== Invalid read of size 8
-==29283==    at 0x40104D: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401068: SparseArray_destroy_sol (<stdin>:49)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x402D07: tests_SparseArray_remove (test_SparseArray_remove.c:49)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c396a8 is 8 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x400CAB: SparseArray_remove (answer08.c:211)
-==29283==    by 0x402C67: tests_SparseArray_remove (test_SparseArray_remove.c:32)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== Invalid read of size 8
-==29283==    at 0x40105D: SparseArray_destroy_sol (<stdin>:49)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401068: SparseArray_destroy_sol (<stdin>:49)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x402D07: tests_SparseArray_remove (test_SparseArray_remove.c:49)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c396b0 is 16 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x400CAB: SparseArray_remove (answer08.c:211)
-==29283==    by 0x402C67: tests_SparseArray_remove (test_SparseArray_remove.c:32)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== Invalid free() / delete / delete[] / realloc()
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x401074: SparseArray_destroy_sol (<stdin>:50)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401068: SparseArray_destroy_sol (<stdin>:49)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x402D07: tests_SparseArray_remove (test_SparseArray_remove.c:49)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c396a0 is 0 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x400CAB: SparseArray_remove (answer08.c:211)
-==29283==    by 0x402C67: tests_SparseArray_remove (test_SparseArray_remove.c:32)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== Invalid read of size 8
-==29283==    at 0x40104D: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401068: SparseArray_destroy_sol (<stdin>:49)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401068: SparseArray_destroy_sol (<stdin>:49)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x402D07: tests_SparseArray_remove (test_SparseArray_remove.c:49)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c39708 is 8 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x401074: SparseArray_destroy_sol (<stdin>:50)
-==29283==    by 0x401068: SparseArray_destroy_sol (<stdin>:49)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401068: SparseArray_destroy_sol (<stdin>:49)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x402D07: tests_SparseArray_remove (test_SparseArray_remove.c:49)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== Invalid read of size 8
-==29283==    at 0x40105D: SparseArray_destroy_sol (<stdin>:49)
-==29283==    by 0x401068: SparseArray_destroy_sol (<stdin>:49)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401068: SparseArray_destroy_sol (<stdin>:49)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x402D07: tests_SparseArray_remove (test_SparseArray_remove.c:49)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c39710 is 16 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x401074: SparseArray_destroy_sol (<stdin>:50)
-==29283==    by 0x401068: SparseArray_destroy_sol (<stdin>:49)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401068: SparseArray_destroy_sol (<stdin>:49)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x402D07: tests_SparseArray_remove (test_SparseArray_remove.c:49)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== Invalid free() / delete / delete[] / realloc()
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x401074: SparseArray_destroy_sol (<stdin>:50)
-==29283==    by 0x401068: SparseArray_destroy_sol (<stdin>:49)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401068: SparseArray_destroy_sol (<stdin>:49)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x402D07: tests_SparseArray_remove (test_SparseArray_remove.c:49)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c39700 is 0 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x401074: SparseArray_destroy_sol (<stdin>:50)
-==29283==    by 0x401068: SparseArray_destroy_sol (<stdin>:49)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401068: SparseArray_destroy_sol (<stdin>:49)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x402D07: tests_SparseArray_remove (test_SparseArray_remove.c:49)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== 
-==29283== HEAP SUMMARY:
-==29283==     in use at exit: 0 bytes in 0 blocks
-==29283==   total heap usage: 24 allocs, 26 frees, 640 bytes allocated
-==29283== 
-==29283== All heap blocks were freed -- no leaks are possible
-==29283== 
-==29283== ERROR SUMMARY: 19 errors from 19 contexts (suppressed: 6 from 6)
-==29283== 
-==29283== 1 errors in context 1 of 19:
-==29283== Invalid free() / delete / delete[] / realloc()
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x401074: SparseArray_destroy_sol (<stdin>:50)
-==29283==    by 0x401068: SparseArray_destroy_sol (<stdin>:49)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401068: SparseArray_destroy_sol (<stdin>:49)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x402D07: tests_SparseArray_remove (test_SparseArray_remove.c:49)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c39700 is 0 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x401074: SparseArray_destroy_sol (<stdin>:50)
-==29283==    by 0x401068: SparseArray_destroy_sol (<stdin>:49)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401068: SparseArray_destroy_sol (<stdin>:49)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x402D07: tests_SparseArray_remove (test_SparseArray_remove.c:49)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== 
-==29283== 1 errors in context 2 of 19:
-==29283== Invalid read of size 8
-==29283==    at 0x40105D: SparseArray_destroy_sol (<stdin>:49)
-==29283==    by 0x401068: SparseArray_destroy_sol (<stdin>:49)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401068: SparseArray_destroy_sol (<stdin>:49)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x402D07: tests_SparseArray_remove (test_SparseArray_remove.c:49)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c39710 is 16 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x401074: SparseArray_destroy_sol (<stdin>:50)
-==29283==    by 0x401068: SparseArray_destroy_sol (<stdin>:49)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401068: SparseArray_destroy_sol (<stdin>:49)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x402D07: tests_SparseArray_remove (test_SparseArray_remove.c:49)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== 
-==29283== 1 errors in context 3 of 19:
-==29283== Invalid read of size 8
-==29283==    at 0x40104D: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401068: SparseArray_destroy_sol (<stdin>:49)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401068: SparseArray_destroy_sol (<stdin>:49)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x402D07: tests_SparseArray_remove (test_SparseArray_remove.c:49)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c39708 is 8 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x401074: SparseArray_destroy_sol (<stdin>:50)
-==29283==    by 0x401068: SparseArray_destroy_sol (<stdin>:49)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401068: SparseArray_destroy_sol (<stdin>:49)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x402D07: tests_SparseArray_remove (test_SparseArray_remove.c:49)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== 
-==29283== 1 errors in context 4 of 19:
-==29283== Invalid free() / delete / delete[] / realloc()
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x401074: SparseArray_destroy_sol (<stdin>:50)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401068: SparseArray_destroy_sol (<stdin>:49)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x402D07: tests_SparseArray_remove (test_SparseArray_remove.c:49)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c396a0 is 0 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x400CAB: SparseArray_remove (answer08.c:211)
-==29283==    by 0x402C67: tests_SparseArray_remove (test_SparseArray_remove.c:32)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== 
-==29283== 1 errors in context 5 of 19:
-==29283== Invalid read of size 8
-==29283==    at 0x40105D: SparseArray_destroy_sol (<stdin>:49)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401068: SparseArray_destroy_sol (<stdin>:49)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x402D07: tests_SparseArray_remove (test_SparseArray_remove.c:49)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c396b0 is 16 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x400CAB: SparseArray_remove (answer08.c:211)
-==29283==    by 0x402C67: tests_SparseArray_remove (test_SparseArray_remove.c:32)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== 
-==29283== 1 errors in context 6 of 19:
-==29283== Invalid read of size 8
-==29283==    at 0x40104D: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x401068: SparseArray_destroy_sol (<stdin>:49)
-==29283==    by 0x401058: SparseArray_destroy_sol (<stdin>:48)
-==29283==    by 0x402D07: tests_SparseArray_remove (test_SparseArray_remove.c:49)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c396a8 is 8 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x400CAB: SparseArray_remove (answer08.c:211)
-==29283==    by 0x402C67: tests_SparseArray_remove (test_SparseArray_remove.c:32)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== 
-==29283== 1 errors in context 7 of 19:
-==29283== Invalid read of size 8
-==29283==    at 0x401516: SparseNode_toArrayHelper (test_support_functions.c:21)
-==29283==    by 0x4014CE: SparseNode_toArrayHelper (test_support_functions.c:16)
-==29283==    by 0x4014CE: SparseNode_toArrayHelper (test_support_functions.c:16)
-==29283==    by 0x4014CE: SparseNode_toArrayHelper (test_support_functions.c:16)
-==29283==    by 0x40152C: SparseNode_toArrayHelper (test_support_functions.c:21)
-==29283==    by 0x4014CE: SparseNode_toArrayHelper (test_support_functions.c:16)
-==29283==    by 0x4015DA: SparseNode_compare (test_support_functions.c:37)
-==29283==    by 0x4016DC: cmp_array (test_support_functions.c:66)
-==29283==    by 0x402CD6: tests_SparseArray_remove (test_SparseArray_remove.c:40)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c396b0 is 16 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x400CAB: SparseArray_remove (answer08.c:211)
-==29283==    by 0x402C67: tests_SparseArray_remove (test_SparseArray_remove.c:32)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== 
-==29283== 1 errors in context 8 of 19:
-==29283== Invalid read of size 4
-==29283==    at 0x4014E9: SparseNode_toArrayHelper (test_support_functions.c:18)
-==29283==    by 0x4014CE: SparseNode_toArrayHelper (test_support_functions.c:16)
-==29283==    by 0x4014CE: SparseNode_toArrayHelper (test_support_functions.c:16)
-==29283==    by 0x4014CE: SparseNode_toArrayHelper (test_support_functions.c:16)
-==29283==    by 0x40152C: SparseNode_toArrayHelper (test_support_functions.c:21)
-==29283==    by 0x4014CE: SparseNode_toArrayHelper (test_support_functions.c:16)
-==29283==    by 0x4015DA: SparseNode_compare (test_support_functions.c:37)
-==29283==    by 0x4016DC: cmp_array (test_support_functions.c:66)
-==29283==    by 0x402CD6: tests_SparseArray_remove (test_SparseArray_remove.c:40)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c396a4 is 4 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x400CAB: SparseArray_remove (answer08.c:211)
-==29283==    by 0x402C67: tests_SparseArray_remove (test_SparseArray_remove.c:32)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== 
-==29283== 1 errors in context 9 of 19:
-==29283== Invalid read of size 4
-==29283==    at 0x4014DA: SparseNode_toArrayHelper (test_support_functions.c:17)
-==29283==    by 0x4014CE: SparseNode_toArrayHelper (test_support_functions.c:16)
-==29283==    by 0x4014CE: SparseNode_toArrayHelper (test_support_functions.c:16)
-==29283==    by 0x4014CE: SparseNode_toArrayHelper (test_support_functions.c:16)
-==29283==    by 0x40152C: SparseNode_toArrayHelper (test_support_functions.c:21)
-==29283==    by 0x4014CE: SparseNode_toArrayHelper (test_support_functions.c:16)
-==29283==    by 0x4015DA: SparseNode_compare (test_support_functions.c:37)
-==29283==    by 0x4016DC: cmp_array (test_support_functions.c:66)
-==29283==    by 0x402CD6: tests_SparseArray_remove (test_SparseArray_remove.c:40)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c396a0 is 0 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x400CAB: SparseArray_remove (answer08.c:211)
-==29283==    by 0x402C67: tests_SparseArray_remove (test_SparseArray_remove.c:32)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== 
-==29283== 1 errors in context 10 of 19:
-==29283== Invalid read of size 8
-==29283==    at 0x4014B8: SparseNode_toArrayHelper (test_support_functions.c:16)
-==29283==    by 0x4014CE: SparseNode_toArrayHelper (test_support_functions.c:16)
-==29283==    by 0x4014CE: SparseNode_toArrayHelper (test_support_functions.c:16)
-==29283==    by 0x4014CE: SparseNode_toArrayHelper (test_support_functions.c:16)
-==29283==    by 0x40152C: SparseNode_toArrayHelper (test_support_functions.c:21)
-==29283==    by 0x4014CE: SparseNode_toArrayHelper (test_support_functions.c:16)
-==29283==    by 0x4015DA: SparseNode_compare (test_support_functions.c:37)
-==29283==    by 0x4016DC: cmp_array (test_support_functions.c:66)
-==29283==    by 0x402CD6: tests_SparseArray_remove (test_SparseArray_remove.c:40)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c396a8 is 8 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x400CAB: SparseArray_remove (answer08.c:211)
-==29283==    by 0x402C67: tests_SparseArray_remove (test_SparseArray_remove.c:32)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== 
-==29283== 1 errors in context 11 of 19:
-==29283== Invalid read of size 8
-==29283==    at 0x401483: SparseNode_size (test_support_functions.c:9)
-==29283==    by 0x40147B: SparseNode_size (test_support_functions.c:9)
-==29283==    by 0x40147B: SparseNode_size (test_support_functions.c:9)
-==29283==    by 0x40147B: SparseNode_size (test_support_functions.c:9)
-==29283==    by 0x40148E: SparseNode_size (test_support_functions.c:9)
-==29283==    by 0x40147B: SparseNode_size (test_support_functions.c:9)
-==29283==    by 0x40154D: SparseNode_compare (test_support_functions.c:26)
-==29283==    by 0x4016DC: cmp_array (test_support_functions.c:66)
-==29283==    by 0x402CD6: tests_SparseArray_remove (test_SparseArray_remove.c:40)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c396b0 is 16 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x400CAB: SparseArray_remove (answer08.c:211)
-==29283==    by 0x402C67: tests_SparseArray_remove (test_SparseArray_remove.c:32)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== 
-==29283== 1 errors in context 12 of 19:
-==29283== Invalid read of size 8
-==29283==    at 0x401470: SparseNode_size (test_support_functions.c:9)
-==29283==    by 0x40147B: SparseNode_size (test_support_functions.c:9)
-==29283==    by 0x40147B: SparseNode_size (test_support_functions.c:9)
-==29283==    by 0x40147B: SparseNode_size (test_support_functions.c:9)
-==29283==    by 0x40148E: SparseNode_size (test_support_functions.c:9)
-==29283==    by 0x40147B: SparseNode_size (test_support_functions.c:9)
-==29283==    by 0x40154D: SparseNode_compare (test_support_functions.c:26)
-==29283==    by 0x4016DC: cmp_array (test_support_functions.c:66)
-==29283==    by 0x402CD6: tests_SparseArray_remove (test_SparseArray_remove.c:40)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c396a8 is 8 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x400CAB: SparseArray_remove (answer08.c:211)
-==29283==    by 0x402C67: tests_SparseArray_remove (test_SparseArray_remove.c:32)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== 
-==29283== 1 errors in context 13 of 19:
-==29283== Invalid read of size 8
-==29283==    at 0x4017D1: print_array (test_support_functions.c:116)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x4017C0: print_array (test_support_functions.c:111)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x402C9E: tests_SparseArray_remove (test_SparseArray_remove.c:35)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c396a8 is 8 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x400CAB: SparseArray_remove (answer08.c:211)
-==29283==    by 0x402C67: tests_SparseArray_remove (test_SparseArray_remove.c:32)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== 
-==29283== 1 errors in context 14 of 19:
-==29283== Invalid read of size 8
-==29283==    at 0x4017B3: print_array (test_support_functions.c:111)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x4017C0: print_array (test_support_functions.c:111)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x402C9E: tests_SparseArray_remove (test_SparseArray_remove.c:35)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c396b0 is 16 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x400CAB: SparseArray_remove (answer08.c:211)
-==29283==    by 0x402C67: tests_SparseArray_remove (test_SparseArray_remove.c:32)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== 
-==29283== 1 errors in context 15 of 19:
-==29283== Invalid read of size 8
-==29283==    at 0x40178E: print_array (test_support_functions.c:109)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x4017C0: print_array (test_support_functions.c:111)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x402C9E: tests_SparseArray_remove (test_SparseArray_remove.c:35)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c396b0 is 16 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x400CAB: SparseArray_remove (answer08.c:211)
-==29283==    by 0x402C67: tests_SparseArray_remove (test_SparseArray_remove.c:32)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== 
-==29283== 1 errors in context 16 of 19:
-==29283== Invalid read of size 4
-==29283==    at 0x401777: print_array (test_support_functions.c:108)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x4017C0: print_array (test_support_functions.c:111)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x402C9E: tests_SparseArray_remove (test_SparseArray_remove.c:35)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c396a4 is 4 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x400CAB: SparseArray_remove (answer08.c:211)
-==29283==    by 0x402C67: tests_SparseArray_remove (test_SparseArray_remove.c:32)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== 
-==29283== 1 errors in context 17 of 19:
-==29283== Invalid read of size 4
-==29283==    at 0x401768: print_array (test_support_functions.c:108)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x4017C0: print_array (test_support_functions.c:111)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x402C9E: tests_SparseArray_remove (test_SparseArray_remove.c:35)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c396a0 is 0 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x400CAB: SparseArray_remove (answer08.c:211)
-==29283==    by 0x402C67: tests_SparseArray_remove (test_SparseArray_remove.c:32)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== 
-==29283== 1 errors in context 18 of 19:
-==29283== Invalid read of size 4
-==29283==    at 0x40174E: print_array (test_support_functions.c:107)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x4017C0: print_array (test_support_functions.c:111)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x402C9E: tests_SparseArray_remove (test_SparseArray_remove.c:35)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c396a0 is 0 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x400CAB: SparseArray_remove (answer08.c:211)
-==29283==    by 0x402C67: tests_SparseArray_remove (test_SparseArray_remove.c:32)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
-==29283== 
-==29283== 1 errors in context 19 of 19:
-==29283== Invalid read of size 4
-==29283==    at 0x401747: print_array (test_support_functions.c:107)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x4017C0: print_array (test_support_functions.c:111)
-==29283==    by 0x401822: print_array (test_support_functions.c:122)
-==29283==    by 0x402C9E: tests_SparseArray_remove (test_SparseArray_remove.c:35)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283==  Address 0x4c396a4 is 4 bytes inside a block of size 24 free'd
-==29283==    at 0x4A063F0: free (vg_replace_malloc.c:446)
-==29283==    by 0x400CAB: SparseArray_remove (answer08.c:211)
-==29283==    by 0x402C67: tests_SparseArray_remove (test_SparseArray_remove.c:32)
-==29283==    by 0x403210: main (<stdin>:241)
-==29283== 
---29283-- 
---29283-- used_suppression:      4 U1004-ARM-_dl_relocate_object
---29283-- used_suppression:      2 glibc-2.5.x-on-SUSE-10.2-(PPC)-2a
-==29283== 
-==29283== ERROR SUMMARY: 19 errors from 19 contexts (suppressed: 6 from 6)
+==12991== Memcheck, a memory error detector
+==12991== Copyright (C) 2002-2012, and GNU GPL'd, by Julian Seward et al.
+==12991== Using Valgrind-3.8.1 and LibVEX; rerun with -h for copyright info
+==12991== Command: ./a.out 55
+==12991== Parent PID: 12990
+==12991== 
+--12991-- 
+--12991-- Valgrind options:
+--12991--    --tool=memcheck
+--12991--    --leak-check=full
+--12991--    --verbose
+--12991--    --log-file=memcheck.log
+--12991-- Contents of /proc/version:
+--12991--   Linux version 2.6.32-431.5.1.el6.x86_64 (mockbuild@x86-002.build.bos.redhat.com) (gcc version 4.4.7 20120313 (Red Hat 4.4.7-4) (GCC) ) #1 SMP Fri Jan 10 14:46:43 EST 2014
+--12991-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--12991-- Page sizes: currently 4096, max supported 4096
+--12991-- Valgrind library directory: /usr/lib64/valgrind
+--12991-- Reading syms from /tmp/.PvAbY3/a.out
+--12991-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux
+--12991--    object doesn't have a dynamic symbol table
+--12991-- Reading syms from /lib64/ld-2.12.so
+--12991-- Scheduler: using generic scheduler lock implementation.
+--12991-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+==12991== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-12991-by-mluzarow-on-ecelinux24.ecn.purdue.edu
+==12991== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-12991-by-mluzarow-on-ecelinux24.ecn.purdue.edu
+==12991== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-12991-by-mluzarow-on-ecelinux24.ecn.purdue.edu
+==12991== 
+==12991== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==12991== don't want to do, unless you know exactly what you're doing,
+==12991== or are doing some strange experiment):
+==12991==   /usr/lib64/valgrind/../../bin/vgdb --pid=12991 ...command...
+==12991== 
+==12991== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==12991==   /path/to/gdb ./a.out
+==12991== and then give GDB the following command
+==12991==   target remote | /usr/lib64/valgrind/../../bin/vgdb --pid=12991
+==12991== --pid is optional if only one valgrind process is running
+==12991== 
+--12991-- REDIR: 0x3600e17530 (strlen) redirected to 0x38049551 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--12991-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so
+--12991-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so
+--12991-- REDIR: 0x3600e173a0 (index) redirected to 0x4a07bf0 (index)
+--12991-- REDIR: 0x3600e17420 (strcmp) redirected to 0x4a08530 (strcmp)
+--12991-- Reading syms from /lib64/libc-2.12.so
+--12991-- REDIR: 0x3601284fb0 (strcasecmp) redirected to 0x480155c (_vgnU_ifunc_wrapper)
+--12991-- REDIR: 0x3601287270 (strncasecmp) redirected to 0x480155c (_vgnU_ifunc_wrapper)
+--12991-- REDIR: 0x3601282f20 (__GI_strrchr) redirected to 0x4a07a70 (__GI_strrchr)
+--12991-- REDIR: 0x360128add0 (strchrnul) redirected to 0x4a09f10 (strchrnul)
+--12991-- REDIR: 0x36012847e0 (mempcpy) redirected to 0x4a09f80 (mempcpy)
+--12991-- REDIR: 0x360127b800 (free) redirected to 0x4a06369 (free)
+--12991-- REDIR: 0x360127a920 (malloc) redirected to 0x4a0696c (malloc)
+--12991-- REDIR: 0x3601281440 (__GI_strlen) redirected to 0x4a07f70 (__GI_strlen)
+==12991== Invalid read of size 4
+==12991==    at 0x4017BF: print_array (test_support_functions.c:107)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x401838: print_array (test_support_functions.c:111)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x402D16: tests_SparseArray_remove (test_SparseArray_remove.c:35)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c396a4 is 4 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x400CCE: SparseArray_remove (answer08.c:216)
+==12991==    by 0x402CDF: tests_SparseArray_remove (test_SparseArray_remove.c:32)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== Invalid read of size 4
+==12991==    at 0x4017C6: print_array (test_support_functions.c:107)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x401838: print_array (test_support_functions.c:111)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x402D16: tests_SparseArray_remove (test_SparseArray_remove.c:35)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c396a0 is 0 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x400CCE: SparseArray_remove (answer08.c:216)
+==12991==    by 0x402CDF: tests_SparseArray_remove (test_SparseArray_remove.c:32)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== Invalid read of size 4
+==12991==    at 0x4017E0: print_array (test_support_functions.c:108)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x401838: print_array (test_support_functions.c:111)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x402D16: tests_SparseArray_remove (test_SparseArray_remove.c:35)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c396a0 is 0 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x400CCE: SparseArray_remove (answer08.c:216)
+==12991==    by 0x402CDF: tests_SparseArray_remove (test_SparseArray_remove.c:32)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== Invalid read of size 4
+==12991==    at 0x4017EF: print_array (test_support_functions.c:108)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x401838: print_array (test_support_functions.c:111)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x402D16: tests_SparseArray_remove (test_SparseArray_remove.c:35)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c396a4 is 4 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x400CCE: SparseArray_remove (answer08.c:216)
+==12991==    by 0x402CDF: tests_SparseArray_remove (test_SparseArray_remove.c:32)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== Invalid read of size 8
+==12991==    at 0x401806: print_array (test_support_functions.c:109)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x401838: print_array (test_support_functions.c:111)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x402D16: tests_SparseArray_remove (test_SparseArray_remove.c:35)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c396b0 is 16 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x400CCE: SparseArray_remove (answer08.c:216)
+==12991==    by 0x402CDF: tests_SparseArray_remove (test_SparseArray_remove.c:32)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== Invalid read of size 8
+==12991==    at 0x40182B: print_array (test_support_functions.c:111)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x401838: print_array (test_support_functions.c:111)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x402D16: tests_SparseArray_remove (test_SparseArray_remove.c:35)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c396b0 is 16 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x400CCE: SparseArray_remove (answer08.c:216)
+==12991==    by 0x402CDF: tests_SparseArray_remove (test_SparseArray_remove.c:32)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== Invalid read of size 8
+==12991==    at 0x401849: print_array (test_support_functions.c:116)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x401838: print_array (test_support_functions.c:111)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x402D16: tests_SparseArray_remove (test_SparseArray_remove.c:35)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c396a8 is 8 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x400CCE: SparseArray_remove (answer08.c:216)
+==12991==    by 0x402CDF: tests_SparseArray_remove (test_SparseArray_remove.c:32)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== Invalid read of size 8
+==12991==    at 0x4014E8: SparseNode_size (test_support_functions.c:9)
+==12991==    by 0x4014F3: SparseNode_size (test_support_functions.c:9)
+==12991==    by 0x4014F3: SparseNode_size (test_support_functions.c:9)
+==12991==    by 0x4014F3: SparseNode_size (test_support_functions.c:9)
+==12991==    by 0x401506: SparseNode_size (test_support_functions.c:9)
+==12991==    by 0x4014F3: SparseNode_size (test_support_functions.c:9)
+==12991==    by 0x4015C5: SparseNode_compare (test_support_functions.c:26)
+==12991==    by 0x401754: cmp_array (test_support_functions.c:66)
+==12991==    by 0x402D4E: tests_SparseArray_remove (test_SparseArray_remove.c:40)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c396a8 is 8 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x400CCE: SparseArray_remove (answer08.c:216)
+==12991==    by 0x402CDF: tests_SparseArray_remove (test_SparseArray_remove.c:32)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== Invalid read of size 8
+==12991==    at 0x4014FB: SparseNode_size (test_support_functions.c:9)
+==12991==    by 0x4014F3: SparseNode_size (test_support_functions.c:9)
+==12991==    by 0x4014F3: SparseNode_size (test_support_functions.c:9)
+==12991==    by 0x4014F3: SparseNode_size (test_support_functions.c:9)
+==12991==    by 0x401506: SparseNode_size (test_support_functions.c:9)
+==12991==    by 0x4014F3: SparseNode_size (test_support_functions.c:9)
+==12991==    by 0x4015C5: SparseNode_compare (test_support_functions.c:26)
+==12991==    by 0x401754: cmp_array (test_support_functions.c:66)
+==12991==    by 0x402D4E: tests_SparseArray_remove (test_SparseArray_remove.c:40)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c396b0 is 16 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x400CCE: SparseArray_remove (answer08.c:216)
+==12991==    by 0x402CDF: tests_SparseArray_remove (test_SparseArray_remove.c:32)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== Invalid read of size 8
+==12991==    at 0x401530: SparseNode_toArrayHelper (test_support_functions.c:16)
+==12991==    by 0x401546: SparseNode_toArrayHelper (test_support_functions.c:16)
+==12991==    by 0x401546: SparseNode_toArrayHelper (test_support_functions.c:16)
+==12991==    by 0x401546: SparseNode_toArrayHelper (test_support_functions.c:16)
+==12991==    by 0x4015A4: SparseNode_toArrayHelper (test_support_functions.c:21)
+==12991==    by 0x401546: SparseNode_toArrayHelper (test_support_functions.c:16)
+==12991==    by 0x401652: SparseNode_compare (test_support_functions.c:37)
+==12991==    by 0x401754: cmp_array (test_support_functions.c:66)
+==12991==    by 0x402D4E: tests_SparseArray_remove (test_SparseArray_remove.c:40)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c396a8 is 8 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x400CCE: SparseArray_remove (answer08.c:216)
+==12991==    by 0x402CDF: tests_SparseArray_remove (test_SparseArray_remove.c:32)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== Invalid read of size 4
+==12991==    at 0x401552: SparseNode_toArrayHelper (test_support_functions.c:17)
+==12991==    by 0x401546: SparseNode_toArrayHelper (test_support_functions.c:16)
+==12991==    by 0x401546: SparseNode_toArrayHelper (test_support_functions.c:16)
+==12991==    by 0x401546: SparseNode_toArrayHelper (test_support_functions.c:16)
+==12991==    by 0x4015A4: SparseNode_toArrayHelper (test_support_functions.c:21)
+==12991==    by 0x401546: SparseNode_toArrayHelper (test_support_functions.c:16)
+==12991==    by 0x401652: SparseNode_compare (test_support_functions.c:37)
+==12991==    by 0x401754: cmp_array (test_support_functions.c:66)
+==12991==    by 0x402D4E: tests_SparseArray_remove (test_SparseArray_remove.c:40)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c396a0 is 0 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x400CCE: SparseArray_remove (answer08.c:216)
+==12991==    by 0x402CDF: tests_SparseArray_remove (test_SparseArray_remove.c:32)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== Invalid read of size 4
+==12991==    at 0x401561: SparseNode_toArrayHelper (test_support_functions.c:18)
+==12991==    by 0x401546: SparseNode_toArrayHelper (test_support_functions.c:16)
+==12991==    by 0x401546: SparseNode_toArrayHelper (test_support_functions.c:16)
+==12991==    by 0x401546: SparseNode_toArrayHelper (test_support_functions.c:16)
+==12991==    by 0x4015A4: SparseNode_toArrayHelper (test_support_functions.c:21)
+==12991==    by 0x401546: SparseNode_toArrayHelper (test_support_functions.c:16)
+==12991==    by 0x401652: SparseNode_compare (test_support_functions.c:37)
+==12991==    by 0x401754: cmp_array (test_support_functions.c:66)
+==12991==    by 0x402D4E: tests_SparseArray_remove (test_SparseArray_remove.c:40)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c396a4 is 4 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x400CCE: SparseArray_remove (answer08.c:216)
+==12991==    by 0x402CDF: tests_SparseArray_remove (test_SparseArray_remove.c:32)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== Invalid read of size 8
+==12991==    at 0x40158E: SparseNode_toArrayHelper (test_support_functions.c:21)
+==12991==    by 0x401546: SparseNode_toArrayHelper (test_support_functions.c:16)
+==12991==    by 0x401546: SparseNode_toArrayHelper (test_support_functions.c:16)
+==12991==    by 0x401546: SparseNode_toArrayHelper (test_support_functions.c:16)
+==12991==    by 0x4015A4: SparseNode_toArrayHelper (test_support_functions.c:21)
+==12991==    by 0x401546: SparseNode_toArrayHelper (test_support_functions.c:16)
+==12991==    by 0x401652: SparseNode_compare (test_support_functions.c:37)
+==12991==    by 0x401754: cmp_array (test_support_functions.c:66)
+==12991==    by 0x402D4E: tests_SparseArray_remove (test_SparseArray_remove.c:40)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c396b0 is 16 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x400CCE: SparseArray_remove (answer08.c:216)
+==12991==    by 0x402CDF: tests_SparseArray_remove (test_SparseArray_remove.c:32)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== Invalid read of size 8
+==12991==    at 0x4010C5: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010E0: SparseArray_destroy_sol (<stdin>:49)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x402D7F: tests_SparseArray_remove (test_SparseArray_remove.c:49)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c396a8 is 8 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x400CCE: SparseArray_remove (answer08.c:216)
+==12991==    by 0x402CDF: tests_SparseArray_remove (test_SparseArray_remove.c:32)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== Invalid read of size 8
+==12991==    at 0x4010D5: SparseArray_destroy_sol (<stdin>:49)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010E0: SparseArray_destroy_sol (<stdin>:49)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x402D7F: tests_SparseArray_remove (test_SparseArray_remove.c:49)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c396b0 is 16 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x400CCE: SparseArray_remove (answer08.c:216)
+==12991==    by 0x402CDF: tests_SparseArray_remove (test_SparseArray_remove.c:32)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== Invalid free() / delete / delete[] / realloc()
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x4010EC: SparseArray_destroy_sol (<stdin>:50)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010E0: SparseArray_destroy_sol (<stdin>:49)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x402D7F: tests_SparseArray_remove (test_SparseArray_remove.c:49)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c396a0 is 0 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x400CCE: SparseArray_remove (answer08.c:216)
+==12991==    by 0x402CDF: tests_SparseArray_remove (test_SparseArray_remove.c:32)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== Invalid read of size 8
+==12991==    at 0x4010C5: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010E0: SparseArray_destroy_sol (<stdin>:49)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010E0: SparseArray_destroy_sol (<stdin>:49)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x402D7F: tests_SparseArray_remove (test_SparseArray_remove.c:49)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c39708 is 8 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x4010EC: SparseArray_destroy_sol (<stdin>:50)
+==12991==    by 0x4010E0: SparseArray_destroy_sol (<stdin>:49)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010E0: SparseArray_destroy_sol (<stdin>:49)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x402D7F: tests_SparseArray_remove (test_SparseArray_remove.c:49)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== Invalid read of size 8
+==12991==    at 0x4010D5: SparseArray_destroy_sol (<stdin>:49)
+==12991==    by 0x4010E0: SparseArray_destroy_sol (<stdin>:49)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010E0: SparseArray_destroy_sol (<stdin>:49)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x402D7F: tests_SparseArray_remove (test_SparseArray_remove.c:49)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c39710 is 16 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x4010EC: SparseArray_destroy_sol (<stdin>:50)
+==12991==    by 0x4010E0: SparseArray_destroy_sol (<stdin>:49)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010E0: SparseArray_destroy_sol (<stdin>:49)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x402D7F: tests_SparseArray_remove (test_SparseArray_remove.c:49)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== Invalid free() / delete / delete[] / realloc()
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x4010EC: SparseArray_destroy_sol (<stdin>:50)
+==12991==    by 0x4010E0: SparseArray_destroy_sol (<stdin>:49)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010E0: SparseArray_destroy_sol (<stdin>:49)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x402D7F: tests_SparseArray_remove (test_SparseArray_remove.c:49)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c39700 is 0 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x4010EC: SparseArray_destroy_sol (<stdin>:50)
+==12991==    by 0x4010E0: SparseArray_destroy_sol (<stdin>:49)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010E0: SparseArray_destroy_sol (<stdin>:49)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x402D7F: tests_SparseArray_remove (test_SparseArray_remove.c:49)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== 
+==12991== HEAP SUMMARY:
+==12991==     in use at exit: 0 bytes in 0 blocks
+==12991==   total heap usage: 24 allocs, 26 frees, 640 bytes allocated
+==12991== 
+==12991== All heap blocks were freed -- no leaks are possible
+==12991== 
+==12991== ERROR SUMMARY: 19 errors from 19 contexts (suppressed: 6 from 6)
+==12991== 
+==12991== 1 errors in context 1 of 19:
+==12991== Invalid free() / delete / delete[] / realloc()
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x4010EC: SparseArray_destroy_sol (<stdin>:50)
+==12991==    by 0x4010E0: SparseArray_destroy_sol (<stdin>:49)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010E0: SparseArray_destroy_sol (<stdin>:49)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x402D7F: tests_SparseArray_remove (test_SparseArray_remove.c:49)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c39700 is 0 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x4010EC: SparseArray_destroy_sol (<stdin>:50)
+==12991==    by 0x4010E0: SparseArray_destroy_sol (<stdin>:49)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010E0: SparseArray_destroy_sol (<stdin>:49)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x402D7F: tests_SparseArray_remove (test_SparseArray_remove.c:49)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== 
+==12991== 1 errors in context 2 of 19:
+==12991== Invalid read of size 8
+==12991==    at 0x4010D5: SparseArray_destroy_sol (<stdin>:49)
+==12991==    by 0x4010E0: SparseArray_destroy_sol (<stdin>:49)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010E0: SparseArray_destroy_sol (<stdin>:49)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x402D7F: tests_SparseArray_remove (test_SparseArray_remove.c:49)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c39710 is 16 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x4010EC: SparseArray_destroy_sol (<stdin>:50)
+==12991==    by 0x4010E0: SparseArray_destroy_sol (<stdin>:49)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010E0: SparseArray_destroy_sol (<stdin>:49)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x402D7F: tests_SparseArray_remove (test_SparseArray_remove.c:49)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== 
+==12991== 1 errors in context 3 of 19:
+==12991== Invalid read of size 8
+==12991==    at 0x4010C5: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010E0: SparseArray_destroy_sol (<stdin>:49)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010E0: SparseArray_destroy_sol (<stdin>:49)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x402D7F: tests_SparseArray_remove (test_SparseArray_remove.c:49)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c39708 is 8 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x4010EC: SparseArray_destroy_sol (<stdin>:50)
+==12991==    by 0x4010E0: SparseArray_destroy_sol (<stdin>:49)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010E0: SparseArray_destroy_sol (<stdin>:49)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x402D7F: tests_SparseArray_remove (test_SparseArray_remove.c:49)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== 
+==12991== 1 errors in context 4 of 19:
+==12991== Invalid free() / delete / delete[] / realloc()
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x4010EC: SparseArray_destroy_sol (<stdin>:50)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010E0: SparseArray_destroy_sol (<stdin>:49)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x402D7F: tests_SparseArray_remove (test_SparseArray_remove.c:49)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c396a0 is 0 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x400CCE: SparseArray_remove (answer08.c:216)
+==12991==    by 0x402CDF: tests_SparseArray_remove (test_SparseArray_remove.c:32)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== 
+==12991== 1 errors in context 5 of 19:
+==12991== Invalid read of size 8
+==12991==    at 0x4010D5: SparseArray_destroy_sol (<stdin>:49)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010E0: SparseArray_destroy_sol (<stdin>:49)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x402D7F: tests_SparseArray_remove (test_SparseArray_remove.c:49)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c396b0 is 16 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x400CCE: SparseArray_remove (answer08.c:216)
+==12991==    by 0x402CDF: tests_SparseArray_remove (test_SparseArray_remove.c:32)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== 
+==12991== 1 errors in context 6 of 19:
+==12991== Invalid read of size 8
+==12991==    at 0x4010C5: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x4010E0: SparseArray_destroy_sol (<stdin>:49)
+==12991==    by 0x4010D0: SparseArray_destroy_sol (<stdin>:48)
+==12991==    by 0x402D7F: tests_SparseArray_remove (test_SparseArray_remove.c:49)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c396a8 is 8 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x400CCE: SparseArray_remove (answer08.c:216)
+==12991==    by 0x402CDF: tests_SparseArray_remove (test_SparseArray_remove.c:32)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== 
+==12991== 1 errors in context 7 of 19:
+==12991== Invalid read of size 8
+==12991==    at 0x40158E: SparseNode_toArrayHelper (test_support_functions.c:21)
+==12991==    by 0x401546: SparseNode_toArrayHelper (test_support_functions.c:16)
+==12991==    by 0x401546: SparseNode_toArrayHelper (test_support_functions.c:16)
+==12991==    by 0x401546: SparseNode_toArrayHelper (test_support_functions.c:16)
+==12991==    by 0x4015A4: SparseNode_toArrayHelper (test_support_functions.c:21)
+==12991==    by 0x401546: SparseNode_toArrayHelper (test_support_functions.c:16)
+==12991==    by 0x401652: SparseNode_compare (test_support_functions.c:37)
+==12991==    by 0x401754: cmp_array (test_support_functions.c:66)
+==12991==    by 0x402D4E: tests_SparseArray_remove (test_SparseArray_remove.c:40)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c396b0 is 16 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x400CCE: SparseArray_remove (answer08.c:216)
+==12991==    by 0x402CDF: tests_SparseArray_remove (test_SparseArray_remove.c:32)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== 
+==12991== 1 errors in context 8 of 19:
+==12991== Invalid read of size 4
+==12991==    at 0x401561: SparseNode_toArrayHelper (test_support_functions.c:18)
+==12991==    by 0x401546: SparseNode_toArrayHelper (test_support_functions.c:16)
+==12991==    by 0x401546: SparseNode_toArrayHelper (test_support_functions.c:16)
+==12991==    by 0x401546: SparseNode_toArrayHelper (test_support_functions.c:16)
+==12991==    by 0x4015A4: SparseNode_toArrayHelper (test_support_functions.c:21)
+==12991==    by 0x401546: SparseNode_toArrayHelper (test_support_functions.c:16)
+==12991==    by 0x401652: SparseNode_compare (test_support_functions.c:37)
+==12991==    by 0x401754: cmp_array (test_support_functions.c:66)
+==12991==    by 0x402D4E: tests_SparseArray_remove (test_SparseArray_remove.c:40)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c396a4 is 4 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x400CCE: SparseArray_remove (answer08.c:216)
+==12991==    by 0x402CDF: tests_SparseArray_remove (test_SparseArray_remove.c:32)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== 
+==12991== 1 errors in context 9 of 19:
+==12991== Invalid read of size 4
+==12991==    at 0x401552: SparseNode_toArrayHelper (test_support_functions.c:17)
+==12991==    by 0x401546: SparseNode_toArrayHelper (test_support_functions.c:16)
+==12991==    by 0x401546: SparseNode_toArrayHelper (test_support_functions.c:16)
+==12991==    by 0x401546: SparseNode_toArrayHelper (test_support_functions.c:16)
+==12991==    by 0x4015A4: SparseNode_toArrayHelper (test_support_functions.c:21)
+==12991==    by 0x401546: SparseNode_toArrayHelper (test_support_functions.c:16)
+==12991==    by 0x401652: SparseNode_compare (test_support_functions.c:37)
+==12991==    by 0x401754: cmp_array (test_support_functions.c:66)
+==12991==    by 0x402D4E: tests_SparseArray_remove (test_SparseArray_remove.c:40)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c396a0 is 0 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x400CCE: SparseArray_remove (answer08.c:216)
+==12991==    by 0x402CDF: tests_SparseArray_remove (test_SparseArray_remove.c:32)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== 
+==12991== 1 errors in context 10 of 19:
+==12991== Invalid read of size 8
+==12991==    at 0x401530: SparseNode_toArrayHelper (test_support_functions.c:16)
+==12991==    by 0x401546: SparseNode_toArrayHelper (test_support_functions.c:16)
+==12991==    by 0x401546: SparseNode_toArrayHelper (test_support_functions.c:16)
+==12991==    by 0x401546: SparseNode_toArrayHelper (test_support_functions.c:16)
+==12991==    by 0x4015A4: SparseNode_toArrayHelper (test_support_functions.c:21)
+==12991==    by 0x401546: SparseNode_toArrayHelper (test_support_functions.c:16)
+==12991==    by 0x401652: SparseNode_compare (test_support_functions.c:37)
+==12991==    by 0x401754: cmp_array (test_support_functions.c:66)
+==12991==    by 0x402D4E: tests_SparseArray_remove (test_SparseArray_remove.c:40)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c396a8 is 8 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x400CCE: SparseArray_remove (answer08.c:216)
+==12991==    by 0x402CDF: tests_SparseArray_remove (test_SparseArray_remove.c:32)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== 
+==12991== 1 errors in context 11 of 19:
+==12991== Invalid read of size 8
+==12991==    at 0x4014FB: SparseNode_size (test_support_functions.c:9)
+==12991==    by 0x4014F3: SparseNode_size (test_support_functions.c:9)
+==12991==    by 0x4014F3: SparseNode_size (test_support_functions.c:9)
+==12991==    by 0x4014F3: SparseNode_size (test_support_functions.c:9)
+==12991==    by 0x401506: SparseNode_size (test_support_functions.c:9)
+==12991==    by 0x4014F3: SparseNode_size (test_support_functions.c:9)
+==12991==    by 0x4015C5: SparseNode_compare (test_support_functions.c:26)
+==12991==    by 0x401754: cmp_array (test_support_functions.c:66)
+==12991==    by 0x402D4E: tests_SparseArray_remove (test_SparseArray_remove.c:40)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c396b0 is 16 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x400CCE: SparseArray_remove (answer08.c:216)
+==12991==    by 0x402CDF: tests_SparseArray_remove (test_SparseArray_remove.c:32)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== 
+==12991== 1 errors in context 12 of 19:
+==12991== Invalid read of size 8
+==12991==    at 0x4014E8: SparseNode_size (test_support_functions.c:9)
+==12991==    by 0x4014F3: SparseNode_size (test_support_functions.c:9)
+==12991==    by 0x4014F3: SparseNode_size (test_support_functions.c:9)
+==12991==    by 0x4014F3: SparseNode_size (test_support_functions.c:9)
+==12991==    by 0x401506: SparseNode_size (test_support_functions.c:9)
+==12991==    by 0x4014F3: SparseNode_size (test_support_functions.c:9)
+==12991==    by 0x4015C5: SparseNode_compare (test_support_functions.c:26)
+==12991==    by 0x401754: cmp_array (test_support_functions.c:66)
+==12991==    by 0x402D4E: tests_SparseArray_remove (test_SparseArray_remove.c:40)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c396a8 is 8 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x400CCE: SparseArray_remove (answer08.c:216)
+==12991==    by 0x402CDF: tests_SparseArray_remove (test_SparseArray_remove.c:32)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== 
+==12991== 1 errors in context 13 of 19:
+==12991== Invalid read of size 8
+==12991==    at 0x401849: print_array (test_support_functions.c:116)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x401838: print_array (test_support_functions.c:111)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x402D16: tests_SparseArray_remove (test_SparseArray_remove.c:35)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c396a8 is 8 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x400CCE: SparseArray_remove (answer08.c:216)
+==12991==    by 0x402CDF: tests_SparseArray_remove (test_SparseArray_remove.c:32)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== 
+==12991== 1 errors in context 14 of 19:
+==12991== Invalid read of size 8
+==12991==    at 0x40182B: print_array (test_support_functions.c:111)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x401838: print_array (test_support_functions.c:111)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x402D16: tests_SparseArray_remove (test_SparseArray_remove.c:35)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c396b0 is 16 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x400CCE: SparseArray_remove (answer08.c:216)
+==12991==    by 0x402CDF: tests_SparseArray_remove (test_SparseArray_remove.c:32)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== 
+==12991== 1 errors in context 15 of 19:
+==12991== Invalid read of size 8
+==12991==    at 0x401806: print_array (test_support_functions.c:109)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x401838: print_array (test_support_functions.c:111)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x402D16: tests_SparseArray_remove (test_SparseArray_remove.c:35)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c396b0 is 16 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x400CCE: SparseArray_remove (answer08.c:216)
+==12991==    by 0x402CDF: tests_SparseArray_remove (test_SparseArray_remove.c:32)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== 
+==12991== 1 errors in context 16 of 19:
+==12991== Invalid read of size 4
+==12991==    at 0x4017EF: print_array (test_support_functions.c:108)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x401838: print_array (test_support_functions.c:111)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x402D16: tests_SparseArray_remove (test_SparseArray_remove.c:35)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c396a4 is 4 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x400CCE: SparseArray_remove (answer08.c:216)
+==12991==    by 0x402CDF: tests_SparseArray_remove (test_SparseArray_remove.c:32)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== 
+==12991== 1 errors in context 17 of 19:
+==12991== Invalid read of size 4
+==12991==    at 0x4017E0: print_array (test_support_functions.c:108)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x401838: print_array (test_support_functions.c:111)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x402D16: tests_SparseArray_remove (test_SparseArray_remove.c:35)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c396a0 is 0 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x400CCE: SparseArray_remove (answer08.c:216)
+==12991==    by 0x402CDF: tests_SparseArray_remove (test_SparseArray_remove.c:32)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== 
+==12991== 1 errors in context 18 of 19:
+==12991== Invalid read of size 4
+==12991==    at 0x4017C6: print_array (test_support_functions.c:107)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x401838: print_array (test_support_functions.c:111)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x402D16: tests_SparseArray_remove (test_SparseArray_remove.c:35)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c396a0 is 0 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x400CCE: SparseArray_remove (answer08.c:216)
+==12991==    by 0x402CDF: tests_SparseArray_remove (test_SparseArray_remove.c:32)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+==12991== 
+==12991== 1 errors in context 19 of 19:
+==12991== Invalid read of size 4
+==12991==    at 0x4017BF: print_array (test_support_functions.c:107)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x401838: print_array (test_support_functions.c:111)
+==12991==    by 0x40189A: print_array (test_support_functions.c:122)
+==12991==    by 0x402D16: tests_SparseArray_remove (test_SparseArray_remove.c:35)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991==  Address 0x4c396a4 is 4 bytes inside a block of size 24 free'd
+==12991==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==12991==    by 0x400CCE: SparseArray_remove (answer08.c:216)
+==12991==    by 0x402CDF: tests_SparseArray_remove (test_SparseArray_remove.c:32)
+==12991==    by 0x403288: main (<stdin>:241)
+==12991== 
+--12991-- 
+--12991-- used_suppression:      4 U1004-ARM-_dl_relocate_object
+--12991-- used_suppression:      2 glibc-2.5.x-on-SUSE-10.2-(PPC)-2a
+==12991== 
+==12991== ERROR SUMMARY: 19 errors from 19 contexts (suppressed: 6 from 6)
