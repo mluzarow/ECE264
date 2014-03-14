@@ -1,0 +1,12 @@
+
+Testcase 60
+   Testing: SparseNode_copy(a0)
+   Built array a0:
+   (1,5)->(3,3)->(8,4)
+   Copy Node:
+   Student result after copy:
+   (1,5)->(3,3)->(8,4)
+   Solution result after copy:
+   (1,5)->(3,3)->(8,4)
+   Checking if result tree is the same...
+Pass.

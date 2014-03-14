@@ -1,0 +1,8 @@
+
+Testcase 37
+   Testing: SparseNode_getMax(a0)
+   Built array a0:
+   (1,5)->(3,3)->(8,4)
+   Student getMax: 8
+   Solution getMax: 8
+Pass.

@@ -1,0 +1,12 @@
+
+Testcase 9
+   Testing: SparseNode_insert(array, 6, 5)
+   Student result:
+   (4,30)->(40000,3)
+                    ->(6,5)
+         ->(1,22)
+   Solution result:
+   (4,30)->(40000,3)
+                    ->(6,5)
+         ->(1,22)
+Pass.
