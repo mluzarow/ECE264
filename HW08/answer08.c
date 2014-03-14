@@ -54,7 +54,11 @@ SparseNode * SparseArray_insert(SparseNode * array, int index, int value) {
 
 SparseNode * SparseArray_build(int * indices, int * value, int length) {
      SparseNode * list = NULL;
+     int i = 0;
 
+     for (i = 0; i < length; i++) {
+          list = SparseArray_insert(list, indices[i], value[i]);
+     }
      return(list);
 }
 
