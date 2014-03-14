@@ -2,6 +2,7 @@
 #include "answer08.h"
 
 SparseNode* CopyHelper(SparseNode*, SparseNode*);
+void RemoveHelper(SparseNode*, int, SparseNode**, SparseNode**);
 
 SparseNode * SparseNode_create(int index, int value) {
      SparseNode * list = malloc(sizeof(SparseNode));
@@ -164,13 +165,94 @@ SparseNode * SparseArray_getNode(SparseNode * array, int index) {
 }
 
 SparseNode * SparseArray_remove(SparseNode * array, int index) {
-     SparseNode * list = NULL;
+     SparseNode * list = array;
+     SparseNode * parent = NULL;
+     SparseNode * child = NULL;
+     SparseNode * suc = NULL;
 
-     list = SparseArray_getNode(array, index);
+     if (array == NULL) {//no array
+          return(NULL);
+     }
 
+     RemoveHelper(array, index, &parent, &child);
+
+     if ((child->left != NULL) && (child->right != NULL)) {
+          parent = child;
+	  suc = child->right;
+
+	  while (suc->left != NULL) {
+	       parent = suc;
+	       suc = suc->left;
+	  }
+
+	  child->index = suc->index;
+	  child->value = suc->value;
+	  child = suc;
+     }
+
+     if ((child->left == NULL) && (child->right == NULL)) {
+          if (parent->right == child) {
+	       parent->right = NULL;
+	  } else {
+	       parent->left = NULL;
+	  }
+
+	  free(child);
+	  return(list);
+     }
+
+     if ((child->left == NULL) && (child->right != NULL)) {
+          if (parent->right == child) {
+	       parent->left = child->right;
+	  } else {
+	       parent->right = child->right;
+	  }
+	  
+	  free(child);
+	  return(list);
+     }
+
+     if ((child->left != NULL) && (child->right == NULL)) {
+          if (parent->left == child) {
+	       parent->left = child->left;
+	  } else {
+	       parent->right = child->left;
+	  }
+	  
+	  free(child);
+	  return(list);
+     }
+     //list = SparseArray_getNode(array, index);
      
 
+
+
+     //if ((list->left == NULL) && (list->right == NULL)) {
+     //   free(list);
+     //}
+
      return(list);
+}
+
+void RemoveHelper(SparseNode * array, int index, SparseNode ** parent, SparseNode ** child) {
+     SparseNode * temp = NULL;
+     
+     temp = array;
+     *parent = NULL;
+
+     while (temp != NULL) {
+          if (temp->index == index) {
+	       *child = temp;
+	       return;
+	  }
+	  *parent = temp;
+
+	  if (temp->index > index) {
+	       temp = temp->left;
+	  } else {
+	       temp = temp->right;
+	  }
+     }
 }
 
 SparseNode * SparseArray_copy(SparseNode * array) {
@@ -178,6 +260,8 @@ SparseNode * SparseArray_copy(SparseNode * array) {
      
      if (array != NULL) {
           list = SparseNode_create(array->index, array->value);
+     } else {
+          return(list);
      }
      
      list = CopyHelper(list, array);
