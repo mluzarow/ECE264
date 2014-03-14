@@ -288,16 +288,19 @@ SparseNode * CopyHelper(SparseNode * list, SparseNode * array) {
 }
 
 SparseNode * SparseArray_merge(SparseNode * array_1, SparseNode * array_2) {
-     SparseNode * list1 = array_1;
-     SparseNode * list2 = array_2;
-     SparseNode * temp = NULL;
+     SparseNode * list1 = NULL;
+     SparseNode * list2 = NULL;
+     //SparseNode * temp = NULL;
 
-     if ((array_1 == NULL) && (array_2 == NULL)) {
+     list1 = array_1;
+     list2 = array_2;
+     
+     if ((list1 == NULL) && (list2 == NULL)) {
           return(NULL);
-     } else if (array_1 == NULL) {
-          return(array_2);
-     } else if (array_2 == NULL) {
-          return(array_1);
+     } else if (list1 == NULL) {
+          return(list2);
+     } else if (list2 == NULL) {
+          return(list1);
      } 
 
      return(list1);
