@@ -135,9 +135,30 @@ int SparseArray_getMax(SparseNode * array) {
 }
 
 SparseNode * SparseArray_getNode(SparseNode * array, int index) {
-     SparseNode * list = NULL;
+     SparseNode * found = NULL;
+     SparseNode * possible = NULL;
+     SparseNode * current = array;
+     SparseNode * nleft = NULL;
+     SparseNode * nright = NULL;
 
-     return(list);
+     if (current != NULL) {
+          nleft = current->left;
+	  nright = current->right;
+	  
+	  if (current->index == index) {
+	       found = current;
+	  }
+	  possible = SparseArray_getNode(nleft, index);
+	  if ((possible != NULL) && (possible->index == index)) {
+	       found = possible;
+	  }
+	  possible = SparseArray_getNode(nright, index);
+	  if ((possible != NULL) &&  (possible->index == index)) {
+	       found = possible;
+	  }
+     }
+
+     return(found);
 }
 
 SparseNode * SparseArray_remove(SparseNode * array, int index) {
@@ -148,6 +169,14 @@ SparseNode * SparseArray_remove(SparseNode * array, int index) {
 
 SparseNode * SparseArray_copy(SparseNode * array) {
      SparseNode * list = NULL;
+     
+     if (array != NULL) {
+          list = SparseNode_create(array->index, array->value);
+     }
+     
+     //while (1) {
+       
+     //}
 
      return(list);
 }
