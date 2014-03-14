@@ -15,13 +15,9 @@ SparseNode * SparseArray_insert(SparseNode * array, int index, int value) {
      
      SparseNode * current = array;
      SparseNode * insertion = NULL;
-     //SparseNode * temp = NULL;
-     //     SparseNode * next = NULL;
-     //SparseNode * write = NULL;
-     //int pPos = -1; //Previous position of the imaginary index arrow pointing doodly
      int done = 0;
 
-     if (index == 0) {
+     if ((index == 0) || (value == 0)) {
           return(array);
      }
 
@@ -29,18 +25,15 @@ SparseNode * SparseArray_insert(SparseNode * array, int index, int value) {
           if (current == NULL) {//Have nothing made yet
 	       insertion = SparseNode_create(index, value);
 	       return(insertion);
-	       current = insertion;
-	       done = 1;
+	       //current = insertion;
+	       //done = 1;
 	  } else if (current->index > index) { //index is smaller than our position
 	       if (current->left == NULL) { //cannot move left any further
 	            insertion = SparseNode_create(index, value); 
-		    //insertion->right = current;
 		    current->left = insertion;
-		    //return(insertion);
 		    done = 1;
 	       } else {//we can move one more left
 	            current = current->left;
-		    //done = 1;
 	       }
 	  } else if (current->index < index) { //given index is larger than our position
 	       if (current->right == NULL) {
@@ -50,7 +43,10 @@ SparseNode * SparseArray_insert(SparseNode * array, int index, int value) {
 	       } else {
 		    current = current->right;
 	       }
-	  } 
+	  } else if (current->index == index) {
+	       current->value = value;
+	       done = 1;
+	  }
      }
      
      return(array);
