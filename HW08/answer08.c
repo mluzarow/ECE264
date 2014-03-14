@@ -59,13 +59,15 @@ SparseNode * SparseArray_build(int * indices, int * value, int length) {
 
 void SparseArray_destroy(SparseNode * array) {
      SparseNode * current = array;
-     SparseNode * next = NULL;
+     SparseNode * nleft = NULL;
+     SparseNode * nright = NULL;
 
-     while (current != NULL) {
-          next = current->right;
+          nleft = current->left;
+          nright = current->right;
 	  free(current);
-	  current = next;
-     }
+	  SparseArray_destroy(nleft);
+	  SparseArray_destroy(nright);
+  
      array = NULL;
 }
 
