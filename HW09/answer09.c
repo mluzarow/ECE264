@@ -44,8 +44,8 @@ void Stack_destroy(Stack * stack) {
      if (stack == NULL) {
           return;
      }
-
      
+     free(stack);
 }
 
 int Stack_isEmpty(Stack * stack) {
@@ -57,22 +57,41 @@ int Stack_isEmpty(Stack * stack) {
 }
 
 HuffNode * Stack_popFront(Stack * stack) {
-
-  return(NULL);
+  if (Stack_isEmpty(stack)) {
+       return(NULL);
+  } else {
+       HuffNode * popChunk = HuffNode_create('o');
+       popChunk = stack->head->tree;
+       //free something here
+       stack->head = stack->head->next;
+       
+       return(popChunk);
+  }
 }
 
 void Stack_pushFront(Stack * stack, HuffNode * tree) {
+     StackNode * stackChunk = malloc(sizeof(StackNode));
+     
+     stackChunk->tree = tree;
+     stackChunk->next = NULL;
 
-
+     if (Stack_isEmpty(stack)) {
+          stack->head = stackChunk;
+     } else {
+          stackChunk->next = stack->head;
+	  stack->head = stackChunk;
+     }
 }
 
 void Stack_popPopCombinePush(Stack * stack) {
-
-
+     HuffNode * newChunk = HuffNode_create('o');
+     newChunk->right = Stack_popFront(stack);
+     newChunk->left = Stack_popFront(stack);
+     Stack_pushFront(stack, newChunk);
 }
 
 HuffNode * HuffTree_readTextHeader(FILE * fp) {
-     char * test;
+     char * test = malloc(sizeof(char) * 255);
      int t = 0;
      char temp_char;
      HuffNode * final = NULL;
@@ -84,25 +103,47 @@ HuffNode * HuffTree_readTextHeader(FILE * fp) {
 	  t++;
      }
 
-     printf("The Header is: %s\n", test);
+     //printf("The Header is: %s\n", test);
 
      fclose(fp);
 
+     Stack * textStack = NULL;
+     textStack = Stack_create();
+
      t = 0;
      while (test[t] != '2') {
-       // printf("%c: NOT 2\n", test[t]);
-       if (test[t] == '0') { //pop pop combine
-	    
-       }  else if (test[t] == '1') { //put on stack
-	    
-       }
-       t = t + 2;
+          if (test[t] == '0') { //pop pop combine
+	       printf("Combining from stack.\n");
+	       
+	       Stack_popPopCombinePush(textStack);
+
+	       t = t + 1;
+	  }  else if (test[t] == '1') { //put on stack
+	       printf("Placing %c on stack.\n", test[t + 1]);
+	       
+	       HuffNode * huffChunk = HuffNode_create(test[t + 1]);
+	       Stack_pushFront(textStack, huffChunk);
+	       
+	       t = t + 2;
+	  }
      }
 
+     free(test);
      return(final);
 }
 
 HuffNode * HuffTree_readBinaryHeader(FILE * fp) {
+     char * test = malloc(sizeof(char) * 255);
+     int t = 0;
+     char temp_char;
+     HuffNode * final = NULL;
+     
+     while ((temp_char = fgets(fp)) != EOF) {
+          test[t] = temp_char;
+	  t++;
+     }
+
+     
 
   return(NULL);
 }
