@@ -280,6 +280,11 @@ HuffNode * HuffTree_readBinaryHeader(FILE * fp) {
 			     0b00000010,
 			     0b00000001};
 
+     int i = 0;
+     for (i = 0; i < 255; i++) {
+          test[i] = 'a';
+     }
+
      //MemByte * binNum = NULL;
      /*
      while ((temp_char = fgetc(fp)) != NULL) {
@@ -506,7 +511,7 @@ HuffNode * HuffTree_readBinaryHeader(FILE * fp) {
        //test[t] = temp_char;
        //t++;
        }*/
-     printf("test: %s\n", test);
+     //printf("test: %s\n", test);
      
      Stack * textStack = NULL;
      textStack = Stack_create();
