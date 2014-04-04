@@ -41,9 +41,10 @@ Testcase 2 :: 02-godfather.txt-huff
                             222
                                  k
                                  s
+   
+   Message is:
+   I'm going to make him an offer he can't refuse.
+   
    Memory errors detected.
    Valgrind log saved in /home/shay/a/mluzarow/ECE264/HW09/output-tester/02-godfather.txt-huff.student.memcheck.log.
-   Your solution is different to the expected solution.
-   Review the files "/home/shay/a/mluzarow/ECE264/HW09/output-tester/02-godfather.txt-huff.student.output" "/home/shay/a/mluzarow/ECE264/HW09/output-tester/02-godfather.txt-huff.solution.output"
-   to see where you went wrong. The 'diff' command may be useful.
 Testcase FAILED. Log file saved to testcase-02.log
