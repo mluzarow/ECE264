@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 #include "answer09.h"
 
@@ -256,15 +257,289 @@ HuffNode * HuffTree_readTextHeader(FILE * fp) {
 HuffNode * HuffTree_readBinaryHeader(FILE * fp) {
      char * test = malloc(sizeof(char) * 255);
      int t = 0;
-     char temp_char;
+     unsigned char temp_char;
+     unsigned char temp_char2;
+     int loc = 0;
+     unsigned char fchar;
+     int x1;
+     int x2; 
+     int x3; 
+     int x4; 
+     int x5; 
+     int x6; 
+     int x7;
+     int x8;
+     unsigned char cmd = 0;
      HuffNode * final = NULL;
-     
-     while ((temp_char = fgetc(fp)) != EOF) {
-          test[t] = temp_char;
+     unsigned char mask[] = {0b10000000,
+			     0b01000000,
+			     0b00100000,
+			     0b00010000,
+			     0b00001000,
+			     0b00000100,
+			     0b00000010,
+			     0b00000001};
+
+     //MemByte * binNum = NULL;
+     /*
+     while ((temp_char = fgetc(fp)) != NULL) {
+          cmd = temp_char & mask[loc];
+          loc++;
+
+	  if (loc > 7) {
+	       loc = 0;
+	  }
+	  
+	  if (cmd == 1) {//push character
+	       test[t] = '1';
+	       t++;
+	       MemByte.x1 = temp_char & mask[loc];
+	       
+	       loc++;
+	       
+	  } else if (cmd == 0) {//pop
+	       test[t] = '0';
+	       t++;
+	  } 
+
+	  test[t] = temp_char;
 	  t++;
      }
+     */
 
+     int depth = 0;
+     temp_char = fgetc(fp);
+     while(1) {
+          if (loc > 7) {
+	    temp_char = fgetc(fp);
+	    loc = 0;
+	  }
+
+          cmd = temp_char & mask[loc];
+	  loc++;
+	  
+	  if (cmd) {
+	       test[t] = '1';
+	       t++;
+	       depth++;
+
+	       if (loc > 7) {
+		    loc = 0;
+		    temp_char = fgetc(fp);
+	       }
+	       x1 = temp_char & mask[loc];
+	       if (x1) {x1 = 1;}
+	       loc++;
+
+	       if (loc > 7) {
+		    loc = 0;
+		    temp_char = fgetc(fp);
+	       }
+	       x2 = temp_char & mask[loc];
+	       if (x2) {x2 = 1;}
+	       loc++;
+
+	       if (loc > 7) {
+		    loc = 0;
+		    temp_char = fgetc(fp);
+	       }
+	       x3 = temp_char & mask[loc];
+	       if (x3) {x3 = 1;}
+	       loc++;
+
+	       if (loc > 7) {
+		    loc = 0;
+		    temp_char = fgetc(fp);
+	       }
+	       x4 = temp_char & mask[loc];
+	       if (x4) {x4 = 1;}
+	       loc++;
+	       
+	       if (loc > 7) {
+		    loc = 0;
+		    temp_char = fgetc(fp);
+	       }
+	       x5 = temp_char & mask[loc];
+	       if (x5) {x5 = 1;}
+	       loc++;
+
+	       if (loc > 7) {
+		    loc = 0;
+		    temp_char = fgetc(fp);
+	       }
+	       x6 = temp_char & mask[loc];
+	       if (x6) {x6 = 1;}
+	       loc++;
+
+	       if (loc > 7) {
+		    loc = 0;
+		    temp_char = fgetc(fp);
+	       }
+	       x7 = temp_char & mask[loc];
+	       if (x7) {x7 = 1;}
+	       loc++;
+
+	       if (loc > 7) {
+		    loc = 0;
+		    temp_char = fgetc(fp);
+	       }
+	       x8 = temp_char & mask[loc];
+	       if (x8) {x8 = 1;}
+	       loc++;
+
+	       fchar = 2*2*2*2*2*2*2*x1 + 
+	         2*2*2*2*2*2*x2 +
+	         2*2*2*2*2*x3 + 
+	         2*2*2*2*x4 +
+	         2*2*2*x5 + 
+	         2*2*x6 + 
+	         2*x7 +
+	         1*x8;
+	       test[t] = fchar;
+	       t++;
+
+	  } else {
+	       test[t] = '0';
+	       t++;
+	       depth--;
+	  }
+	  if (depth == 0) {
+	    break;
+	  }
+     }
+     /*
+     temp_char2 = fgetc(fp);
+     while ((temp_char = fgetc(fp))) {
+       cmd = temp_char2 & mask[loc];
+       loc++;
+       
+       if (cmd) {
+	 test[t] = '1';
+	 t++;
+	 
+	 if (loc > 7) {
+	      loc = 0;
+	      temp_char2 = temp_char;
+	 }
+	 x1 = temp_char2 & mask[loc];
+	 if (x1) {x1=1;}
+	 loc++;
+
+	 if (loc > 7) {
+	      loc = 0;
+	      temp_char2 = temp_char;
+	 }
+	 x2 = temp_char2 & mask[loc];
+	 if (x2) {x2=1;}
+	 loc++;
+	 
+	 if (loc > 7) {
+	      loc = 0;
+	      temp_char2 = temp_char;
+	 }
+	 x3 = temp_char2 & mask[loc];
+	 if (x3) {x3=1;}
+	 loc++;
+
+	 if (loc > 7) {
+	      loc = 0;
+	      temp_char2 = temp_char;
+	 }
+	 x4 = temp_char2 & mask[loc];
+	 if (x4) {x4=1;}
+	 loc++;
+
+	 if (loc > 7) {
+	      loc = 0;
+	      temp_char2 = temp_char;
+	 }
+	 x5 = temp_char2 & mask[loc];
+	 if (x5) {x5=1;}
+	 loc++;
+
+	 if (loc > 7) {
+	      loc = 0;
+	      temp_char2 = temp_char;
+	 }
+	 x6 = temp_char2 & mask[loc];
+	 if (x6) {x6=1;}
+	 loc++;
+
+	 if (loc > 7) {
+	      loc = 0;
+	      temp_char2 = temp_char;
+	 }
+	 x7 = temp_char2 & mask[loc];
+	 if (x7) {x7=1;}
+	 loc++;
+
+	 if (loc > 7) {
+	      loc = 0;
+	      temp_char2 = temp_char;
+	 }
+	 x8 = temp_char2 & mask[loc];
+	 if (x8) {x8=1;}
+	 loc++;
+
+	 fchar = 2*2*2*2*2*2*2*x1 + 
+	         2*2*2*2*2*2*x2 +
+	         2*2*2*2*2*x3 + 
+	         2*2*2*2*x4 +
+	         2*2*2*x5 + 
+	         2*2*x6 + 
+	         2*x7 +
+	         1*x8;
+	 test[t] = fchar;
+	 t++;
+       } else if (cmd == 0) {
+	 test[t] = '0';
+	 //loc++;
+	 t++;
+	 while ((loc < 7) && !(temp_char2 & mask[loc])) {
+	   loc++;
+	   test[t] = '0';
+	   t++;
+	 }
+       }
+
+       //temp_char2 = temp_char;
+       //test[t] = temp_char;
+       //t++;
+       }*/
+     printf("test: %s\n", test);
      
+     Stack * textStack = NULL;
+     textStack = Stack_create();
 
-  return(NULL);
+     t = 0;
+     while ((test[t] == '1') || (test[t] == '0')) {
+          if (test[t] == '0') { //pop pop combine
+	    //printf("Combining from stack.\n");
+	    /* if ((test[t + 1] == '1') || (test[t + 1] == '0'))  { 
+		    Stack_popPopCombinePush(textStack);
+		    }*/
+	    if (textStack->head->next != NULL) {
+	      Stack_popPopCombinePush(textStack);
+	      //depth--;
+	      // printf("Removing from stack, Stack depth: %d\n", depth);
+	    }
+	       t = t + 1;
+	  }  else if (test[t] == '1') { //put on stack
+	    if ((test[t+2] == '1') || (test[t+2] == '0')) {
+	      //depth++;
+	    //printf("Placing %c on stackm Stack depth: %d\n", test[t + 1], depth);
+	       
+	       HuffNode * huffChunk = HuffNode_create(test[t + 1]);
+	       Stack_pushFront(textStack, huffChunk);
+	       //free(huffChunk);
+	       t = t + 2;
+	    }
+	  }
+     }
+
+     final = Stack_popFront(textStack);
+
+     free(test);
+     Stack_destroy(textStack);
+     return(final);
 }
