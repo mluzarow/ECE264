@@ -1,0 +1,8 @@
+
+Testcase 11 :: 11-prefixcodes.bit-huff
+   Reading file: 'inputs/11-prefixcodes.bit-huff', textmode = FALSE.
+   Huffman coding tree is:
+   
+     
+   Files /home/shay/a/mluzarow/ECE264/HW09/output-tester/11-prefixcodes.bit-huff.student.output and /home/shay/a/mluzarow/ECE264/HW09/output-tester/11-prefixcodes.bit-huff.solution.output differ
+Testcase FAILED. Log file saved to testcase-11.log

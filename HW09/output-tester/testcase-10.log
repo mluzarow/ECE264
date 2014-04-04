@@ -1,0 +1,8 @@
+
+Testcase 10 :: 10-poetry2.bit-huff
+   Reading file: 'inputs/10-poetry2.bit-huff', textmode = FALSE.
+   Huffman coding tree is:
+   
+     
+   Files /home/shay/a/mluzarow/ECE264/HW09/output-tester/10-poetry2.bit-huff.student.output and /home/shay/a/mluzarow/ECE264/HW09/output-tester/10-poetry2.bit-huff.solution.output differ
+Testcase FAILED. Log file saved to testcase-10.log

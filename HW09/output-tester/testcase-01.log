@@ -1,0 +1,22 @@
+
+Testcase 1 :: 01-tibbs.txt-huff
+   Reading file: 'inputs/01-tibbs.txt-huff', textmode = TRUE.
+   Huffman coding tree is:
+   
+                                   ______________________________o_______________________________
+                                  /                                                              \
+                   ______________o_______________                                  ______________o_______________
+                  /                              \                                /                              \
+           ______o_______                  ______o_______                  ______o_______                  ______o_______
+          /              \                /              \                /              \                /              \
+       __o___          __o___            e              ' '            __o___          __o___          __o___          __o___
+      /      \        /      \                                        /      \        /      \        /      \        /      \
+     m       r       t       y                                       T       b       i       l       s       o_      o_      o_
+                                                                                                            /  \    /  \    /  \
+                                                                                                           \n   !   M   a   c   h
+   Memory errors detected.
+   Valgrind log saved in /home/shay/a/mluzarow/ECE264/HW09/output-tester/01-tibbs.txt-huff.student.memcheck.log.
+   Your solution is different to the expected solution.
+   Review the files "/home/shay/a/mluzarow/ECE264/HW09/output-tester/01-tibbs.txt-huff.student.output" "/home/shay/a/mluzarow/ECE264/HW09/output-tester/01-tibbs.txt-huff.solution.output"
+   to see where you went wrong. The 'diff' command may be useful.
+Testcase FAILED. Log file saved to testcase-01.log

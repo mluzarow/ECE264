@@ -1,0 +1,8 @@
+
+Testcase 13 :: 13-woods.bit-huff
+   Reading file: 'inputs/13-woods.bit-huff', textmode = FALSE.
+   Huffman coding tree is:
+   
+     
+   Files /home/shay/a/mluzarow/ECE264/HW09/output-tester/13-woods.bit-huff.student.output and /home/shay/a/mluzarow/ECE264/HW09/output-tester/13-woods.bit-huff.solution.output differ
+Testcase FAILED. Log file saved to testcase-13.log
