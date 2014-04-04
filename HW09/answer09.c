@@ -159,7 +159,30 @@ HuffNode * HuffTree_readTextHeader(FILE * fp) {
      char temp_char;
      HuffNode * final = NULL;
      int depth = 0;
-     
+
+     int i = 0;
+     for (i = 0; i < 255; i++) {
+       test[i] = 'a';
+     }
+     /*
+     while ((temp_char = fgetc(fp)) != EOF) {
+	 if (temp_char == '1') {
+	      depth++;
+	      t = t + 2;
+	 } else if (temp_char == '0') {
+	      depth--;
+	      t = t + 1;
+	 }
+	 if (depth <= 0) {
+	      break;
+	 }
+     }
+       
+       // test[0] = 'f';
+     char * test = malloc(sizeof(char) * t);
+     t = 0;
+     depth = 0;
+     */
      while ((temp_char = fgetc(fp)) != EOF) {
           if (temp_char == '1') {
 	       test[t] = temp_char;
@@ -175,10 +198,10 @@ HuffNode * HuffTree_readTextHeader(FILE * fp) {
 	  if (depth <= 0) {
 	       break;
 	  }
-
+     }
 	  //  test[t] = temp_char;
 	  //t++;
-     }
+     //}
      /*
      char * ch;
      int i = 0;
