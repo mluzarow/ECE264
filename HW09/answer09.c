@@ -72,12 +72,25 @@ int Stack_isEmpty(Stack * stack) {
 }
 
 HuffNode * Stack_popFront(Stack * stack) {
-     if (Stack_isEmpty(stack)) {
+  HuffNode * tree = NULL;
+  StackNode * n = stack->head;
+
+  tree = stack->head->tree;
+  stack->head = stack->head->next;
+  free(n);
+
+  return(tree);
+
+
+
+  /*
+
+   if (Stack_isEmpty(stack)) {
           return(NULL);
      } else if (stack->head->next == NULL) {
-       /*          
-HuffNode * popLast = HuffNode_create('o');
-	  popLast = stack->head->tree;
+                 
+     //HuffNode * popLast = HuffNode_create('o');
+//popLast = stack->head->tree;
 	  
 	  //HuffNode * inter = NULL;
 	  //inter->value = popLast->value;
@@ -85,21 +98,21 @@ HuffNode * popLast = HuffNode_create('o');
 	  //inter->right = popLast->right;
 	  //inter = stack->head->tree;
 	  //free(popLast);
-	  return(popLast);
-       */
+	 // return(popLast);
+       
        HuffNode * popLast = NULL;
        popLast = stack->head->tree;
        free(stack->head);
        return(popLast);
      } else {
-       /*
-       HuffNode * popChunk = HuffNode_create('o');
-	  popChunk = stack->head->tree;
-	  //free something here
-	  stack->head = stack->head->next;
        
-	  return(popChunk);
-       */
+       //HuffNode * popChunk = HuffNode_create('o');
+	  //popChunk = stack->head->tree;
+	  //free something here
+	  //stack->head = stack->head->next;
+       
+	//  return(popChunk);
+       
        HuffNode * popChunk = NULL;
        popChunk = stack->head->tree;
        StackNode * b = stack->head;
@@ -108,11 +121,18 @@ HuffNode * popLast = HuffNode_create('o');
        //stack->head = stack->head->next;
 
        return(popChunk);
-     }
+   
+       }*/
 }
 
 void Stack_pushFront(Stack * stack, HuffNode * tree) {
-     StackNode * stackChunk = malloc(sizeof(StackNode));
+  StackNode * n = malloc(sizeof(StackNode));
+  
+  n->tree = tree;
+  n->next = stack->head;
+  stack->head = n;
+
+ /* StackNode * stackChunk = malloc(sizeof(StackNode));
      
      stackChunk->tree = tree;
      stackChunk->next = NULL;
@@ -122,7 +142,7 @@ void Stack_pushFront(Stack * stack, HuffNode * tree) {
      } else {
           stackChunk->next = stack->head;
 	  stack->head = stackChunk;
-     }
+	  }*/
 }
 
 void Stack_popPopCombinePush(Stack * stack) {
@@ -138,12 +158,40 @@ HuffNode * HuffTree_readTextHeader(FILE * fp) {
      int t = 0;
      char temp_char;
      HuffNode * final = NULL;
-
-     while ((temp_char = fgetc(fp)) != EOF) {
-          test[t] = temp_char;
-	  t++;
-     }
+     int depth = 0;
      
+     while ((temp_char = fgetc(fp)) != EOF) {
+          if (temp_char == '1') {
+	       test[t] = temp_char;
+	       temp_char = fgetc(fp);
+	       test[t+1] = temp_char;
+	       depth++;
+	       t = t + 2;
+	  } else if (temp_char == '0') {
+	       test[t] = temp_char;
+	       depth--;
+	       t = t + 1;
+	  }
+	  if (depth <= 0) {
+	       break;
+	  }
+
+	  //  test[t] = temp_char;
+	  //t++;
+     }
+     /*
+     char * ch;
+     int i = 0;
+     for (i = 0; i <= t; i++) {
+       if (test[i] == '1') {
+	 if ((test[i+2] == '1') || (test[i+2] == '0')) {
+	   ch[i] = test[i];
+	 }
+       } else if (test[i] == '0') {
+	 
+       }
+     }
+     */
      fclose(fp);
 
      Stack * textStack = NULL;
@@ -153,17 +201,25 @@ HuffNode * HuffTree_readTextHeader(FILE * fp) {
      while ((test[t] == '1') || (test[t] == '0')) {
           if (test[t] == '0') { //pop pop combine
 	    //printf("Combining from stack.\n");
-	       if ((test[t + 1] == '1') || (test[t + 1] == '0'))  { 
+	    /* if ((test[t + 1] == '1') || (test[t + 1] == '0'))  { 
 		    Stack_popPopCombinePush(textStack);
-	       }
+		    }*/
+	    if (textStack->head->next != NULL) {
+	      Stack_popPopCombinePush(textStack);
+	      depth--;
+	      printf("Removing from stack, Stack depth: %d\n", depth);
+	    }
 	       t = t + 1;
 	  }  else if (test[t] == '1') { //put on stack
-	    // printf("Placing %c on stack.\n", test[t + 1]);
+	    if ((test[t+2] == '1') || (test[t+2] == '0')) {
+	    depth++;
+	    printf("Placing %c on stackm Stack depth: %d\n", test[t + 1], depth);
 	       
 	       HuffNode * huffChunk = HuffNode_create(test[t + 1]);
 	       Stack_pushFront(textStack, huffChunk);
 	       //free(huffChunk);
 	       t = t + 2;
+	    }
 	  }
      }
 
