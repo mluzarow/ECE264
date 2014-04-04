@@ -44,7 +44,22 @@ void Stack_destroy(Stack * stack) {
      if (stack == NULL) {
           return;
      }
-     
+     /*
+     if (stack->head != NULL) {
+          if (stack->head->next != NULL) {
+	       if (stack->head->next->tree != NULL) {
+		    HuffNode_destroy(stack->head->next->tree);
+	       }
+	       free(stack->head->next);
+	  }
+	  if (stack->head->tree != NULL) {
+	       HuffNode_destroy(stack->head->tree);
+	  }
+	  free(stack->head);
+     }
+     */
+     //HuffNode_destroy(stack->head->tree);
+     free(stack->head);
      free(stack);
 }
 
@@ -60,16 +75,39 @@ HuffNode * Stack_popFront(Stack * stack) {
      if (Stack_isEmpty(stack)) {
           return(NULL);
      } else if (stack->head->next == NULL) {
-          HuffNode * popLast = HuffNode_create('n');
+       /*          
+HuffNode * popLast = HuffNode_create('o');
 	  popLast = stack->head->tree;
+	  
+	  //HuffNode * inter = NULL;
+	  //inter->value = popLast->value;
+	  //inter->left = popLast->left;
+	  //inter->right = popLast->right;
+	  //inter = stack->head->tree;
+	  //free(popLast);
 	  return(popLast);
+       */
+       HuffNode * popLast = NULL;
+       popLast = stack->head->tree;
+       free(stack->head);
+       return(popLast);
      } else {
-          HuffNode * popChunk = HuffNode_create('o');
+       /*
+       HuffNode * popChunk = HuffNode_create('o');
 	  popChunk = stack->head->tree;
 	  //free something here
 	  stack->head = stack->head->next;
        
 	  return(popChunk);
+       */
+       HuffNode * popChunk = NULL;
+       popChunk = stack->head->tree;
+       StackNode * b = stack->head;
+       stack->head = stack->head->next;
+       free(b);
+       //stack->head = stack->head->next;
+
+       return(popChunk);
      }
 }
 
@@ -91,6 +129,7 @@ void Stack_popPopCombinePush(Stack * stack) {
      HuffNode * newChunk = HuffNode_create('o');
      newChunk->right = Stack_popFront(stack);
      newChunk->left = Stack_popFront(stack);
+     newChunk->value = newChunk->right->value + newChunk->left->value;
      Stack_pushFront(stack, newChunk);
 }
 
@@ -99,35 +138,31 @@ HuffNode * HuffTree_readTextHeader(FILE * fp) {
      int t = 0;
      char temp_char;
      HuffNode * final = NULL;
-     int ppc = 0;
-     int push = 0;
 
      while ((temp_char = fgetc(fp)) != EOF) {
           test[t] = temp_char;
 	  t++;
      }
-
-     //printf("The Header is: %s\n", test);
-
+     
      fclose(fp);
 
      Stack * textStack = NULL;
      textStack = Stack_create();
 
      t = 0;
-     while (test[t] != '2') {
+     while ((test[t] == '1') || (test[t] == '0')) {
           if (test[t] == '0') { //pop pop combine
-	       printf("Combining from stack.\n");
-	       
-	       Stack_popPopCombinePush(textStack);
-
+	    //printf("Combining from stack.\n");
+	       if ((test[t + 1] == '1') || (test[t + 1] == '0'))  { 
+		    Stack_popPopCombinePush(textStack);
+	       }
 	       t = t + 1;
 	  }  else if (test[t] == '1') { //put on stack
-	       printf("Placing %c on stack.\n", test[t + 1]);
+	    // printf("Placing %c on stack.\n", test[t + 1]);
 	       
 	       HuffNode * huffChunk = HuffNode_create(test[t + 1]);
 	       Stack_pushFront(textStack, huffChunk);
-	       
+	       //free(huffChunk);
 	       t = t + 2;
 	  }
      }
@@ -135,6 +170,7 @@ HuffNode * HuffTree_readTextHeader(FILE * fp) {
      final = Stack_popFront(textStack);
 
      free(test);
+     Stack_destroy(textStack);
      return(final);
 }
 
