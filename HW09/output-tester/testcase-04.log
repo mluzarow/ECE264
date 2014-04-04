@@ -59,6 +59,4 @@ Testcase 4 :: 04-waterfront.txt-huff
    Message is:
    You don't understand! I coulda had class. I coulda been a contender. I could've been somebody, instead of a bum, which is what I am.
    
-   Memory errors detected.
-   Valgrind log saved in /home/shay/a/mluzarow/ECE264/HW09/output-tester/04-waterfront.txt-huff.student.memcheck.log.
-Testcase FAILED. Log file saved to testcase-04.log
+Pass.

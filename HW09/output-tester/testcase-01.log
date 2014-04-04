@@ -18,6 +18,4 @@ Testcase 1 :: 01-tibbs.txt-huff
    Message is:
    They call me Mister Tibbs!
    
-   Memory errors detected.
-   Valgrind log saved in /home/shay/a/mluzarow/ECE264/HW09/output-tester/01-tibbs.txt-huff.student.memcheck.log.
-Testcase FAILED. Log file saved to testcase-01.log
+Pass.

@@ -1,79 +1,108 @@
-==5564== Memcheck, a memory error detector
-==5564== Copyright (C) 2002-2012, and GNU GPL'd, by Julian Seward et al.
-==5564== Using Valgrind-3.8.1 and LibVEX; rerun with -h for copyright info
-==5564== Command: ./student.out b inputs/13-woods.bit-huff
-==5564== Parent PID: 5563
-==5564== 
---5564-- 
---5564-- Valgrind options:
---5564--    --tool=memcheck
---5564--    --leak-check=full
---5564--    --verbose
---5564--    --log-file=memcheck.log
---5564-- Contents of /proc/version:
---5564--   Linux version 2.6.32-431.5.1.el6.x86_64 (mockbuild@x86-002.build.bos.redhat.com) (gcc version 4.4.7 20120313 (Red Hat 4.4.7-4) (GCC) ) #1 SMP Fri Jan 10 14:46:43 EST 2014
---5564-- Arch and hwcaps: AMD64, amd64-sse3-cx16
---5564-- Page sizes: currently 4096, max supported 4096
---5564-- Valgrind library directory: /usr/lib64/valgrind
---5564-- Reading syms from /tmp/.Epw06K/student.out
---5564-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux
---5564--    object doesn't have a dynamic symbol table
---5564-- Reading syms from /lib64/ld-2.12.so
---5564-- Scheduler: using generic scheduler lock implementation.
---5564-- Reading suppressions file: /usr/lib64/valgrind/default.supp
-==5564== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-5564-by-mluzarow-on-ecelinux24.ecn.purdue.edu
-==5564== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-5564-by-mluzarow-on-ecelinux24.ecn.purdue.edu
-==5564== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-5564-by-mluzarow-on-ecelinux24.ecn.purdue.edu
-==5564== 
-==5564== TO CONTROL THIS PROCESS USING vgdb (which you probably
-==5564== don't want to do, unless you know exactly what you're doing,
-==5564== or are doing some strange experiment):
-==5564==   /usr/lib64/valgrind/../../bin/vgdb --pid=5564 ...command...
-==5564== 
-==5564== TO DEBUG THIS PROCESS USING GDB: start GDB like this
-==5564==   /path/to/gdb ./student.out
-==5564== and then give GDB the following command
-==5564==   target remote | /usr/lib64/valgrind/../../bin/vgdb --pid=5564
-==5564== --pid is optional if only one valgrind process is running
-==5564== 
---5564-- REDIR: 0x3600e17530 (strlen) redirected to 0x38049551 (vgPlain_amd64_linux_REDIR_FOR_strlen)
---5564-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so
---5564-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so
---5564-- REDIR: 0x3600e173a0 (index) redirected to 0x4a07bf0 (index)
---5564-- REDIR: 0x3600e17420 (strcmp) redirected to 0x4a08530 (strcmp)
---5564-- Reading syms from /lib64/libc-2.12.so
---5564-- REDIR: 0x3601284fb0 (strcasecmp) redirected to 0x480155c (_vgnU_ifunc_wrapper)
---5564-- REDIR: 0x3601287270 (strncasecmp) redirected to 0x480155c (_vgnU_ifunc_wrapper)
---5564-- REDIR: 0x3601282f20 (__GI_strrchr) redirected to 0x4a07a70 (__GI_strrchr)
---5564-- REDIR: 0x360127f9c0 (strcmp) redirected to 0x480155c (_vgnU_ifunc_wrapper)
---5564-- REDIR: 0x3601328590 (__strcmp_sse42) redirected to 0x4a08490 (strcmp)
---5564-- REDIR: 0x360128add0 (strchrnul) redirected to 0x4a09f10 (strchrnul)
---5564-- REDIR: 0x36012847e0 (mempcpy) redirected to 0x4a09f80 (mempcpy)
---5564-- REDIR: 0x360127b800 (free) redirected to 0x4a06369 (free)
---5564-- REDIR: 0x360127a920 (malloc) redirected to 0x4a0696c (malloc)
---5564-- REDIR: 0x3601281440 (__GI_strlen) redirected to 0x4a07f70 (__GI_strlen)
---5564-- REDIR: 0x360127a560 (calloc) redirected to 0x4a056d7 (calloc)
---5564-- REDIR: 0x3601289950 (memcpy) redirected to 0x4a08b20 (memcpy)
-==5564== 
-==5564== HEAP SUMMARY:
-==5564==     in use at exit: 568 bytes in 1 blocks
-==5564==   total heap usage: 3 allocs, 2 frees, 600 bytes allocated
-==5564== 
-==5564== Searching for pointers to 1 not-freed blocks
-==5564== Checked 69,088 bytes
-==5564== 
-==5564== LEAK SUMMARY:
-==5564==    definitely lost: 0 bytes in 0 blocks
-==5564==    indirectly lost: 0 bytes in 0 blocks
-==5564==      possibly lost: 0 bytes in 0 blocks
-==5564==    still reachable: 568 bytes in 1 blocks
-==5564==         suppressed: 0 bytes in 0 blocks
-==5564== Reachable blocks (those to which a pointer was found) are not shown.
-==5564== To see them, rerun with: --leak-check=full --show-reachable=yes
-==5564== 
-==5564== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 6 from 6)
---5564-- 
---5564-- used_suppression:      4 U1004-ARM-_dl_relocate_object
---5564-- used_suppression:      2 glibc-2.5.x-on-SUSE-10.2-(PPC)-2a
-==5564== 
-==5564== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 6 from 6)
+==25297== Memcheck, a memory error detector
+==25297== Copyright (C) 2002-2012, and GNU GPL'd, by Julian Seward et al.
+==25297== Using Valgrind-3.8.1 and LibVEX; rerun with -h for copyright info
+==25297== Command: ./student.out b inputs/13-woods.bit-huff
+==25297== Parent PID: 25296
+==25297== 
+--25297-- 
+--25297-- Valgrind options:
+--25297--    --tool=memcheck
+--25297--    --leak-check=full
+--25297--    --verbose
+--25297--    --log-file=memcheck.log
+--25297-- Contents of /proc/version:
+--25297--   Linux version 2.6.32-431.5.1.el6.x86_64 (mockbuild@x86-002.build.bos.redhat.com) (gcc version 4.4.7 20120313 (Red Hat 4.4.7-4) (GCC) ) #1 SMP Fri Jan 10 14:46:43 EST 2014
+--25297-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--25297-- Page sizes: currently 4096, max supported 4096
+--25297-- Valgrind library directory: /usr/lib64/valgrind
+--25297-- Reading syms from /tmp/.yhSNmv/student.out
+--25297-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux
+--25297--    object doesn't have a dynamic symbol table
+--25297-- Reading syms from /lib64/ld-2.12.so
+--25297-- Scheduler: using generic scheduler lock implementation.
+--25297-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+==25297== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-25297-by-mluzarow-on-ecelinux10.ecn.purdue.edu
+==25297== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-25297-by-mluzarow-on-ecelinux10.ecn.purdue.edu
+==25297== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-25297-by-mluzarow-on-ecelinux10.ecn.purdue.edu
+==25297== 
+==25297== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==25297== don't want to do, unless you know exactly what you're doing,
+==25297== or are doing some strange experiment):
+==25297==   /usr/lib64/valgrind/../../bin/vgdb --pid=25297 ...command...
+==25297== 
+==25297== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==25297==   /path/to/gdb ./student.out
+==25297== and then give GDB the following command
+==25297==   target remote | /usr/lib64/valgrind/../../bin/vgdb --pid=25297
+==25297== --pid is optional if only one valgrind process is running
+==25297== 
+--25297-- REDIR: 0x35cb217530 (strlen) redirected to 0x38049551 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--25297-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so
+--25297-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so
+--25297-- REDIR: 0x35cb2173a0 (index) redirected to 0x4a07bf0 (index)
+--25297-- REDIR: 0x35cb217420 (strcmp) redirected to 0x4a08530 (strcmp)
+--25297-- Reading syms from /lib64/libc-2.12.so
+--25297-- REDIR: 0x35cb684fb0 (strcasecmp) redirected to 0x480155c (_vgnU_ifunc_wrapper)
+--25297-- REDIR: 0x35cb687270 (strncasecmp) redirected to 0x480155c (_vgnU_ifunc_wrapper)
+--25297-- REDIR: 0x35cb682f20 (__GI_strrchr) redirected to 0x4a07a70 (__GI_strrchr)
+--25297-- REDIR: 0x35cb67f9c0 (strcmp) redirected to 0x480155c (_vgnU_ifunc_wrapper)
+--25297-- REDIR: 0x35cb728590 (__strcmp_sse42) redirected to 0x4a08490 (strcmp)
+--25297-- REDIR: 0x35cb68add0 (strchrnul) redirected to 0x4a09f10 (strchrnul)
+--25297-- REDIR: 0x35cb6847e0 (mempcpy) redirected to 0x4a09f80 (mempcpy)
+--25297-- REDIR: 0x35cb67b800 (free) redirected to 0x4a06369 (free)
+--25297-- REDIR: 0x35cb67a920 (malloc) redirected to 0x4a0696c (malloc)
+==25297== Conditional jump or move depends on uninitialised value(s)
+==25297==    at 0x35CB64812C: vfprintf (in /lib64/libc-2.12.so)
+==25297==    by 0x35CB64F489: printf (in /lib64/libc-2.12.so)
+==25297==    by 0x4011F3: HuffTree_readBinaryHeader (answer09.c:509)
+==25297==    by 0x4022FA: process_file (example.c:29)
+==25297==    by 0x4024B6: main (example.c:81)
+==25297== 
+==25297== Conditional jump or move depends on uninitialised value(s)
+==25297==    at 0x4012C3: HuffTree_readBinaryHeader (answer09.c:515)
+==25297==    by 0x4022FA: process_file (example.c:29)
+==25297==    by 0x4024B6: main (example.c:81)
+==25297== 
+==25297== Conditional jump or move depends on uninitialised value(s)
+==25297==    at 0x4012D7: HuffTree_readBinaryHeader (answer09.c:515)
+==25297==    by 0x4022FA: process_file (example.c:29)
+==25297==    by 0x4024B6: main (example.c:81)
+==25297== 
+--25297-- REDIR: 0x35cb681440 (__GI_strlen) redirected to 0x4a07f70 (__GI_strlen)
+==25297== 
+==25297== HEAP SUMMARY:
+==25297==     in use at exit: 0 bytes in 0 blocks
+==25297==   total heap usage: 98 allocs, 98 frees, 2,971 bytes allocated
+==25297== 
+==25297== All heap blocks were freed -- no leaks are possible
+==25297== 
+==25297== Use --track-origins=yes to see where uninitialised values come from
+==25297== ERROR SUMMARY: 3 errors from 3 contexts (suppressed: 6 from 6)
+==25297== 
+==25297== 1 errors in context 1 of 3:
+==25297== Conditional jump or move depends on uninitialised value(s)
+==25297==    at 0x4012D7: HuffTree_readBinaryHeader (answer09.c:515)
+==25297==    by 0x4022FA: process_file (example.c:29)
+==25297==    by 0x4024B6: main (example.c:81)
+==25297== 
+==25297== 
+==25297== 1 errors in context 2 of 3:
+==25297== Conditional jump or move depends on uninitialised value(s)
+==25297==    at 0x4012C3: HuffTree_readBinaryHeader (answer09.c:515)
+==25297==    by 0x4022FA: process_file (example.c:29)
+==25297==    by 0x4024B6: main (example.c:81)
+==25297== 
+==25297== 
+==25297== 1 errors in context 3 of 3:
+==25297== Conditional jump or move depends on uninitialised value(s)
+==25297==    at 0x35CB64812C: vfprintf (in /lib64/libc-2.12.so)
+==25297==    by 0x35CB64F489: printf (in /lib64/libc-2.12.so)
+==25297==    by 0x4011F3: HuffTree_readBinaryHeader (answer09.c:509)
+==25297==    by 0x4022FA: process_file (example.c:29)
+==25297==    by 0x4024B6: main (example.c:81)
+==25297== 
+--25297-- 
+--25297-- used_suppression:      4 U1004-ARM-_dl_relocate_object
+--25297-- used_suppression:      2 glibc-2.5.x-on-SUSE-10.2-(PPC)-2a
+==25297== 
+==25297== ERROR SUMMARY: 3 errors from 3 contexts (suppressed: 6 from 6)

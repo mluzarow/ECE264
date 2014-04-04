@@ -1,85 +1,112 @@
-==29092== Memcheck, a memory error detector
-==29092== Copyright (C) 2002-2012, and GNU GPL'd, by Julian Seward et al.
-==29092== Using Valgrind-3.8.1 and LibVEX; rerun with -h for copyright info
-==29092== Command: ./student.out b inputs/08-gophers.bit-huff
-==29092== Parent PID: 29091
-==29092== 
---29092-- 
---29092-- Valgrind options:
---29092--    --tool=memcheck
---29092--    --leak-check=full
---29092--    --verbose
---29092--    --log-file=memcheck.log
---29092-- Contents of /proc/version:
---29092--   Linux version 2.6.32-431.11.2.el6.x86_64 (mockbuild@x86-027.build.eng.bos.redhat.com) (gcc version 4.4.7 20120313 (Red Hat 4.4.7-4) (GCC) ) #1 SMP Mon Mar 3 13:32:45 EST 2014
---29092-- Arch and hwcaps: AMD64, amd64-sse3-cx16
---29092-- Page sizes: currently 4096, max supported 4096
---29092-- Valgrind library directory: /usr/lib64/valgrind
---29092-- Reading syms from /tmp/.Fjgywj/student.out
---29092-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux
---29092--    object doesn't have a dynamic symbol table
---29092-- Reading syms from /lib64/ld-2.12.so
---29092-- Scheduler: using generic scheduler lock implementation.
---29092-- Reading suppressions file: /usr/lib64/valgrind/default.supp
-==29092== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-29092-by-mluzarow-on-ecelinux24.ecn.purdue.edu
-==29092== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-29092-by-mluzarow-on-ecelinux24.ecn.purdue.edu
-==29092== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-29092-by-mluzarow-on-ecelinux24.ecn.purdue.edu
-==29092== 
-==29092== TO CONTROL THIS PROCESS USING vgdb (which you probably
-==29092== don't want to do, unless you know exactly what you're doing,
-==29092== or are doing some strange experiment):
-==29092==   /usr/lib64/valgrind/../../bin/vgdb --pid=29092 ...command...
-==29092== 
-==29092== TO DEBUG THIS PROCESS USING GDB: start GDB like this
-==29092==   /path/to/gdb ./student.out
-==29092== and then give GDB the following command
-==29092==   target remote | /usr/lib64/valgrind/../../bin/vgdb --pid=29092
-==29092== --pid is optional if only one valgrind process is running
-==29092== 
---29092-- REDIR: 0x3600e17530 (strlen) redirected to 0x38049551 (vgPlain_amd64_linux_REDIR_FOR_strlen)
---29092-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so
---29092-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so
---29092-- REDIR: 0x3600e173a0 (index) redirected to 0x4a07bf0 (index)
---29092-- REDIR: 0x3600e17420 (strcmp) redirected to 0x4a08530 (strcmp)
---29092-- Reading syms from /lib64/libc-2.12.so
---29092-- REDIR: 0x3601284fb0 (strcasecmp) redirected to 0x480155c (_vgnU_ifunc_wrapper)
---29092-- REDIR: 0x3601287270 (strncasecmp) redirected to 0x480155c (_vgnU_ifunc_wrapper)
---29092-- REDIR: 0x3601282f20 (__GI_strrchr) redirected to 0x4a07a70 (__GI_strrchr)
---29092-- REDIR: 0x360127f9c0 (strcmp) redirected to 0x480155c (_vgnU_ifunc_wrapper)
---29092-- REDIR: 0x3601328590 (__strcmp_sse42) redirected to 0x4a08490 (strcmp)
---29092-- REDIR: 0x360128add0 (strchrnul) redirected to 0x4a09f10 (strchrnul)
---29092-- REDIR: 0x36012847e0 (mempcpy) redirected to 0x4a09f80 (mempcpy)
---29092-- REDIR: 0x360127b800 (free) redirected to 0x4a06369 (free)
---29092-- REDIR: 0x360127a920 (malloc) redirected to 0x4a0696c (malloc)
---29092-- REDIR: 0x3601281440 (__GI_strlen) redirected to 0x4a07f70 (__GI_strlen)
---29092-- REDIR: 0x360127a560 (calloc) redirected to 0x4a056d7 (calloc)
---29092-- REDIR: 0x3601289950 (memcpy) redirected to 0x4a08b20 (memcpy)
-==29092== 
-==29092== HEAP SUMMARY:
-==29092==     in use at exit: 823 bytes in 2 blocks
-==29092==   total heap usage: 4 allocs, 2 frees, 855 bytes allocated
-==29092== 
-==29092== Searching for pointers to 2 not-freed blocks
-==29092== Checked 69,088 bytes
-==29092== 
-==29092== 255 bytes in 1 blocks are definitely lost in loss record 1 of 2
-==29092==    at 0x4A069EE: malloc (vg_replace_malloc.c:270)
-==29092==    by 0x400F7B: HuffTree_readBinaryHeader (answer09.c:188)
-==29092==    by 0x401FAE: process_file (example.c:29)
-==29092==    by 0x40216A: main (example.c:81)
-==29092== 
-==29092== LEAK SUMMARY:
-==29092==    definitely lost: 255 bytes in 1 blocks
-==29092==    indirectly lost: 0 bytes in 0 blocks
-==29092==      possibly lost: 0 bytes in 0 blocks
-==29092==    still reachable: 568 bytes in 1 blocks
-==29092==         suppressed: 0 bytes in 0 blocks
-==29092== Reachable blocks (those to which a pointer was found) are not shown.
-==29092== To see them, rerun with: --leak-check=full --show-reachable=yes
-==29092== 
-==29092== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 6 from 6)
---29092-- 
---29092-- used_suppression:      4 U1004-ARM-_dl_relocate_object
---29092-- used_suppression:      2 glibc-2.5.x-on-SUSE-10.2-(PPC)-2a
-==29092== 
-==29092== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 6 from 6)
+==25066== Memcheck, a memory error detector
+==25066== Copyright (C) 2002-2012, and GNU GPL'd, by Julian Seward et al.
+==25066== Using Valgrind-3.8.1 and LibVEX; rerun with -h for copyright info
+==25066== Command: ./student.out b inputs/08-gophers.bit-huff
+==25066== Parent PID: 25065
+==25066== 
+--25066-- 
+--25066-- Valgrind options:
+--25066--    --tool=memcheck
+--25066--    --leak-check=full
+--25066--    --verbose
+--25066--    --log-file=memcheck.log
+--25066-- Contents of /proc/version:
+--25066--   Linux version 2.6.32-431.5.1.el6.x86_64 (mockbuild@x86-002.build.bos.redhat.com) (gcc version 4.4.7 20120313 (Red Hat 4.4.7-4) (GCC) ) #1 SMP Fri Jan 10 14:46:43 EST 2014
+--25066-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--25066-- Page sizes: currently 4096, max supported 4096
+--25066-- Valgrind library directory: /usr/lib64/valgrind
+--25066-- Reading syms from /tmp/.yhSNmv/student.out
+--25066-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux
+--25066--    object doesn't have a dynamic symbol table
+--25066-- Reading syms from /lib64/ld-2.12.so
+--25066-- Scheduler: using generic scheduler lock implementation.
+--25066-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+==25066== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-25066-by-mluzarow-on-ecelinux10.ecn.purdue.edu
+==25066== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-25066-by-mluzarow-on-ecelinux10.ecn.purdue.edu
+==25066== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-25066-by-mluzarow-on-ecelinux10.ecn.purdue.edu
+==25066== 
+==25066== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==25066== don't want to do, unless you know exactly what you're doing,
+==25066== or are doing some strange experiment):
+==25066==   /usr/lib64/valgrind/../../bin/vgdb --pid=25066 ...command...
+==25066== 
+==25066== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==25066==   /path/to/gdb ./student.out
+==25066== and then give GDB the following command
+==25066==   target remote | /usr/lib64/valgrind/../../bin/vgdb --pid=25066
+==25066== --pid is optional if only one valgrind process is running
+==25066== 
+--25066-- REDIR: 0x35cb217530 (strlen) redirected to 0x38049551 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--25066-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so
+--25066-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so
+--25066-- REDIR: 0x35cb2173a0 (index) redirected to 0x4a07bf0 (index)
+--25066-- REDIR: 0x35cb217420 (strcmp) redirected to 0x4a08530 (strcmp)
+--25066-- Reading syms from /lib64/libc-2.12.so
+--25066-- REDIR: 0x35cb684fb0 (strcasecmp) redirected to 0x480155c (_vgnU_ifunc_wrapper)
+--25066-- REDIR: 0x35cb687270 (strncasecmp) redirected to 0x480155c (_vgnU_ifunc_wrapper)
+--25066-- REDIR: 0x35cb682f20 (__GI_strrchr) redirected to 0x4a07a70 (__GI_strrchr)
+--25066-- REDIR: 0x35cb67f9c0 (strcmp) redirected to 0x480155c (_vgnU_ifunc_wrapper)
+--25066-- REDIR: 0x35cb728590 (__strcmp_sse42) redirected to 0x4a08490 (strcmp)
+--25066-- REDIR: 0x35cb68add0 (strchrnul) redirected to 0x4a09f10 (strchrnul)
+--25066-- REDIR: 0x35cb6847e0 (mempcpy) redirected to 0x4a09f80 (mempcpy)
+--25066-- REDIR: 0x35cb67b800 (free) redirected to 0x4a06369 (free)
+--25066-- REDIR: 0x35cb67a920 (malloc) redirected to 0x4a0696c (malloc)
+==25066== Conditional jump or move depends on uninitialised value(s)
+==25066==    at 0x35CB64812C: vfprintf (in /lib64/libc-2.12.so)
+==25066==    by 0x35CB64F489: printf (in /lib64/libc-2.12.so)
+==25066==    by 0x4011F3: HuffTree_readBinaryHeader (answer09.c:509)
+==25066==    by 0x4022FA: process_file (example.c:29)
+==25066==    by 0x4024B6: main (example.c:81)
+==25066== 
+==25066== Conditional jump or move depends on uninitialised value(s)
+==25066==    at 0x4012C3: HuffTree_readBinaryHeader (answer09.c:515)
+==25066==    by 0x4022FA: process_file (example.c:29)
+==25066==    by 0x4024B6: main (example.c:81)
+==25066== 
+==25066== Conditional jump or move depends on uninitialised value(s)
+==25066==    at 0x4012D7: HuffTree_readBinaryHeader (answer09.c:515)
+==25066==    by 0x4022FA: process_file (example.c:29)
+==25066==    by 0x4024B6: main (example.c:81)
+==25066== 
+--25066-- REDIR: 0x35cb681440 (__GI_strlen) redirected to 0x4a07f70 (__GI_strlen)
+--25066-- REDIR: 0x35cb67a560 (calloc) redirected to 0x4a056d7 (calloc)
+--25066-- REDIR: 0x35cb681400 (strlen) redirected to 0x480155c (_vgnU_ifunc_wrapper)
+--25066-- REDIR: 0x35cb733860 (__strlen_sse42) redirected to 0x4a07f50 (strlen)
+--25066-- REDIR: 0x35cb689950 (memcpy) redirected to 0x4a08b20 (memcpy)
+==25066== 
+==25066== HEAP SUMMARY:
+==25066==     in use at exit: 0 bytes in 0 blocks
+==25066==   total heap usage: 66 allocs, 66 frees, 1,969 bytes allocated
+==25066== 
+==25066== All heap blocks were freed -- no leaks are possible
+==25066== 
+==25066== Use --track-origins=yes to see where uninitialised values come from
+==25066== ERROR SUMMARY: 3 errors from 3 contexts (suppressed: 6 from 6)
+==25066== 
+==25066== 1 errors in context 1 of 3:
+==25066== Conditional jump or move depends on uninitialised value(s)
+==25066==    at 0x4012D7: HuffTree_readBinaryHeader (answer09.c:515)
+==25066==    by 0x4022FA: process_file (example.c:29)
+==25066==    by 0x4024B6: main (example.c:81)
+==25066== 
+==25066== 
+==25066== 1 errors in context 2 of 3:
+==25066== Conditional jump or move depends on uninitialised value(s)
+==25066==    at 0x4012C3: HuffTree_readBinaryHeader (answer09.c:515)
+==25066==    by 0x4022FA: process_file (example.c:29)
+==25066==    by 0x4024B6: main (example.c:81)
+==25066== 
+==25066== 
+==25066== 1 errors in context 3 of 3:
+==25066== Conditional jump or move depends on uninitialised value(s)
+==25066==    at 0x35CB64812C: vfprintf (in /lib64/libc-2.12.so)
+==25066==    by 0x35CB64F489: printf (in /lib64/libc-2.12.so)
+==25066==    by 0x4011F3: HuffTree_readBinaryHeader (answer09.c:509)
+==25066==    by 0x4022FA: process_file (example.c:29)
+==25066==    by 0x4024B6: main (example.c:81)
+==25066== 
+--25066-- 
+--25066-- used_suppression:      4 U1004-ARM-_dl_relocate_object
+--25066-- used_suppression:      2 glibc-2.5.x-on-SUSE-10.2-(PPC)-2a
+==25066== 
+==25066== ERROR SUMMARY: 3 errors from 3 contexts (suppressed: 6 from 6)

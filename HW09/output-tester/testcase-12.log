@@ -1,8 +1,21 @@
 
 Testcase 12 :: 12-stone.bit-huff
    Reading file: 'inputs/12-stone.bit-huff', textmode = FALSE.
+   test: 1t1a1r001n1o01 01e1s0000
    Huffman coding tree is:
    
-     
-   Files /home/shay/a/mluzarow/ECE264/HW09/output-tester/12-stone.bit-huff.student.output and /home/shay/a/mluzarow/ECE264/HW09/output-tester/12-stone.bit-huff.solution.output differ
+                   ______________o_______________
+                  /                              \
+           ______o_______                  ______o_______
+          /              \                /              \
+         t             __o___          __o___          __o___
+                      /      \        /      \        /      \
+                     a       r       o_     ' '      e       s 
+                                    /  \                        
+                                    n   o                        
+   
+   Message is:
+   streets are stone stars are not
+   Memory errors detected.
+   Valgrind log saved in /home/shay/a/mluzarow/ECE264/HW09/output-tester/12-stone.bit-huff.student.memcheck.log.
 Testcase FAILED. Log file saved to testcase-12.log
