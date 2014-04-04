@@ -192,7 +192,7 @@ HuffNode * HuffTree_readTextHeader(FILE * fp) {
        }
      }
      */
-     fclose(fp);
+     //fclose(fp);
 
      Stack * textStack = NULL;
      textStack = Stack_create();
@@ -206,14 +206,14 @@ HuffNode * HuffTree_readTextHeader(FILE * fp) {
 		    }*/
 	    if (textStack->head->next != NULL) {
 	      Stack_popPopCombinePush(textStack);
-	      depth--;
-	      printf("Removing from stack, Stack depth: %d\n", depth);
+	      //depth--;
+	      // printf("Removing from stack, Stack depth: %d\n", depth);
 	    }
 	       t = t + 1;
 	  }  else if (test[t] == '1') { //put on stack
 	    if ((test[t+2] == '1') || (test[t+2] == '0')) {
-	    depth++;
-	    printf("Placing %c on stackm Stack depth: %d\n", test[t + 1], depth);
+	      //depth++;
+	    //printf("Placing %c on stackm Stack depth: %d\n", test[t + 1], depth);
 	       
 	       HuffNode * huffChunk = HuffNode_create(test[t + 1]);
 	       Stack_pushFront(textStack, huffChunk);
