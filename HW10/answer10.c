@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "answer10.h"
+#include "tree.h"
 /*
 typedef struct list_node_t {
      int value;
@@ -230,6 +231,15 @@ int isStackSortable(int * array, int len) {
 }
 
 void genShapes(int n) {
+     int array[n];
+     int i = 0;
 
+     for (i = 1; i < n; i++) {
+          array[i - 1] = i;
+     }
 
+     if (isStackSortable(array, n) == 0) {
+       TreeNode * node = TreeNode_create(1);
+       Tree_printShape(node);
+     }
 }
