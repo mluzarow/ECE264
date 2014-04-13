@@ -61,9 +61,9 @@ int Stack_popFront(Stack * stack) {
 
      list = stack->list;
      val = list->value;
+     stack->list = stack->list->next;    
      free(list);
-     stack->list = stack->list->next;
-     
+
      return(val);
 }
 
@@ -78,27 +78,44 @@ void Stack_pushFront(Stack * stack, int value) {
 void stackSort(int * array, int len) {
      Stack * stack = Stack_create();
      int index = 0;
-     int * w_array;
+     int w_array[100];
      int i = 0;
      int i_val = 0;
+     int junk = 0;
 
      for (i = 0; i < len; i++) {
-          if (!Stack_isEmpty) {
-	       if (array[i] > stack->list->value) {
+          if (Stack_isEmpty(stack) == 0) {
+	       while ((array[i] > stack->list->value) && (Stack_isEmpty(stack) == 0)) {
 		    i_val = Stack_popFront(stack);
 		    w_array[index] = i_val;
 		    index++;
-		    Stack_pushFront(stack, i_val);
 		    i_val = 0;
+		    junk = 1;
+		    if (stack->list == NULL) {
+		         w_array[index] = array[i];
+			 index++;
+		         break;
+		    }
+	       }
+	       if (junk) {
+		    while (index > 0) {
+		         index--;
+		         Stack_pushFront(stack, w_array[index]);
+		    }
+		    junk = 0;
+		    index = 0;
+	       }
+	       if (array[i] < stack->list->value) {
+		    Stack_pushFront(stack, array[i]);
 	       }
 	  } else {
 	       Stack_pushFront(stack, array[i]); 
-	       w_array[index] = array[i];
-	       index++; 
 	  }
      }
-     
-     
+     for (i = 0; i < len; i++) {
+          array[i] = Stack_popFront(stack);
+     }
+     Stack_destroy(stack);
 }
 
 int isStackSortable(int * array, int len) {
