@@ -134,18 +134,29 @@ void stackSort(int * array, int len) {
 
 int isStackSortable(int * array, int len) {
      int sortable = 1;
-     int left[50];
-     int right[50];
+     int pass = 1;
+     int left[20];
+     int right[20];
+     int rlen = 0;
+     int llen = 0;
      int i = 0;
      int largest_num = 0;
      int largest_index = -1;
 
-     for (i = 0; i < 50; i++) {
+     if (array[0] == 0) {
+       return(sortable);
+     }
+
+     if (len <= 2) {
+       return(sortable);
+     }
+
+     for (i = 0; i < 20; i++) {
           left[i] = 0;
 	  right[i] = 0;
      }
 
-     if (len > 2) {
+     //if (len > 2) {
           //find largest value
           for (i = 0; i < len; i++) {
 	       if (array[i] > largest_num) {
@@ -154,42 +165,67 @@ int isStackSortable(int * array, int len) {
 	       }
 	  }
 
-	  if (largest_index == (len - 1)) {
+	  /*if (largest_index == (len - 1)) {
 	       return(sortable);
 	  } else if (largest_index == 0) {
 	       return(!sortable);
-	  }
+	       }*/
 
 	  //split array into left and right
 	  for (i = 0; i < largest_index; i++) {
 	       left[i] = array[i];
+	       llen++;
 	  }
-	  for (i = len - 1; i > largest_index; i--) {
-	       right[(len - 1) - i] = array[i];
+	  for (i = llen + 1; i < len; i++) {
+	       right[i - (llen + 1)] = array[i];
+	       rlen++;
 	  } 
 
-	  largest_num = -1;
+	  largest_num = 99;
 	  i = 0;
 
-	  //find largest right val
-	  while (right[i] != 0) {
-	       if (right[i] > largest_num) {
-		    largest_num = right[i];
+	  if (right[0] == 0) {//null right
+	       pass = isStackSortable(left, llen);
+	       if (pass == 0) {
+	            sortable = 0;
 	       }
-	       i++;
+	  } else {
+	       //find smallest right val
+	       while (right[i] != 0) {
+		    if (right[i] < largest_num) {
+		         largest_num = right[i];
+		    }
+		    i++;
+	       }
 	  }
-     
-	  i = 0;
 
-	  //check left to see if any vals are more than largest
-	  while (left[i] != 0) {
-	       if (left[i] > largest_num) {
+	  i = 0;
+	  
+	  if (left[0] == 0) {
+	       pass = isStackSortable(right, rlen);
+	       if (pass == 0) {
 		    sortable = 0;
-		    break;
 	       }
-	       i++;
+	  } else {
+	       //check left to see if any vals are more than largest
+	       while (left[i] != 0) {
+		    if (left[i] > largest_num) {
+		         sortable = 0;
+			 return(sortable);
+		    }
+		    i++;
+	       }
 	  }
-     }
+	  
+	  pass = isStackSortable(left, llen);
+	  if (pass == 0) {
+	    sortable = 0;
+	  }
+	  pass = isStackSortable(right, rlen);
+	  if (pass == 0) {
+	    sortable = 0;
+	  }
+	  //}
      return(sortable);
 }
 
