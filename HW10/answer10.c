@@ -83,8 +83,8 @@ void stackSort(int * array, int len) {
      int i_val = 0;
      int junk = 0;
 
-     for (i = 0; i < len; i++) {
-          if (Stack_isEmpty(stack) == 0) {
+     for (i = 0; i < len; i++) {//place every value in array correctly onto stack
+          if (Stack_isEmpty(stack) == 0) {//check if stack is fresh
 	       while ((array[i] > stack->list->value) && (Stack_isEmpty(stack) == 0)) {
 		    i_val = Stack_popFront(stack);
 		    w_array[index] = i_val;
@@ -96,8 +96,17 @@ void stackSort(int * array, int len) {
 			 index++;
 		         break;
 		    }
+		    if ((stack->list->value > array[i])) {
+		         w_array[index] = array[i];
+			 index++;
+			 break;
+		    }
 	       }
 	       if (junk) {
+		 /*if ((array[i] < stack->list->value) && (stack->list != NULL))  {
+		         w_array[index] = array[i];
+			 index++;
+			 }*/
 		    while (index > 0) {
 		         index--;
 		         Stack_pushFront(stack, w_array[index]);
@@ -112,7 +121,7 @@ void stackSort(int * array, int len) {
 	       Stack_pushFront(stack, array[i]); 
 	  }
      }
-     for (i = 0; i < len; i++) {
+     for (i = 0; i < len; i++) {//remove all stack values
           array[i] = Stack_popFront(stack);
      }
      Stack_destroy(stack);
