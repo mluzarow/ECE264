@@ -83,6 +83,11 @@ void stackSort(int * array, int len) {
      int i_val = 0;
      int junk = 0;
 
+     if (!isStackSortable(array, len)) {
+          Stack_destroy(stack);
+          return;
+     }
+
      for (i = 0; i < len; i++) {//place every value in array correctly onto stack
           if (Stack_isEmpty(stack) == 0) {//check if stack is fresh
 	       while ((array[i] > stack->list->value) && (Stack_isEmpty(stack) == 0)) {
@@ -128,9 +133,64 @@ void stackSort(int * array, int len) {
 }
 
 int isStackSortable(int * array, int len) {
-     int val = 0;
+     int sortable = 1;
+     int left[50];
+     int right[50];
+     int i = 0;
+     int largest_num = 0;
+     int largest_index = -1;
 
-     return(val);
+     for (i = 0; i < 50; i++) {
+          left[i] = 0;
+	  right[i] = 0;
+     }
+
+     if (len > 2) {
+          //find largest value
+          for (i = 0; i < len; i++) {
+	       if (array[i] > largest_num) {
+		    largest_num = array[i];
+		    largest_index = i;
+	       }
+	  }
+
+	  if (largest_index == (len - 1)) {
+	       return(sortable);
+	  } else if (largest_index == 0) {
+	       return(!sortable);
+	  }
+
+	  //split array into left and right
+	  for (i = 0; i < largest_index; i++) {
+	       left[i] = array[i];
+	  }
+	  for (i = len - 1; i > largest_index; i--) {
+	       right[(len - 1) - i] = array[i];
+	  } 
+
+	  largest_num = -1;
+	  i = 0;
+
+	  //find largest right val
+	  while (right[i] != 0) {
+	       if (right[i] > largest_num) {
+		    largest_num = right[i];
+	       }
+	       i++;
+	  }
+     
+	  i = 0;
+
+	  //check left to see if any vals are more than largest
+	  while (left[i] != 0) {
+	       if (left[i] > largest_num) {
+		    sortable = 0;
+		    break;
+	       }
+	       i++;
+	  }
+     }
+     return(sortable);
 }
 
 void genShapes(int n) {
