@@ -10,12 +10,14 @@ int main (int argc, char ** argv) {
      //argv[3] = moves
 
      if (argc != 4) {
-          printUsage();
+          //printUsage();
+          printf("FAIL")
 	  return(EXIT_SUCCESS);
      }
      
      if (isValidState(argv[2]) == 0) {
-          printf("There is an error in your state input.\n\n");
+          //printf("There is an error in your state input.\n\n");
+          printf("FAIL")
 	  return(EXIT_SUCCESS);
      }
 
