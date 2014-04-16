@@ -17,18 +17,13 @@ int move(char * state, char m) {
 
      for (i = 0; i < 16; i++) {
           if (state[i] == '-') {
-	       pos = i + 1;
+	       pos = i;
 	       break;
 	  }
      }
-     pos = pos + 3;
+    
      row = pos / SIDELENGTH;
-     pos = pos - 3;
      col = pos % SIDELENGTH;
-
-     if (col == 0) {
-          col = 4;
-     }
 
      //     printf("pos = %d, row: %d, col: %d\n",pos, row, col);
 
@@ -42,21 +37,22 @@ int move(char * state, char m) {
           col = col + 1;
      }
 
-     //printf("row: %d, col: %d\n", row, col);
-     if ((row < 1) || (row > SIDELENGTH)) {
+     // printf("row: %d, col: %d\n", row, col);
+     
+     if ((row < 0) || (row >= SIDELENGTH)) {
           return(FALSE);
      }
-     if ((col < 1) || (col > SIDELENGTH)) {
+     if ((col < 0) || (col >= SIDELENGTH)) {
           return(FALSE);
      }
 
-     npos = row * (SIDELENGTH - 1) + col;
+     npos = row * SIDELENGTH + col;
 
-     //printf("npos: %d\n", npos);
+     // printf("npos: %d\n", npos);
 
-     temp = state[npos - 1];
-     state[npos - 1] = '-';
-     state[pos - 1] = temp;
+     temp = state[npos];
+     state[npos] = '-';
+     state[pos] = temp;
 
      return(TRUE);
 }
