@@ -7,6 +7,40 @@
 #define TRUE 1
 #define FALSE 0
 
+
+MoveTree * MoveTree_insert(MoveTree * node, const char * state, const char * moves) {
+
+
+}
+
+void MoveTree_destroy(MoveTree * node) {
+     MoveTree * current = node;
+     MoveTree * nleft = current->left;
+     MoveTree * nright = current->right;
+     free(current->state);
+     free(current->moves);
+     free(current);
+
+     if (nleft != NULL) {
+          MoveTree_destroy(nleft);
+     }
+     if (nright != NULL) {
+          MoveTree_destroy(nright);
+     }
+
+     node = NULL;
+}
+
+MoveTree * MoveTree_create(const char * state, const char * moves) {
+     MoveTree * tree = malloc(sizeof(MoveTree));
+     tree->state = strdup(state);
+     tree->moves = strdup(moves);
+     tree->left = NULL;
+     tree->right = NULL;
+
+     return(tree);
+}
+
 int move(char * state, char m) {
      int pos = 0;
      int npos = 0;
