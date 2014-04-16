@@ -1,6 +1,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "answer11.h"
 
 void printUsage(void);
 
@@ -10,17 +11,26 @@ int main (int argc, char ** argv) {
      //argv[3] = moves
 
      if (argc != 4) {
-          //printUsage();
-          printf("FAIL")
-	  return(EXIT_SUCCESS);
-     }
-     
-     if (isValidState(argv[2]) == 0) {
-          //printf("There is an error in your state input.\n\n");
-          printf("FAIL")
-	  return(EXIT_SUCCESS);
+          printUsage();
+	  return(EXIT_FAILURE);
      }
 
+     if ((argv[1][0] != '1') && (argv[1][0] != '2') && (argv[1][0] != '3')) {
+          printf("Incorrect stage value.\n");
+          return(EXIT_FAILURE);
+     } 
+     
+     if (isValidState(argv[2]) == 0) {
+          printf("There is an error in your state input.\n\n");
+	  return(EXIT_FAILURE);
+     }
+
+     if (isValidMoveList(argv[3]) == 0) {
+          printf("The Move list is not valid.\n");
+          return(EXIT_FAILURE);
+     }
+
+     processMoveList(argv[2], argv[3]);
 
      return (EXIT_SUCCESS);
 }
