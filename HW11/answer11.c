@@ -7,6 +7,86 @@
 #define TRUE 1
 #define FALSE 0
 
+int move(char * state, char m) {
+     int pos = 0;
+     int npos = 0;
+     int row = 0;
+     int col = 0;
+     int i = 0;
+     char temp;
+
+     for (i = 0; i < 16; i++) {
+          if (state[i] == '-') {
+	       pos = i + 1;
+	       break;
+	  }
+     }
+     pos = pos + 3;
+     row = pos / SIDELENGTH;
+     pos = pos - 3;
+     col = pos % SIDELENGTH;
+
+     if (col == 0) {
+          col = 4;
+     }
+
+     //     printf("pos = %d, row: %d, col: %d\n",pos, row, col);
+
+     if (m == 'U') {
+          row = row - 1;
+     } else if (m == 'D') {
+          row = row + 1;
+     } else if (m == 'L') {
+          col = col - 1;
+     } else if (m == 'R') {
+          col = col + 1;
+     }
+
+     //printf("row: %d, col: %d\n", row, col);
+     if ((row < 1) || (row > SIDELENGTH)) {
+          return(FALSE);
+     }
+     if ((col < 1) || (col > SIDELENGTH)) {
+          return(FALSE);
+     }
+
+     npos = row * (SIDELENGTH - 1) + col;
+
+     //printf("npos: %d\n", npos);
+
+     temp = state[npos - 1];
+     state[npos - 1] = '-';
+     state[pos - 1] = temp;
+
+     return(TRUE);
+}
+
+void processMoveList(char * state, const char * moveList) {
+     int len = strlen(moveList);
+     int i = 0;
+     
+     for (i = 0; i < len; i++) {
+          if (move(state, moveList[i]) == 0) {
+	       printf("I\n");
+	       return;
+	  }
+     }
+     printf("%s\n", state);
+}
+
+int isValidMoveList(const char * moveList) {
+     int len = strlen(moveList);
+     int i = 0;
+
+     for (i = 0; i < len; i++) {
+          if ((moveList[i] != 'U') && (moveList[i] != 'D') && (moveList[i] != 'R') && (moveList[i] != 'L')) {
+	       return(FALSE);
+	  }
+     }
+
+     return(TRUE);
+}
+
 int isValidState(const char * state) {
      int i = 0;
      int dups[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
@@ -51,19 +131,14 @@ int isValidState(const char * state) {
 	  }
      }
        
-       for (i = 0; i < 16; i++) {
-	    if (dups[i] != 1) {
-	         return(FALSE);
-	    }
-       }
-       return(TRUE);
+     for (i = 0; i < 16; i++) {
+          if (dups[i] != 1) {
+	    return(FALSE);
+	  }
      }
+     return(TRUE);
 }
 
-/**
- * Prints the puzzle-state as a 2d matrix. 
- * This function is supplied to you.
- */
 void printPuzzle(const char * state)
 {
     int row, col;
@@ -75,10 +150,6 @@ void printPuzzle(const char * state)
     }
 }
 
-/**
- * Print the moves in a move-tree.
- * This function is supplied to you.
- */
 void MoveTree_print(MoveTree * node)
 {
     if(node == NULL)
