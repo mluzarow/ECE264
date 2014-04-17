@@ -7,9 +7,28 @@
 #define TRUE 1
 #define FALSE 0
 
+MoveTree * MoveTree_find(MoveTree * node, const char * state) {
+     MoveTree * val = NULL;
+
+     if (strcmp(node->state, state) == 0) {
+          return(node); 
+     } else {
+          if (node->left != NULL) {
+	       val = MoveTree_find(node->left, state);
+	  }
+	  if (node->right != NULL) {
+	       
+	  }
+     }
+}
 
 MoveTree * MoveTree_insert(MoveTree * node, const char * state, const char * moves) {
-
+     MoveTree * tree = NULL;
+  
+     if (node == NULL) {
+	  return(tree);
+     }
+     
 
 }
 
