@@ -7,6 +7,49 @@
 #define TRUE 1
 #define FALSE 0
 
+void generateAllHelper(MoveTree*, int, const char*, char*, int);
+
+void generateAllHelper(MoveTree * root, int n_moves, const char * state, char * movelist, int ind) {
+        if (ind >= n_moves) {
+             return;
+	}
+	const char * moves = "UDLR";
+	int i = 0;
+
+	for (i = 0; i < 4; i++) {
+	     char * dup_state = strdup(state);
+
+	     if (move(dup_state, moves[i]) == 0) {
+	          free(dup_state);
+	     } else {
+	          movelist[ind] = moves[i];
+		  root = MoveTree_insert(root, dup_state, movelist);
+		  generateAllHelper(root, n_moves, dup_state, movelist, ind + 1);
+		  free(dup_state);
+	     }
+	}
+}
+
+MoveTree * generateAll(char * state, int n_moves) {
+     if (n_moves == 0) {
+          MoveTree * temp = NULL;
+          temp = MoveTree_insert(temp, state, "");
+          return(temp);
+     }
+     
+     char movelist[n_moves + 1];
+     int i = 0;
+     for (i = 0; i < n_moves; i++) {
+          movelist[i] = ' ';
+     }
+     movelist[n_moves] = '\0';
+   
+     MoveTree * tree = NULL;
+     tree = MoveTree_insert(NULL, state, "");
+     generateAllHelper(tree, n_moves, state, movelist, 0);
+     return(tree);
+}
+
 MoveTree * MoveTree_find(MoveTree * node, const char * state) {
      MoveTree * val = NULL;
 
@@ -15,25 +58,53 @@ MoveTree * MoveTree_find(MoveTree * node, const char * state) {
 
 MoveTree * MoveTree_insert(MoveTree * node, const char * state, const char * moves) {
      MoveTree * current = node;
+     MoveTree * old = NULL;
      MoveTree * insertion = NULL;
+     int old_dir = -1;
      int done = 0;
 
      while(!done) {
           if (current == NULL) {//Have nothing made yet
 	       insertion = MoveTree_create(state, moves);
+	       if (old != NULL) {
+		    if (old_dir == 0) {
+		         old->left = insertion;
+		    } else if (old_dir == 1) {
+		         old->right = insertion;
+		    }
+		    return(node);
+	       }
 	       return(insertion);
 	  } else if (strcmp(current->state, state) == 0) {//found duplicate
-	       if (strcmp(current->moves, moves) > 0) {
+	       if (strlen(current->moves) > strlen(moves)) {//replace if old has more moves
 		    insertion = MoveTree_create(state, moves);
 		    insertion->left = current->left;
 		    insertion->right = current->right;
 		    current->left = NULL;
 		    current->right = NULL;
+		    if (old != NULL) {//the insertion is not the new head
+		         if (old_dir == 0) {//insertion is to the left of a node
+			      old->left = insertion; 
+			 } else if (old_dir == 1) {//insertion is to the right of a node
+			      old->right = insertion;
+			 }
+			 MoveTree_destroy(node);
+			 return(node);
+		    }
 		    MoveTree_destroy(current);
 		    return(insertion);
+	       } else {
+		    return(node);
 	       }
+	  } else if (strcmp(current->state, state) < 0) {
+	       old = current;
+	       old_dir = 0;
+	       current = current->left;
+	  } else if (strcmp(current->state, state) > 0) {
+	       old = current;
+	       old_dir = 1;
+	       current = current->right;
 	  }
-	  
      }
      return(node);
 }
