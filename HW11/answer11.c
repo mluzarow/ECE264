@@ -55,9 +55,9 @@ void generateAllHelper(MoveTree * root, int n_moves, const char * state, char * 
 	          free(dup_state);
 	     } else {
 	          movelist[ind] = moves[i];
-		  int i = 0;
-		  for (i = ind + 1; i < n_moves; i++) {
-		       movelist[i] = ' ';
+		  int j = 0;
+		  for (j = ind + 1; j < n_moves; j++) {
+		       movelist[j] = ' ';
 		  }
 		 
 		  MoveTree * dup = MoveTree_find(root, dup_state);
@@ -74,19 +74,19 @@ void generateAllHelper(MoveTree * root, int n_moves, const char * state, char * 
 MoveTree * generateAll(char * state, int n_moves) {
      if (n_moves == 0) {
           MoveTree * temp = NULL;
-          temp = MoveTree_insert(temp, state, "\0");
+          temp = MoveTree_insert(temp, state, " ");
           return(temp);
      }
      
      char movelist[n_moves + 1];
-     int i = 0;
-     for (i = 0; i < n_moves; i++) {
-          movelist[i] = ' ';
+     int j = 0;
+     for (j = 0; j < n_moves; j++) {
+          movelist[j] = ' ';
      }
      movelist[n_moves] = '\0';
    
      MoveTree * tree = NULL;
-     tree = MoveTree_insert(NULL, state, "\0");
+     tree = MoveTree_insert(NULL, state, " ");
      generateAllHelper(tree, n_moves, state, movelist, 0);
      return(tree);
 }
@@ -94,20 +94,29 @@ MoveTree * generateAll(char * state, int n_moves) {
 MoveTree * MoveTree_find(MoveTree * node, const char * state) {
      MoveTree * found = NULL;
      MoveTree * current = node;
-     
-     if (current == NULL) {
+     MoveTree * inter = NULL;
+     /*if (current == NULL) {
           return;
-     }
-
-     if (strcmp(current->state, state) == 0) {
-          found = current;
+	  }*/
+     if (current != NULL) {
+          if (strcmp(current->state, state) == 0) {
+	       found = current;
+	       return(found);
+	  } else if (strcmp(current->state, state) < 0) {
+	       inter = MoveTree_find(current->left, state);
+	       if (inter != NULL) {
+		    found = inter;
+	       }
+	  } else if (strcmp(current->state, state) > 0) {
+	       inter = MoveTree_find(current->right, state);
+	       if (inter != NULL) {
+		    found = inter;
+	       }
+	  }
 	  return(found);
-     } else if (strcmp(current->state, state) < 0) {
-          found = MoveTree_find(current->left, state);
-     } else if (strcmp(current->state, state) > 0) {
-          found = MoveTree_find(current->right, state);
+     } else {
+          return(NULL);
      }
-     return(found);
 }
 
 MoveTree * MoveTree_insert(MoveTree * node, const char * state, const char * moves) {
