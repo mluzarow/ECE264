@@ -21,7 +21,7 @@ int main (int argc, char ** argv) {
 	  } 
 	  */
 	  if (isValidState(argv[2]) == 0) {
-	       printf("The state is not valid.\n\n");
+	       printf("The state is not valid.\n");
 	       return(EXIT_FAILURE);
 	  }
        
@@ -36,20 +36,32 @@ int main (int argc, char ** argv) {
 	       printUsage();
 	       return(EXIT_FAILURE);
 	  }
-
 	  if (isValidState(argv[2]) == 0) {
 	       printf("The state is not valid.\n");
 	       return(EXIT_FAILURE);
 	  }
 
-	  int val = atoi(argv[3]);
+	  if ((argv[3][0] < '0') || (argv[3][0] > '9')) {
+	       printf("The move number is not valid.\n");
+	       return(EXIT_FAILURE);
+	  }
 
-
-     } else if (argv[1][0] == '3') {
-       MoveTree * tree = NULL;
-	  tree = MoveTree_insert(tree, "A", "B");
-	  tree = MoveTree_insert(tree, "A", "A");
+	  int val = argv[3][0] - 48;
+	  MoveTree * tree = generateAll(argv[2], val);
+	  MoveTree_print(tree);
 	  MoveTree_destroy(tree);
+     } else if (argv[1][0] == '3') {
+       
+       /* MoveTree * tree = NULL;
+       	  tree = MoveTree_insert(tree, "123456789ABCDEF-", "L");
+	  //printf("Initial tree. State: %s, Moves: %s\n", tree->state, tree->moves);
+	  MoveTree_print(tree);
+	  tree = MoveTree_insert(tree, "123456789ABCDE-F", "LL");
+	  //printf("Final tree.   State: %s, Moves: %s\n", tree->state, tree->moves);
+	  MoveTree_print(tree);
+	  tree = MoveTree_insert(tree, "123456789ABCD-EF", "LLL");
+	  MoveTree_print(tree);
+	  MoveTree_destroy(tree);*/
      } else {
           printf("The stage number is not valid.\n");
 	  return(EXIT_FAILURE);
