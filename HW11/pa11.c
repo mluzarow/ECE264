@@ -46,7 +46,10 @@ int main (int argc, char ** argv) {
 
 
      } else if (argv[1][0] == '3') {
-
+       MoveTree * tree = NULL;
+	  tree = MoveTree_insert(tree, "A", "B");
+	  tree = MoveTree_insert(tree, "A", "A");
+	  MoveTree_destroy(tree);
      } else {
           printf("The stage number is not valid.\n");
 	  return(EXIT_FAILURE);
