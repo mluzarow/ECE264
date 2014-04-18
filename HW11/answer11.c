@@ -9,6 +9,38 @@
 
 void generateAllHelper(MoveTree*, int, const char*, char*, int);
 
+char * solve(char * state) {
+     MoveTree * tree = NULL;   
+     tree = generateAll("123456789ABCDEF-", 9);
+     MoveTree * node = NULL;
+     node = MoveTree_find(tree, state);
+         
+     if(node == NULL) {
+          return(NULL);
+     } else {
+       //char temp[9];
+       //int i = 0;
+       // for (i = 0; i < 9; i++) {
+       //      if ((node->moves[i] == 'U') || (node->moves[i] == 'D') || (node->moves[i] == 'L') || (node->moves[i] == 'R')) {
+       //	    temp[i] = node->moves[i];
+       //      } else {
+       //	    temp[i] = '\0';
+       //	    break;
+       //      }
+       // }
+	  //char * temp2 = temp;
+          char * f = strdup(node->moves);
+      
+	  MoveTree_destroy(tree);
+	  //char * f = temp;
+	  //free(temp);
+          return(f);
+     }
+
+     MoveTree_destroy(tree);
+     return("test");
+}
+
 void generateAllHelper(MoveTree * root, int n_moves, const char * state, char * movelist, int ind) {
         if (ind >= n_moves) {
              return;
@@ -23,9 +55,18 @@ void generateAllHelper(MoveTree * root, int n_moves, const char * state, char * 
 	          free(dup_state);
 	     } else {
 	          movelist[ind] = moves[i];
-		  root = MoveTree_insert(root, dup_state, movelist);
-		  generateAllHelper(root, n_moves, dup_state, movelist, ind + 1);
+		  int i = 0;
+		  for (i = ind + 1; i < n_moves; i++) {
+		       movelist[i] = ' ';
+		  }
+		 
+		  MoveTree * dup = MoveTree_find(root, dup_state);
+		  if (dup == NULL) {
+		       root = MoveTree_insert(root, dup_state, movelist);
+		       generateAllHelper(root, n_moves, dup_state, movelist, ind + 1);
+		  }
 		  free(dup_state);
+		  
 	     }
 	}
 }
@@ -33,7 +74,7 @@ void generateAllHelper(MoveTree * root, int n_moves, const char * state, char * 
 MoveTree * generateAll(char * state, int n_moves) {
      if (n_moves == 0) {
           MoveTree * temp = NULL;
-          temp = MoveTree_insert(temp, state, "");
+          temp = MoveTree_insert(temp, state, "\0");
           return(temp);
      }
      
@@ -45,15 +86,28 @@ MoveTree * generateAll(char * state, int n_moves) {
      movelist[n_moves] = '\0';
    
      MoveTree * tree = NULL;
-     tree = MoveTree_insert(NULL, state, "");
+     tree = MoveTree_insert(NULL, state, "\0");
      generateAllHelper(tree, n_moves, state, movelist, 0);
      return(tree);
 }
 
 MoveTree * MoveTree_find(MoveTree * node, const char * state) {
-     MoveTree * val = NULL;
+     MoveTree * found = NULL;
+     MoveTree * current = node;
+     
+     if (current == NULL) {
+          return;
+     }
 
-    
+     if (strcmp(current->state, state) == 0) {
+          found = current;
+	  return(found);
+     } else if (strcmp(current->state, state) < 0) {
+          found = MoveTree_find(current->left, state);
+     } else if (strcmp(current->state, state) > 0) {
+          found = MoveTree_find(current->right, state);
+     }
+     return(found);
 }
 
 MoveTree * MoveTree_insert(MoveTree * node, const char * state, const char * moves) {
@@ -75,7 +129,30 @@ MoveTree * MoveTree_insert(MoveTree * node, const char * state, const char * mov
 		    return(node);
 	       }
 	       return(insertion);
-	  } else if (strcmp(current->state, state) == 0) {//found duplicate
+	  }/* else if (MoveTree_find(node, state) != NULL) {
+	       MoveTree * dup = MoveTree_find(state);
+	       if (strlen(dup->moves) > strlen(moves)) {
+		    insertion = MoveTree_create(state, moves);
+		    inesrtion->left = dup->left;
+		    insertion->right = dup->right;
+		    dup->left = NULL;
+		    dup->right = NULL;
+		    if (old != NULL) {
+		         if (old_dir == 0) {
+			      old->left = insertion;
+			 } else if (old_dir == 1) {
+			      old->right = insertion;
+			 }
+			 MoveTree_destroy(dup);
+			 return(node);
+		    }
+		    MoveTree_destroy(dup);
+		    return(insertion);
+	       } else {
+		 return(node);
+		 }*/
+
+	  else if (strcmp(current->state, state) == 0) {//found duplicate
 	       if (strlen(current->moves) > strlen(moves)) {//replace if old has more moves
 		    insertion = MoveTree_create(state, moves);
 		    insertion->left = current->left;
@@ -95,7 +172,7 @@ MoveTree * MoveTree_insert(MoveTree * node, const char * state, const char * mov
 		    return(insertion);
 	       } else {
 		    return(node);
-	       }
+		    }
 	  } else if (strcmp(current->state, state) < 0) {
 	       old = current;
 	       old_dir = 0;
