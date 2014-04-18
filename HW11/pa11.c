@@ -67,7 +67,7 @@ int main (int argc, char ** argv) {
 	  //	  printf("%s", f_moves);
 	  
 	  int i = 0;
-	  //int size = 0;
+	  int size = 0;
 	  while(1) {
 	       if ((f_moves[i] == 'U') || (f_moves[i] == 'D') || (f_moves[i] == 'L') || (f_moves[i] == 'R')) {
 		    if (f_moves[i] == 'U') {
@@ -79,11 +79,16 @@ int main (int argc, char ** argv) {
 		    } else if (f_moves[i] == 'R') {
 		         f_moves[i] = 'L';
 		    }
-		 //size++;
+		 size++;
 		 i++;
 	       } else {
 		    break;
 	       }
+	  }
+	  i = 0;
+	  char * temp = f_moves;
+	  for (i = 0; i < size; i++) {
+	       f_moves[(size - 1) - i] = temp[i];
 	  }
 	  //int size = strlen(f_moves);
 	  /*i = 0;
