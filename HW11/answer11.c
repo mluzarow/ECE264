@@ -10,26 +10,32 @@
 MoveTree * MoveTree_find(MoveTree * node, const char * state) {
      MoveTree * val = NULL;
 
-     if (strcmp(node->state, state) == 0) {
-          return(node); 
-     } else {
-          if (node->left != NULL) {
-	       val = MoveTree_find(node->left, state);
-	  }
-	  if (node->right != NULL) {
-	       
-	  }
-     }
+    
 }
 
 MoveTree * MoveTree_insert(MoveTree * node, const char * state, const char * moves) {
-     MoveTree * tree = NULL;
-  
-     if (node == NULL) {
-	  return(tree);
-     }
-     
+     MoveTree * current = node;
+     MoveTree * insertion = NULL;
+     int done = 0;
 
+     while(!done) {
+          if (current == NULL) {//Have nothing made yet
+	       insertion = MoveTree_create(state, moves);
+	       return(insertion);
+	  } else if (strcmp(current->state, state) == 0) {//found duplicate
+	       if (strcmp(current->moves, moves) > 0) {
+		    insertion = MoveTree_create(state, moves);
+		    insertion->left = current->left;
+		    insertion->right = current->right;
+		    current->left = NULL;
+		    current->right = NULL;
+		    MoveTree_destroy(current);
+		    return(insertion);
+	       }
+	  }
+	  
+     }
+     return(node);
 }
 
 void MoveTree_destroy(MoveTree * node) {
