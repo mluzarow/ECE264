@@ -51,7 +51,60 @@ int main (int argc, char ** argv) {
 	  MoveTree_print(tree);
 	  MoveTree_destroy(tree);
      } else if (argv[1][0] == '3') {
-       
+          if (argc != 3) {
+	       printUsage();
+	       return(EXIT_FAILURE);
+	  }
+	  
+	  if (isValidState(argv[2]) == 0) {
+	       printf("The state is not valid.\n");
+	       return(EXIT_FAILURE);
+	  }
+
+          char * f_moves = solve(argv[2]);
+	  // char temp[10];
+	  //temp = f_moves;
+	  //	  printf("%s", f_moves);
+	  
+	  int i = 0;
+	  //int size = 0;
+	  while(1) {
+	       if ((f_moves[i] == 'U') || (f_moves[i] == 'D') || (f_moves[i] == 'L') || (f_moves[i] == 'R')) {
+		    if (f_moves[i] == 'U') {
+		         f_moves[i] = 'D';
+		    } else if (f_moves[i] == 'D') {
+		         f_moves[i] = 'U';
+		    } else if (f_moves[i] == 'L') {
+		         f_moves[i] = 'R';
+		    } else if (f_moves[i] == 'R') {
+		         f_moves[i] = 'L';
+		    }
+		 //size++;
+		 i++;
+	       } else {
+		    break;
+	       }
+	  }
+	  //int size = strlen(f_moves);
+	  /*i = 0;
+	  for (i = 0; i < size; i++) {
+	    printf("%c", f_moves[i]);
+	    }*/
+	  //printf("\n");
+	  printf("%s", f_moves);
+	  free(f_moves);
+	  // int i = 0;
+	  //for (i = 0; i < strlen(f_moves); i++) {
+	  //printf("%c", f_moves[i]);
+	  //}
+	  //int i = 0;
+	  //while(f_moves[i] != '\0') {
+	  //     printf("%c", f_moves[i]);
+	  //     i++
+	  //}
+	  //printf("\n");
+	  //printf("%s\n", f_moves);
+	  
        /* MoveTree * tree = NULL;
        	  tree = MoveTree_insert(tree, "123456789ABCDEF-", "L");
 	  //printf("Initial tree. State: %s, Moves: %s\n", tree->state, tree->moves);
